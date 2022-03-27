@@ -1,0 +1,49 @@
+Declares objects that control reading 
+from and writing
+to the standard streams. This include is often the 
+only header you need
+ to do input and 
+output from a C++ p
+rogram.
+Syntax
+Once you do certain operations o
+n a stream, such as
+ the stan
+dard input, 
+you can't do operat
+ions of a different orien
+tation on the same
+ stream. Therefore, 
+a program can't operate interchangeably on bot
+h cin and wcin, for example.
+All the objects dec
+lared in this header 
+share a peculiar proper
+ty — you can assume the
+y're constructed before 
+any static object
+s you define, in a translati
+on unit that includes <i
+ostream>. 
+Equally, you can
+ assume that these objects are
+n't destroyed before the
+ destructors 
+for any such static objects you define. (The ou
+tput streams are, however, flus
+hed during program termination.) Therefore, you c
+an safely read from or write to 
+the s
+tandard streams before program startup and afte
+r program termination.
+This guarantee isn't universal,
+ however. A sta
+tic constructor may call a function i
+n another translation unit. The called functi
+on can't assume that the objects declared in
+ this header have bee
+n constructed, given the uncertain order in whi
+ch translation units participate in static c
+onstruction. To use these objects 
+in such a context, you must first constr
+uct an object of class ios_base::Init.

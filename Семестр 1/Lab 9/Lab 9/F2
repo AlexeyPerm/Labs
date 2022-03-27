@@ -1,0 +1,5 @@
+Section 10 of RFC 4364, BGP/MPLS IP Virtual Private Networks (VPNs), describes
+configuration and troubleshooting for inter-AS VPN model C.
+Autonomous System Border Router Provider Edge (ASBR-PE) routers, which
+VPN prefixes.
+exchange customer VPN prefixes.

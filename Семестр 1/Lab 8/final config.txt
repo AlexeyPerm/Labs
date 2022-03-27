@@ -1,0 +1,83 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+using namespace std;
+
+const unsigned int strLenght = 40;
+int structCount;
+struct Information {
+	char name[strLenght];
+	char autor[strLenght];
+	char storage[strLenght];
+	unsigned int volume;
+};
+
+
+Information info;	//объявляем глобальную структуру info, чтобы можно было передать её внутри функции Selection в другую функцию.
+void AddDataToStructInformation(Information *info, const unsigned int a);
+bool Selection(void);
+
+
+int main() {
+	setlocale(LC_ALL, "ru");
+	int structCount(0);
+	cout << "Количество вносимых элементов не больше 5: ";
+	(cin >> structCount).get();
+	while (structCount <= 0 or structCount > 5) {
+		cout << "Не корректное количество элементов\n";
+		cout << "Введите повторно количество вносимых элементов не больше 5: ";
+		(cin >> structCount).get();
+	}
+	while (!Selection());
+	return 0;
+}
+
+void AddDataToStructInformation(Information *info, const unsigned int a) {
+	//Параметр а - это максимальная длина строки. 
+	cout << "Название: \n";
+	gets_s((*info).name, a);
+	cout << endl;
+	cout << "Автор: \n";
+	gets_s((*info).autor, a);
+	cout << endl;
+	cout << "Носитель: \n";
+	gets_s((*info).storage, a);
+	cout << endl;
+	cout << "Объём: \n";
+	//Вводим число и пропускаем один символ, которым является "\n". Если этого не сделать, то "\n" останется в потоке ввода и получится
+	//так, что в gets_s(info[k].name, *a); введётся этот "\n". 
+	(cin >> (*info).volume).get();
+	cout << endl;
+}
+
+bool Selection() {
+	int choice;
+	cout << "\nВыберите желаемое действие:\n";
+	cout << "==============================\n";
+	cout << "1. Внести данные\n" <<
+			"2. Добавить элемент\n" <<
+			"3. Удалить элемент\n" <<
+			"4. Вывести все данные на экран\n" <<
+			"0. Выйти из программы\n";
+	(cin >> choice).get();
+	switch (choice)
+	{
+		case 1:
+			AddDataToStructInformation(&info, strLenght);
+			return true;
+		case 2:
+			//AddElement();
+			return true;
+		case 3:
+			//RemoveElement();
+			return true;
+		case 4:
+			void PrintInformation();
+			return true;
+		case 0:
+			exit(0);
+		default:
+			cout << "\n!Ошибка! Нужно ввести номер предложенного действия:\n";
+			return false;
+	}
+	return true;
+}

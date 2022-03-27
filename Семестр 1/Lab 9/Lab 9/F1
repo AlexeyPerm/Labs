@@ -1,0 +1,26 @@
+Section 10 of RFC 4364, BGP/MPLS IP Virtual Private Networks (VPNs), describes
+three potential methods for service providers to interconnect their IP-VPN (Internet
+Protocol — Virtual Private Network) backbones in order to provide an end-to-end
+MPLS-VPN where one or more sites of the VPN are connected to different service
+provider autonomous systems. The purpose of this chapter is to describe the
+configuration and troubleshooting for inter-AS VPN model C.
+In this architecture, VPN prefixes are neither held, nor re-advertised by the
+Autonomous System Border Router Provider Edge (ASBR-PE) routers, which
+makes Model C more scalable than Model B (where the only prefixes exchanged
+between ASs are VPN-IPv4). In Model C, the only MPLS data plane resources
+consumed in the ASBRs are for infrastructure addresses of PEs and RRs rather than
+VPN prefixes.
+In this example, an export policy is configured to ensure that the nodes advertise
+their system IP addresses (IPv4 /32 addresses) in labeled BGP to all their BGP peers
+within the AS. Therefore, the ASBR-PE maintains labeled IPv4 /32 BGP routes to
+other PE routers within its own AS. These BGP routes are inactive, because for each
+destination within the AS, an IGP route exists which is preferred to BGP routes. The
+ASBR redistributes these inactive /32 IPv4 prefixes in external Border Gateway
+Protocol (eBGP) to the ASBR-PE in other service providers ASs, because the
+parameter advertise-inactive is configured in eBGP. No export policy is required in eBGP.
+At the same time, the ASBR programs a label switch for the received and advertised
+BGP labels. The receiving ASBR advertises the received IP system prefixes to its
+iBGP peers (in this case, a Route Reflector (RR)) within their AS, and eventually, all
+PEs in the AS learn the system IP prefixes of the peer AS. However, there is no need
+to learn the system IP address of the ASBRs in peer ASs, because they do not
+exchange customer VPN prefixes.

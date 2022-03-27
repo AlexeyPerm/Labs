@@ -1,0 +1,72 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+const unsigned int str_lenght = 50;
+int structCount = 1;
+
+struct Information {
+	char name[str_lenght];
+	char autor[str_lenght];
+	char storage[str_lenght];
+	unsigned int volume;
+};
+
+void AddDataToStructInformation(Information *info, const unsigned int *a) {	//функция принимает указатель на адрес переменной, где хранится общее кол-во заполненных структур.
+	cout << "Название: \n";
+	gets_s((*info).name, *a);
+	cout << endl;
+	cout << "Автор: \n";
+	gets_s((*info).autor, *a);
+	cout << endl;
+	cout << "Носитель: \n";
+	gets_s((*info).storage, *a);
+	cout << endl;
+	cout << "Объём: \n";
+	//Вводим число и пропускаем один символ, которым является "\n". Если этого не сделать, то "\n" останется в потоке ввода и получится
+	//так, что в gets_s(info[k].name, *a); введётся этот "\n". 
+	(cin >> (*info).volume).get();
+	cout << endl;
+}
+
+int SaveToFile(int &structCount, Information info) {
+	FILE *f = fopen("f1.dat", "w");;
+	if (f == NULL)
+	{
+		cout << "Не удаётся открыть файл";
+		return 0;
+	}
+	fwrite(&info, sizeof(struct Information), 1, f);
+	fclose(f);
+	return 1;
+}
+
+int main() {
+	//char defaultFilename[] = "f1.dat";	//Потом при switch - case заставить заполнить руками
+	setlocale(LC_ALL, "ru");
+	Information info;
+	Information info_output;
+
+	for (int i = 0; i < structCount; i++)
+	{
+		AddDataToStructInformation(&info, &str_lenght);
+		SaveToFile(structCount, info);
+	}
+
+
+	FILE *f = fopen("f1.dat", "r");
+	int i = 0;
+	while (!feof(f)) {
+		fread(&info_output, sizeof(Information), 1, f);
+		cout << info_output.name << endl <<
+			info_output.autor << endl <<
+			info_output.storage << endl <<
+			info_output.volume << endl;
+		break;
+	}
+	fclose(f);
+
+
+	return 0;
+}
