@@ -1,20 +1,13 @@
 #include <iostream>
 #include "List.h"
-
-class Test {
-public:
-    Test() { a = 0; b = 0;}
-    Test(int a, int b) : a(a), b(b) {};
-
-private:
-    int a;
-    int b;
-};
+#include "Money.h"
 
 int main() {
-    Test t(123, 345);
+    Money z (0, 99);
+    Money x(10, 20);
+    Money t;
+    t = x + z;
+    std::cout << t;
 
-    List<Test> a(3, t);
-    std::cout << a << std::endl;
     return 0;
 }
