@@ -31,7 +31,7 @@ public:
 // ------------------------- Constructors -------------------------- //
     List(int, T);
 
-    List(const List<T>&);
+    [[maybe_unused]] List(const List<T>&);
 
     ~List();
 

@@ -2,12 +2,28 @@
 #include "List.h"
 #include "Money.h"
 
+using namespace std;
+
+
 int main() {
-    Money z (0, 99);
-    Money x(10, 20);
-    Money t;
-    t = x + z;
-    std::cout << t;
+    Money money;
+    cin >> money;
+    cout << endl;
+    Money money1(111, 3);
+    cout << " ============== List <Money> x() ============== " << endl;
+    List<Money> x(3, money1);
+    cout << x;
+
+    cout << " ============== List <Money> y() ============== " << endl;
+    List<Money> y(2, money);
+    cout << y << endl;
+
+    cout << " ============== x = y ============== " << endl;
+    y = x;
+    cout << y << endl;
+
+    cout << " ============== x[1] + y[2] ============== " << endl;
+    cout << x[1] + y[2];
 
     return 0;
 }

@@ -12,7 +12,7 @@ public:
 
     Money(const Money&);
 
-    Money operator+(Money);
+    Money operator+(const Money&) const;
 
     Money& operator=(const Money&);
 

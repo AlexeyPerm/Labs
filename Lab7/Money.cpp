@@ -28,13 +28,13 @@ Money& Money::operator=(const Money& m) {
     return *this;
 }
 
-Money Money::operator+(Money m) {
+Money Money::operator+(const Money& m) const {
     long long x = rubles * 100 + kopeks;
     long long xm = m.rubles * 100 + m.kopeks;
     x += xm;
     long mTemp1 = static_cast<long> (x / 100);
     long mTemp2 = static_cast<int> (x % 100);
-    Money mTemp(mTemp1,mTemp2 );
+    Money mTemp(mTemp1, mTemp2);
     return mTemp;
 //    rubles = static_cast<long> (tmp / 100);
 //    kopeks = static_cast<int> (tmp % 100);
@@ -55,7 +55,10 @@ istream& operator>>(istream& in, Money& m) {
     in >> m.rubles;
     cout << "kopeks >";
     in >> m.kopeks;
+    if (m.kopeks >= 100) {
+        long long tmp = m.rubles * 100 + m.kopeks;
+        m.rubles = static_cast<long> (tmp / 100);
+        m.kopeks = static_cast<int> (tmp % 100);
+    }
     return in;
 }
-
-
