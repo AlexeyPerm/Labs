@@ -5,20 +5,18 @@
 #include "Vector.h"
 
 int main() {
-    Car* a = new Car;
-    a->Input();
-    Lorry* b = new Lorry;
-    b->Input();
+    Car* a = new Car("Toyota", 8, 240);
+    Lorry* b = new Lorry("kia", 149, 4, 800);
 
     Vector v(10);
     Object *p = a;
     v.Add(p);
     v.Show();
 
+    std::cout << "======== p = b (lorry)========" << std::endl;
+    p = b;
+    v.Add();
+    v.Show();
 
-
-
-    delete a;
-    delete b;
     return 0;
 }

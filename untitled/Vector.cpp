@@ -19,6 +19,40 @@ Vector::Vector(const int size) {
 
 // ---------------------------- Methods ---------------------------- //
 void Vector::Add(Object* z) {    //добавление объекта, на который указывает указатель p в вектор
+    Object* p = z;
+    //Выбор из объектов двух возможных классов
+    std::cout << "1. Car " << std::endl;
+    std::cout << "2. Lorry " << std::endl;
+    int y;  //хранит значение выбора
+    std::cin >> y;
+    switch (y) {
+        case 1: {
+            Car* c = new (Car);
+            c->Input();
+            p = c;
+            if (current < size) {
+                begin[current] = p;
+                current++;
+            }
+            break;
+        }
+        case 2: {
+            Lorry* l = new (Lorry);
+            l->Input();
+            p = l;
+            if (current < size) {
+                begin[current] = p;
+                current++;
+            }
+            break;
+        }
+        default: {
+            return;
+        }
+    }
+}
+
+void Vector::Add() {    //добавление объекта, на который указывает указатель p в вектор
     Object* p = nullptr;
     //Выбор из объектов двух возможных классов
     std::cout << "1. Car " << std::endl;
@@ -52,7 +86,7 @@ void Vector::Add(Object* z) {    //добавление объекта, на который указывает указ
     }
 }
 
-void Vector::Show() {
+void Vector::Show() const {
     if (current == 0) {
         std::cout << "Empty!" << std::endl;
     }

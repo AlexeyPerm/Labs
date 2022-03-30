@@ -9,10 +9,12 @@ public:
     explicit Vector(int);
     ~Vector();
 
+
 // ---------------------------- Methods ---------------------------- //
+    void Add();
     void Add(Object*);
+    void Show() const;
     void Del();
-    void Show();
 
 // --------------------- Overloaded Functions ---------------------- //
     int operator()() const;
