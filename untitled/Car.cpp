@@ -1,5 +1,7 @@
 #include "Car.h"
 #include <iostream>
+#include <string>
+#include <algorithm>
 
 // ------------------------- Constructors -------------------------- //
 Car::Car() {
@@ -30,21 +32,37 @@ Car::~Car() = default;
 void Car::Input() {
     std::cout << "Mark> ";
     std::cin >> mark;
+
+    std::string tmp;    //временная переменная для хранения введённых числовых значений
     std::cout << "Cylinders> ";
-    std::cin >> cyl;
+    std::cin >> tmp;
+    while (!CheckCorrectInput(tmp)) {
+        std::cout << "\nIncorrect input. Try again\n";
+        std::cout << "Cylinders> ";
+        std::cin >> tmp;
+    }
+    cyl = stoi(tmp);
+
     std::cout << "Power> ";
-    std::cin >> power;
+    std::cin >> tmp;
+    while (!CheckCorrectInput(tmp)) {
+        std::cout << "\nIncorrect input. Try again\n";
+        std::cout << "Power> ";
+        std::cin >> tmp;
+    }
+    power = stoi(tmp);
 }
 
 void Car::HandleEvent(const TEvent& e) {
-    if(e.what == evMessage){
+    if (e.what == evMessage) {
         switch (e.command) {
-            case cmGet:{
+            case cmGet: {
                 std::cout << "Mark = " << GetMark() << std::endl;
             }
         }
     }
 }
+
 // --------------------- Overloaded Functions ---------------------- //
 Car& Car::operator=(const Car& car) {
     if (this == &car) {
@@ -54,5 +72,26 @@ Car& Car::operator=(const Car& car) {
     cyl = car.cyl;
     power = car.power;
     return *this;
+}
+
+bool Car::CheckCorrectInput(std::string& tmp) {
+    if(!(all_of(tmp.begin(), tmp.end(), isdigit))){
+        return false;
+    }
+    try {
+        stoi(tmp);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cout << e.what() << " invalid_argument";
+        return false;
+    }
+    catch (const std::out_of_range& e) {
+        std::cout << e.what() << " out_of_range";
+        return false;
+    }
+    if (stoi(tmp) <= 0) {
+        return false;
+    }
+    return true;
 }
 

@@ -18,8 +18,15 @@ void Lorry::Show() {
 
 void Lorry::Input() {
     Car::Input();
+    std::string tmp;    //временная переменная для хранения введённых числовых значений
     std::cout << "Load> ";
-    std::cin >> load;
+    std::cin >> tmp;
+    while (!CheckCorrectInput(tmp)) {
+        std::cout << "\nIncorrect input. Try again\n";
+        std::cout << "load> ";
+        std::cin >> tmp;
+    }
+    load = stoi(tmp);
 }
 
 Lorry& Lorry::operator=(const Lorry& lorry) {

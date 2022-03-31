@@ -13,7 +13,7 @@ public:
 
 // ---------------------------- Methods ---------------------------- //
     virtual void GetEvent(TEvent&);     //получить событие
-    virtual int Execute();              //главный цикл обработки события
+    virtual int  Execute();              //главный цикл обработки события
     virtual void HandleEvent(TEvent&);  //обработчик
     virtual void ClearEvent(TEvent&);   //очистить событие
     int Valid() const;                  //проверка атрибута EndState
