@@ -1,7 +1,8 @@
 #include "Vector.h"
 #include "Car.h"
 #include "Lorry.h"
-#include "iostream"
+#include <iostream>
+
 
 // ------------------------- Constructors -------------------------- //
 Vector::~Vector() {
@@ -9,6 +10,12 @@ Vector::~Vector() {
         delete[] begin;
         begin = nullptr;
     }
+}
+
+Vector::Vector() {
+    size = 0;
+    begin = nullptr;
+    current = 0;
 }
 
 Vector::Vector(const int size) {
@@ -20,40 +27,6 @@ Vector::Vector(const int size) {
 // ---------------------------- Methods ---------------------------- //
 void Vector::Add(Object* z) {    //добавление объекта, на который указывает указатель p в вектор
     Object* p = z;
-    //Выбор из объектов двух возможных классов
-    std::cout << "1. Car " << std::endl;
-    std::cout << "2. Lorry " << std::endl;
-    int y;  //хранит значение выбора
-    std::cin >> y;
-    switch (y) {
-        case 1: {
-            Car* c = new (Car);
-            c->Input();
-            p = c;
-            if (current < size) {
-                begin[current] = p;
-                current++;
-            }
-            break;
-        }
-        case 2: {
-            Lorry* l = new (Lorry);
-            l->Input();
-            p = l;
-            if (current < size) {
-                begin[current] = p;
-                current++;
-            }
-            break;
-        }
-        default: {
-            return;
-        }
-    }
-}
-
-void Vector::Add() {    //добавление объекта, на который указывает указатель p в вектор
-    Object* p = nullptr;
     //Выбор из объектов двух возможных классов
     std::cout << "1. Car " << std::endl;
     std::cout << "2. Lorry " << std::endl;
@@ -109,4 +82,15 @@ int Vector::operator()() const {
     return current;
 }
 
+// --------------------- Overridden Functions ---------------------- //
+
+void Vector::HandleEvent(const TEvent& e) {
+    if (e.what == evMessage) {
+        Object** p = begin;
+        for (int i = 0; i < current; ++i) {
+            (*p)->HandleEvent(e);
+            p++;
+        }
+    }
+}
 

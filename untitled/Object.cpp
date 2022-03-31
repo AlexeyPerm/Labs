@@ -1,9 +1,5 @@
 #include "Object.h"
 
-Object::~Object() {
+Object::~Object() = default;
 
-}
-
-Object::Object() {
-
-}
+Object::Object() = default;

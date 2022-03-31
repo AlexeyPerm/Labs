@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Object.h"
 #include "string"
 
@@ -15,6 +14,7 @@ public:
     ~Car() override;
     void Show() override;
     void Input() override;
+    void HandleEvent(const TEvent & e) override;
 
 // --------------------------- Getters ----------------------------- //
     std::string GetMark() const { return mark; }

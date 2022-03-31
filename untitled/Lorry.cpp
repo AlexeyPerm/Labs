@@ -1,5 +1,5 @@
 #include "Lorry.h"
-#include "iostream"
+#include <iostream>
 
 // ------------------------- Constructors -------------------------- //
 Lorry::Lorry(const std::string M, const int C, const int P, const int L) : Car(M, C, P) {
@@ -18,7 +18,7 @@ void Lorry::Show() {
 
 void Lorry::Input() {
     Car::Input();
-    std::cout << "\nLoad> ";
+    std::cout << "Load> ";
     std::cin >> load;
 }
 

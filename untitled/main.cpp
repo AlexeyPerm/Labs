@@ -1,22 +1,22 @@
 #include "Car.h"
 #include "Object.h"
 #include "Lorry.h"
-#include "iostream"
 #include "Vector.h"
+#include "Dialog.h"
+#include <iostream>
 
 int main() {
-    Car* a = new Car("Toyota", 8, 240);
-    Lorry* b = new Lorry("kia", 149, 4, 800);
+   // Car* a = new Car;
 
-    Vector v(10);
-    Object *p = a;
-    v.Add(p);
-    v.Show();
-
+   // Object* p = a;
+  //  v.Add(p);
     std::cout << "======== p = b (lorry)========" << std::endl;
-    p = b;
-    v.Add();
-    v.Show();
+
+    Dialog D(10);
+
+    D.Execute();
 
     return 0;
 }
+
+

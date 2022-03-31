@@ -1,5 +1,5 @@
 #include "Car.h"
-#include "iostream"
+#include <iostream>
 
 // ------------------------- Constructors -------------------------- //
 Car::Car() {
@@ -36,6 +36,15 @@ void Car::Input() {
     std::cin >> power;
 }
 
+void Car::HandleEvent(const TEvent& e) {
+    if(e.what == evMessage){
+        switch (e.command) {
+            case cmGet:{
+                std::cout << "Mark = " << GetMark() << std::endl;
+            }
+        }
+    }
+}
 // --------------------- Overloaded Functions ---------------------- //
 Car& Car::operator=(const Car& car) {
     if (this == &car) {
