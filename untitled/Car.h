@@ -28,9 +28,9 @@ public:
 
 // --------------------- Overloaded Functions ---------------------- //
     Car& operator=(const Car&);
-    static bool CheckCorrectInput(std::string &);
 protected:
-    std::string mark;
     int cyl;
     int power;
+    std::string mark;
+    static bool CheckCorrectInput(std::string &);
 };

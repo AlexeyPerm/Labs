@@ -20,7 +20,7 @@ Car::Car(const Car& car) {
 
 // --------------------- Overridden Functions ---------------------- //
 void Car::Show() {
-    std::cout;
+    std::cout << std::endl;
     std::cout << "Mark: " << mark << std::endl;
     std::cout << "Cylinders: " << cyl << std::endl;
     std::cout << "Power: " << power << std::endl;
