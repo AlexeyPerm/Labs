@@ -18,8 +18,8 @@ Tree::~Tree() {
 }
 
 Tree::Tree(const int size) {
-    this->size = size;
     current = 0;
+    this->size = size;
     begin = new Object* [size];
 }
 

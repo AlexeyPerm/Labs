@@ -12,7 +12,6 @@ public:
     Person(const std::string&, int);    //с параметрами
     ~Person() override;
 // --------------------- Overridden Functions ---------------------- //
-
     void Show() override;
     void Input() override;
     //void HandleEvent(const TEvent & e) override;

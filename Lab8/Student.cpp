@@ -10,7 +10,7 @@ Student::Student(const std::string& name, const int age, const double rate) : Pe
     this->rate = rate;
 }
 
-Student::Student(const Student& st) : Person(st) {
+Student::Student(const Student& st) : Person(st) {  //делегируем конструктор для исключения дублирования кода.
     rate = st.rate;
 }
 

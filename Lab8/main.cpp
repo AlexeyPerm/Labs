@@ -1,10 +1,9 @@
 #include "Person.h"
+#include "Tree.h"
 #include <iostream>
 
 int main() {
-    int* a = new int(2);
-    std::cout << *a;
-
+    Tree t(2);
     return 0;
 }
 
