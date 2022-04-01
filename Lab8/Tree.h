@@ -12,7 +12,8 @@ public:
     void Add(Object* z = nullptr);
     void Show() const;
     void Del();
-
+// --------------------- Overridden Functions ---------------------- //
+    void HandleEvent(const TEvent& e);
 // --------------------- Overloaded Functions ---------------------- //
     int operator()() const { return current; }
 

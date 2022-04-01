@@ -39,6 +39,16 @@ void Person::Input() {
     age = std::stoi(tmp);
 }
 
+void Person::HandleEvent(const TEvent& e) {
+    if (e.what == evMessage) {
+        switch (e.command) {
+            case cmGet: {
+                std::cout << "Name = " << GetName() << std::endl;
+            }
+        }
+    }
+}
+
 // --------------------------- Setters ----------------------------- //
 void Person::SetName(const std::string& n) {
     name = n;
@@ -62,7 +72,7 @@ Person& Person::operator=(const Person& p) {
 
 bool Person::CheckCorrectInput(std::string& tmp, bool isInt) {
     //Индусский код
-    if(isInt){
+    if (isInt) {
         if (!(std::all_of(tmp.begin(), tmp.end(), isdigit))) {
             return false;
         }
@@ -80,9 +90,8 @@ bool Person::CheckCorrectInput(std::string& tmp, bool isInt) {
         if (std::stoi(tmp) <= 0) {
             return false;
         }
-    }
-    else{
-        try{
+    } else {
+        try {
             std::stod(tmp);
         }
         catch (const std::invalid_argument& e) {

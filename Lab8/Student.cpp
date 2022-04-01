@@ -1,5 +1,6 @@
 #include "Student.h"
 #include <iostream>
+#include <iomanip>
 
 // ------------------------- Constructors -------------------------- //
 Student::Student() : Person() {
@@ -18,7 +19,7 @@ Student::Student(const Student& st) : Person(st) {  //делегируем конструктор для
 
 void Student::Show() {
     Person::Show();
-    std::cout << "Rate: " << rate << std::endl;
+    std::cout << std::fixed << std::setprecision(2) << "Rate: " << rate << std::endl;
 }
 
 void Student::Input() {

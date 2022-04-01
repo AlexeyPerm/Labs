@@ -2,6 +2,7 @@
 
 #include <string>
 #include "Object.h"
+#include "Event.h"
 
 class Person : public Object {
 public:
@@ -14,7 +15,7 @@ public:
 // --------------------- Overridden Functions ---------------------- //
     void Show() override;
     void Input() override;
-    //void HandleEvent(const TEvent & e) override;
+    void HandleEvent(const TEvent& e) override;
 
 // --------------------------- Getters ----------------------------- //
     std::string GetName() const { return name; }

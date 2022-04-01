@@ -79,4 +79,15 @@ void Tree::Add(Object* z) {
         default:
             return;
     }
-};
+}
+
+// --------------------- Overridden Functions ---------------------- //
+void Tree::HandleEvent(const TEvent& e) {
+    if (e.what == evMessage) {
+        Object** p = begin;
+        for (int i = 0; i < current; ++i) {
+            (*p)->HandleEvent(e);
+            p++;
+        }
+    }
+}

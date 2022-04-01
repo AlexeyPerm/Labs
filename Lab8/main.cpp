@@ -1,9 +1,14 @@
 #include "Person.h"
 #include "Tree.h"
+#include "Student.h"
+#include "Dialog.h"
 #include <iostream>
 
 int main() {
-    Tree t(2);
+    Dialog d(4);
+    d.Execute();
+
+
     return 0;
 }
 

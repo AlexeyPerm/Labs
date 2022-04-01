@@ -14,7 +14,7 @@ public:
     void Show() override;
     void Input() override;
 // --------------------------- Getters ----------------------------- //
-    double GetRate() const;
+   double GetRate() const;
 // --------------------------- Setters ----------------------------- //
     void SetRate(double r);
 // --------------------- Overloaded Functions ---------------------- //
