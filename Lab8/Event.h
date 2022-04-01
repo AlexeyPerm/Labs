@@ -1,20 +1,20 @@
 #pragma once
-const int evNothing = 0;    //пустое событие
-const int evMessage = 100;   //не пустое событие
-const int cmAdd = 1;        //добавить объект в группу
-const int cmDel = 2;        //удалить объект из группы
-const int cmGet = 3;        //вывести атрибуты всех объектов
-const int cmShow = 4;       //вывести всю группу
-const int cmMake = 6;       //создать группу
-const int cmQuit = 101;     //выход
+const int evNothing = 0;    //РїСѓСЃС‚РѕРµ СЃРѕР±С‹С‚РёРµ
+const int evMessage = 100;   //РЅРµ РїСѓСЃС‚РѕРµ СЃРѕР±С‹С‚РёРµ
+const int cmAdd = 1;        //РґРѕР±Р°РІРёС‚СЊ РѕР±СЉРµРєС‚ РІ РіСЂСѓРїРїСѓ
+const int cmDel = 2;        //СѓРґР°Р»РёС‚СЊ РѕР±СЉРµРєС‚ РёР· РіСЂСѓРїРїС‹
+const int cmGet = 3;        //РІС‹РІРµСЃС‚Рё Р°С‚СЂРёР±СѓС‚С‹ РІСЃРµС… РѕР±СЉРµРєС‚РѕРІ
+const int cmShow = 4;       //РІС‹РІРµСЃС‚Рё РІСЃСЋ РіСЂСѓРїРїСѓ
+const int cmMake = 6;       //СЃРѕР·РґР°С‚СЊ РіСЂСѓРїРїСѓ
+const int cmQuit = 101;     //РІС‹С…РѕРґ
 
 struct TEvent {
-    int what;               //тип события
+    int what;               //С‚РёРї СЃРѕР±С‹С‚РёСЏ
     union {
-        int command;        //код команды
+        int command;        //РєРѕРґ РєРѕРјР°РЅРґС‹
         struct {
             int message;
-            int a;          //параметр команды
+            int a;          //РїР°СЂР°РјРµС‚СЂ РєРѕРјР°РЅРґС‹
         };
     };
 };

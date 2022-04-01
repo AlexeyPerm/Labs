@@ -9,7 +9,7 @@ Dialog::Dialog(const int size) : Tree(size){
 Dialog::~Dialog() = default;
 
 void Dialog::GetEvent(TEvent& event) {
-    std::string opInt = "+-?/qm";  //коды операций
+    std::string opInt = "+-?/qm";  //РєРѕРґС‹ РѕРїРµСЂР°С†РёР№
     std::string s;
     std::string param;
     char code;
@@ -17,7 +17,7 @@ void Dialog::GetEvent(TEvent& event) {
     std::cout << "+ add; - del; / get; m make; ? show; q quit;" << std::endl;
     std::cout << ">";
     std::cin >> s;
-    code = s[0];    //первый символ команды
+    code = s[0];    //РїРµСЂРІС‹Р№ СЃРёРјРІРѕР» РєРѕРјР°РЅРґС‹
 
     if (opInt.find(code) >= 0) {
         event.what = evMessage;
@@ -82,14 +82,14 @@ int Dialog::Valid() const {
 }
 
 void Dialog::ClearEvent(TEvent& event) {
-    event.what = evNothing;     //пустое событие.
+    event.what = evNothing;     //РїСѓСЃС‚РѕРµ СЃРѕР±С‹С‚РёРµ.
 }
 
 void Dialog::HandleEvent(TEvent& event) {
     if (event.what == evMessage) {
         switch (event.command) {
             case cmMake: {
-                size = event.a;     //размер группы
+                size = event.a;     //СЂР°Р·РјРµСЂ РіСЂСѓРїРїС‹
                 begin = new Object* [size];
                 current = 0;
                 ClearEvent(event);

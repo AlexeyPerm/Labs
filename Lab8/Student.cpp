@@ -11,7 +11,7 @@ Student::Student(const std::string& name, const int age, const double rate) : Pe
     this->rate = rate;
 }
 
-Student::Student(const Student& st) : Person(st) {  //делегируем конструктор для исключения дублирования кода.
+Student::Student(const Student& st) : Person(st) {  //РґРµР»РµРіРёСЂСѓРµРј РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РёСЃРєР»СЋС‡РµРЅРёСЏ РґСѓР±Р»РёСЂРѕРІР°РЅРёСЏ РєРѕРґР°.
     rate = st.rate;
 }
 
@@ -24,7 +24,7 @@ void Student::Show() {
 
 void Student::Input() {
     Person::Input();
-    std::string tmp;    //временная переменная для хранения введённых числовых значений
+    std::string tmp;    //РІСЂРµРјРµРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РІРІРµРґС‘РЅРЅС‹С… С‡РёСЃР»РѕРІС‹С… Р·РЅР°С‡РµРЅРёР№
     std::cout << "Rate> ";
 
     std::cin >> tmp;

@@ -12,12 +12,12 @@ public:
     virtual ~Dialog();
 
 // ---------------------------- Methods ---------------------------- //
-    virtual void GetEvent(TEvent&);     //получить событие
-    virtual int  Execute();              //главный цикл обработки события
-    virtual void HandleEvent(TEvent&);  //обработчик
-    virtual void ClearEvent(TEvent&);   //очистить событие
-    int Valid() const;                  //проверка атрибута EndState
-    void EndExec() { EndState = 1; }    //обработка события "конец работы"
+    virtual void GetEvent(TEvent&);     //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    virtual int  Execute();              //пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    virtual void HandleEvent(TEvent&);  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    virtual void ClearEvent(TEvent&);   //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    int Valid() const;                  //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ EndState
+    void EndExec() { EndState = 1; }    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ"
 protected:
     int EndState;
 };
