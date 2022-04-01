@@ -7,7 +7,7 @@
 int main() {
     Dialog d(4);
     d.Execute();
-
+    std::cout << std::endl;
 
     return 0;
 }
