@@ -7,7 +7,7 @@
 int main() {
     Dialog d(4);
     d.Execute();
-    std::cout << std::endl;
+    std::cout << std::endl; //русский язык
 
     return 0;
 }
