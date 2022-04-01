@@ -3,12 +3,11 @@
 class Object {
 public:
     Object() = default;
-    virtual ~Object();
+    virtual ~Object() = default;
     virtual void Show() = 0;
     virtual void Input() = 0;
 };
 
-Object::~Object() = default;
 
 
 

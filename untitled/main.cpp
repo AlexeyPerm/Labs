@@ -6,15 +6,13 @@
 #include <iostream>
 
 int main() {
-   // Car* a = new Car;
-
-   // Object* p = a;
-  //  v.Add(p);
+Car* a = new Car("test", 150, 1555);
+Vector v(2);
+ Object* p = a;
+  v.Add();
     std::cout << "======== p = b (lorry)========" << std::endl;
+    v.Show();
 
-    Dialog D(10);
-
-    D.Execute();
 
     return 0;
 }

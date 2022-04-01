@@ -27,10 +27,10 @@ public:
     void SetAge(const int&);
 
 // --------------------- Overloaded Functions ---------------------- //
-    Person& operator=(Person&);
+    Person& operator=(const Person&);
 protected:
     int age{};
     std::string name;
-    static bool CheckCorrectInput(std::string&);
+    static bool CheckCorrectInput(std::string&, bool isInt = true);
 };
 

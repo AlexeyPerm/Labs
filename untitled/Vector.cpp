@@ -26,7 +26,14 @@ Vector::Vector(const int size) {
 
 // ---------------------------- Methods ---------------------------- //
 void Vector::Add(Object* z) {    //добавление объекта, на который указывает указатель p в вектор
-    Object* p = z;
+    if(z){
+        if (current < size) {
+            begin[current] = z;
+            current++;
+        }
+        return;
+    }
+    Object* p ;
     //Выбор из объектов двух возможных классов
     std::cout << "1. Car " << std::endl;
     std::cout << "2. Lorry " << std::endl;

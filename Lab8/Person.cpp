@@ -29,14 +29,14 @@ void Person::Input() {
     std::cin >> name;
 
     std::string tmp;    //временная переменная для хранения введённых числовых значений
-    std::cout << "Name> ";
+    std::cout << "Age> ";
     std::cin >> tmp;
     while (!CheckCorrectInput(tmp)) {
         std::cout << "\nIncorrect input. Try again\n";
-        std::cout << "Name> ";
+        std::cout << "Age> ";
         std::cin >> tmp;
     }
-    name = stoi(tmp);
+    age = std::stoi(tmp);
 }
 
 // --------------------------- Setters ----------------------------- //
@@ -50,7 +50,7 @@ void Person::SetAge(const int& a) {
 
 // --------------------- Overloaded Functions ---------------------- //
 
-Person& Person::operator=(Person& p) {
+Person& Person::operator=(const Person& p) {
     if (this == &p) {
         return *this;
     }
@@ -60,23 +60,42 @@ Person& Person::operator=(Person& p) {
 }
 
 
-bool Person::CheckCorrectInput(std::string& tmp) {
-    if (!(all_of(tmp.begin(), tmp.end(), isdigit))) {
-        return false;
+bool Person::CheckCorrectInput(std::string& tmp, bool isInt) {
+    //Индусский код
+    if(isInt){
+        if (!(std::all_of(tmp.begin(), tmp.end(), isdigit))) {
+            return false;
+        }
+        try {
+            std::stoi(tmp);
+        }
+        catch (const std::invalid_argument& e) {
+            std::cout << e.what() << " invalid_argument";
+            return false;
+        }
+        catch (const std::out_of_range& e) {
+            std::cout << e.what() << " out_of_range";
+            return false;
+        }
+        if (std::stoi(tmp) <= 0) {
+            return false;
+        }
     }
-    try {
-        stoi(tmp);
-    }
-    catch (const std::invalid_argument& e) {
-        std::cout << e.what() << " invalid_argument";
-        return false;
-    }
-    catch (const std::out_of_range& e) {
-        std::cout << e.what() << " out_of_range";
-        return false;
-    }
-    if (stoi(tmp) <= 0) {
-        return false;
+    else{
+        try{
+            std::stod(tmp);
+        }
+        catch (const std::invalid_argument& e) {
+            std::cout << e.what() << " invalid_argument";
+            return false;
+        }
+        catch (const std::out_of_range& e) {
+            std::cout << e.what() << " out_of_range";
+            return false;
+        }
+        if (std::stod(tmp) <= 0) {
+            return false;
+        }
     }
     return true;
 }
