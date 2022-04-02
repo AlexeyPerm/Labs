@@ -4,22 +4,24 @@
 #include "Event.h"
 
 #define DEBUG_DIALOG
-
 #ifdef DEBUG_DIALOG
+
 #include <iostream>
+
 #endif //DEBUG_DIALOG
 
 class Dialog : public Tree {
 public:
 // ------------------------- Constructors -------------------------- //
     explicit Dialog(const int size) : Tree(size) { EndState = 0; }
+
 #ifndef DEBUG_DIALOG
-    virtual ~Dialog() = default;
+    ~Dialog() = default;;
 #else
-    ~Dialog() {
-        std::cout << "Destructor for " << this << std::endl;
-    }
-#endif //DEBUG_DIALOG
+
+    ~Dialog() { std::cout << "Destructor for \"d\": " << this << std::endl; }
+
+#endif
 // ---------------------------- Methods ---------------------------- //
     virtual void GetEvent(TEvent&);     //получить событие
     virtual int Execute();             //главный цикл обработки события

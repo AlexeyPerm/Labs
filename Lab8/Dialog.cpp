@@ -2,8 +2,6 @@
 #include <string>
 #include <iostream>
 
-//Dialog::~Dialog() = default;
-
 void Dialog::GetEvent(TEvent& event) {
     std::string opInt = "+-?s/qm";  //коды операций
     std::string s;
@@ -50,9 +48,9 @@ void Dialog::GetEvent(TEvent& event) {
                 event.command = cmElemNumber;
                 break;
             }
-            default: {
-                return;
-            }
+//            default: {
+//                return;
+//            }
         }
         if (s.length() > 1) {
             param = s.substr(1, s.length() - 1);
@@ -68,8 +66,15 @@ void Dialog::HandleEvent(TEvent& event) {
     if (event.what == evMessage) {
         switch (event.command) {
             case cmMake: {
+#ifdef DEBUG_DIALOG
+                std::cout << "Delete [] begin " << begin;
+                delete [] begin;
+#endif //DEBUG_DIALOG
                 size = event.a;     //размер группы
                 begin = new Object* [size];
+#ifdef DEBUG_DIALOG
+                std::cout << std::endl << "Create begin[] " << begin << std::endl;
+#endif //DEBUG_DIALOG
                 current = 0;
                 ClearEvent(event);
                 break;

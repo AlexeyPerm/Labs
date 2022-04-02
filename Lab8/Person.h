@@ -4,26 +4,16 @@
 #include "Object.h"
 #include "Event.h"
 
-#define DEBUG_PERSON
-
-#ifdef DEBUG_PERSON
-#include <iostream>
-#endif //DEBUG_PERSON
-
-
 class Person : public Object {
 public:
 // ------------------------- Constructors -------------------------- //
     Person() { name = "", age = 0; }
     Person(const Person&);              //копирование
     Person(const std::string&, int);    //с параметрами
-#ifndef DEBUG_PERSON
+
+
     ~Person() override = default;
-#else
-    ~Person() override {
-        std::cout << "Destructor for " << this << std::endl;
-    }
-#endif //DEBUG_STUDENT
+
 // --------------------- Overridden Functions ---------------------- //
     void Show() override;
     void Input() override;
