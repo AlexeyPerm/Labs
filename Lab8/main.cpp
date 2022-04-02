@@ -5,7 +5,7 @@
 #include <iostream>
 
 int main() {
-    Dialog d(4);
+    Dialog d;
     d.Execute();
     std::cout << std::endl;
 

@@ -62,16 +62,8 @@ void Dialog::HandleEvent(TEvent& event) {
     if (event.what == evMessage) {
         switch (event.command) {
             case cmMake: {
-#ifdef DEBUG_DIALOG
-                //
-                std::cout << "Delete [] begin " << begin;
-                delete [] begin;
-#endif //DEBUG_DIALOG
                 size = event.a;     //размер группы
                 begin = new Object* [size];
-#ifdef DEBUG_DIALOG
-                std::cout << std::endl << "Create begin[] " << begin << std::endl;
-#endif //DEBUG_DIALOG
                 current = 0;
                 ClearEvent(event);
                 break;
@@ -119,10 +111,10 @@ int Dialog::Execute() {
 }
 
 int Dialog::Valid() const {
-    if (EndState == 0) {
-        return 0;
-    } else {
+    if (EndState) {
         return 1;
+    } else {
+        return 0;
     }
 }
 

@@ -15,7 +15,7 @@ Tree::Tree() {
 Tree::~Tree() {
     if (begin) {
 #ifdef DEBUG_TREE
-        std::cout << "Destructor for Tree. begin[] " << begin << std::endl;
+        std::cout << "Destructor for begin[] " << begin << std::endl;
 #endif //DEBUG_TREE
         delete[] begin;
         begin = nullptr;
