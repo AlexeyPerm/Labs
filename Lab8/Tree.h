@@ -12,8 +12,10 @@ public:
     void Add(Object* z = nullptr);
     void Show() const;
     void Del();
+    void ShowElementNumber(const int&) const;
 // --------------------- Overridden Functions ---------------------- //
     void HandleEvent(const TEvent& e);
+
 // --------------------- Overloaded Functions ---------------------- //
     int operator()() const { return current; }
 

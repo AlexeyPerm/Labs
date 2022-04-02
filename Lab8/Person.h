@@ -29,7 +29,7 @@ public:
 // --------------------- Overloaded Functions ---------------------- //
     Person& operator=(const Person&);
 protected:
-    int age{};
+    int age;
     std::string name;
     static bool CheckCorrectInput(std::string&, bool isInt = true);
 };

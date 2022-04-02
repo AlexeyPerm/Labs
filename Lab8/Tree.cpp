@@ -36,6 +36,17 @@ void Tree::Show() const {
     }
 }
 
+void Tree::ShowElementNumber(const int& elemNum) const {
+    if (current == 0) {
+        std::cout << "Empty!" << std::endl;
+        return;
+    } else if (current > size) {
+        std::cout << "Error! current > size" << std::endl;
+        return;
+    }
+    begin[elemNum - 1]->Show();
+}
+
 void Tree::Del() {
     if (!current) {
         return;
@@ -91,3 +102,5 @@ void Tree::HandleEvent(const TEvent& e) {
         }
     }
 }
+
+

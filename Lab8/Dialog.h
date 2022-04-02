@@ -12,12 +12,12 @@ public:
     virtual ~Dialog();
 
 // ---------------------------- Methods ---------------------------- //
-    virtual void GetEvent(TEvent&);     //�������� �������
-    virtual int  Execute();              //������� ���� ��������� �������
-    virtual void HandleEvent(TEvent&);  //����������
-    virtual void ClearEvent(TEvent&);   //�������� �������
-    int Valid() const;                  //�������� �������� EndState
-    void EndExec() { EndState = 1; }    //��������� ������� "����� ������"
+    virtual void GetEvent(TEvent&);     //получить событие
+    virtual int  Execute();             //главный цикл обработки события
+    virtual void HandleEvent(TEvent&);  //обработчик
+    virtual void ClearEvent(TEvent&);   //очистить событие
+    int Valid() const;                  //проверка атрибута EndState
+    void EndExec() { EndState = 1; }    //обработка события "конец работы"
 protected:
     int EndState;
 };

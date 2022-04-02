@@ -2,19 +2,19 @@
 #include <string>
 #include <iostream>
 
-Dialog::Dialog(const int size) : Tree(size){
+Dialog::Dialog(const int size) : Tree(size) {
     EndState = 0;
 }
 
 Dialog::~Dialog() = default;
 
 void Dialog::GetEvent(TEvent& event) {
-    std::string opInt = "+-?/qm";  //коды операций
+    std::string opInt = "+-?s/qm";  //коды операций
     std::string s;
     std::string param;
     char code;
 
-    std::cout << "+ add; - del; / get; m make; ? show; q quit;" << std::endl;
+    std::cout << "+ add; - del; / get; m make; s show all; ?(num) show element; q quit;" << std::endl;
     std::cout << ">";
     std::cin >> s;
     code = s[0];    //первый символ команды
@@ -36,7 +36,7 @@ void Dialog::GetEvent(TEvent& event) {
                 event.command = cmDel;
                 break;
             }
-            case '?': {
+            case 's': {
                 event.command = cmShow;
                 break;
             }
@@ -46,6 +46,10 @@ void Dialog::GetEvent(TEvent& event) {
             }
             case '/': {
                 event.command = cmGet;
+                break;
+            }
+            case '?': {
+                event.command = cmElemNumber;
                 break;
             }
             default: {
@@ -96,17 +100,22 @@ void Dialog::HandleEvent(TEvent& event) {
                 break;
             }
             case cmAdd: {
-                Add();
+                Tree::Add();
                 ClearEvent(event);
                 break;
             }
             case cmDel: {
-                Del();
+                Tree::Del();
                 ClearEvent(event);
                 break;
             }
             case cmShow: {
-                Show();
+                Tree::Show();
+                ClearEvent(event);
+                break;
+            }
+            case cmElemNumber: {
+                Tree::ShowElementNumber(1);
                 ClearEvent(event);
                 break;
             }
@@ -115,12 +124,7 @@ void Dialog::HandleEvent(TEvent& event) {
                 ClearEvent(event);
                 break;
             }
-            case '/': {
-                event.command = cmGet;
-                break;
-
-            }
-            default:{
+            default: {
                 Tree::HandleEvent(event);
             }
         }
