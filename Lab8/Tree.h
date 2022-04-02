@@ -9,13 +9,12 @@ public:
     explicit Tree(int);
     ~Tree();
 // ---------------------------- Methods ---------------------------- //
-    void Add(Object* z = nullptr);
-    void Show() const;
     void Del();
+    void Show() const;
+    void Add(Object* z = nullptr);
     void ShowElementNumber(const int&) const;
 // --------------------- Overridden Functions ---------------------- //
     void HandleEvent(const TEvent& e);
-
 // --------------------- Overloaded Functions ---------------------- //
     int operator()() const { return current; }
 

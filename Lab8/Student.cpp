@@ -2,11 +2,6 @@
 #include <iostream>
 #include <iomanip>
 
-// ------------------------- Constructors -------------------------- //
-Student::Student() : Person() {
-    rate = .0;
-}
-
 Student::Student(const std::string& name, const int age, const double rate) : Person(name, age) {
     this->rate = rate;
 }
@@ -16,7 +11,6 @@ Student::Student(const Student& st) : Person(st) {  //делегируем ко�
 }
 
 // --------------------- Overridden Functions ---------------------- //
-
 void Student::Show() {
     Person::Show();
     std::cout << std::fixed << std::setprecision(2) << "Rate: " << rate << std::endl;
@@ -34,18 +28,6 @@ void Student::Input() {
         std::cin >> tmp;
     }
     rate = std::stod(tmp);
-}
-
-Student::~Student() = default;
-
-// --------------------------- Getters ----------------------------- //
-double Student::GetRate() const {
-    return rate;
-}
-
-// --------------------------- Setters ----------------------------- //
-void Student::SetRate(double r) {
-    rate = r;
 }
 
 // --------------------- Overloaded Functions ---------------------- //

@@ -14,8 +14,6 @@ Person::Person(const Person& p) {
     age = p.age;
 }
 
-Person::~Person() = default;
-
 // --------------------- Overridden Functions ---------------------- //
 
 void Person::Show() {
@@ -47,15 +45,6 @@ void Person::HandleEvent(const TEvent& e) {
             }
         }
     }
-}
-
-// --------------------------- Setters ----------------------------- //
-void Person::SetName(const std::string& n) {
-    name = n;
-}
-
-void Person::SetAge(const int& a) {
-    age = a;
 }
 
 // --------------------- Overloaded Functions ---------------------- //

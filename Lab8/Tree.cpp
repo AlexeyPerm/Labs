@@ -2,6 +2,7 @@
 #include "Person.h"
 #include "Student.h"
 #include <iostream>
+#define DEBUG_TREE
 
 // ------------------------- Constructors -------------------------- //
 Tree::Tree() {
@@ -12,6 +13,9 @@ Tree::Tree() {
 
 Tree::~Tree() {
     if (begin) {
+#ifdef DEBUG_TREE
+        std::cout << "Destructor for " << this << std::endl;
+#endif //DEBUG_TREE
         delete[] begin;
         begin = nullptr;
     }
@@ -46,7 +50,6 @@ void Tree::ShowElementNumber(const int& elemNum) const {
     }
     begin[elemNum - 1]->Show();
 }
-
 
 void Tree::Del() {
     if (!current) {
