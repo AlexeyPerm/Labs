@@ -6,14 +6,12 @@
 class Dialog : public Tree {
 public:
 // ------------------------- Constructors -------------------------- //
-
-    //Dialog() { EndState = 0; }
-    explicit Dialog(int);
-    virtual ~Dialog();
+    explicit Dialog(const int size) : Tree(size) { EndState = 0; }
+    virtual ~Dialog() = default;
 
 // ---------------------------- Methods ---------------------------- //
     virtual void GetEvent(TEvent&);     //получить событие
-    virtual int  Execute();             //главный цикл обработки события
+    virtual int Execute();             //главный цикл обработки события
     virtual void HandleEvent(TEvent&);  //обработчик
     virtual void ClearEvent(TEvent&);   //очистить событие
     int Valid() const;                  //проверка атрибута EndState

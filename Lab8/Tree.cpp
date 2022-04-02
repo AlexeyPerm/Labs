@@ -40,12 +40,13 @@ void Tree::ShowElementNumber(const int& elemNum) const {
     if (current == 0) {
         std::cout << "Empty!" << std::endl;
         return;
-    } else if (current > size) {
-        std::cout << "Error! current > size" << std::endl;
+    } else if ((elemNum > current) || (elemNum == 0)) {
+        std::cout << "Error! elemNum > current or elemNum = 0" << std::endl;
         return;
     }
     begin[elemNum - 1]->Show();
 }
+
 
 void Tree::Del() {
     if (!current) {

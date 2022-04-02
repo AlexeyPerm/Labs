@@ -2,11 +2,7 @@
 #include <string>
 #include <iostream>
 
-Dialog::Dialog(const int size) : Tree(size) {
-    EndState = 0;
-}
-
-Dialog::~Dialog() = default;
+//Dialog::~Dialog() = default;
 
 void Dialog::GetEvent(TEvent& event) {
     std::string opInt = "+-?s/qm";  //коды операций
@@ -49,6 +45,8 @@ void Dialog::GetEvent(TEvent& event) {
                 break;
             }
             case '?': {
+//                std::cout << "Enter element number: ";
+//                std::cin >> event.a;
                 event.command = cmElemNumber;
                 break;
             }
@@ -56,7 +54,6 @@ void Dialog::GetEvent(TEvent& event) {
                 return;
             }
         }
-
         if (s.length() > 1) {
             param = s.substr(1, s.length() - 1);
             int a = atoi(param.c_str());
@@ -65,28 +62,6 @@ void Dialog::GetEvent(TEvent& event) {
     } else {
         event.message = evNothing;
     }
-}
-
-int Dialog::Execute() {
-    TEvent event;
-    do {
-        EndState = 0;
-        GetEvent(event);
-        HandleEvent(event);
-    } while (!Valid());
-    return EndState;
-}
-
-int Dialog::Valid() const {
-    if (EndState == 0) {
-        return 0;
-    } else {
-        return 1;
-    }
-}
-
-void Dialog::ClearEvent(TEvent& event) {
-    event.what = evNothing;     //пустое событие.
 }
 
 void Dialog::HandleEvent(TEvent& event) {
@@ -115,7 +90,7 @@ void Dialog::HandleEvent(TEvent& event) {
                 break;
             }
             case cmElemNumber: {
-                Tree::ShowElementNumber(1);
+                Tree::ShowElementNumber(event.a);
                 ClearEvent(event);
                 break;
             }
@@ -129,4 +104,26 @@ void Dialog::HandleEvent(TEvent& event) {
             }
         }
     }
+}
+
+int Dialog::Execute() {
+    TEvent event;
+    do {
+        EndState = 0;
+        GetEvent(event);
+        HandleEvent(event);
+    } while (!Valid());
+    return EndState;
+}
+
+int Dialog::Valid() const {
+    if (EndState == 0) {
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+void Dialog::ClearEvent(TEvent& event) {
+    event.what = evNothing;     //пустое событие.
 }
