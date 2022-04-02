@@ -17,8 +17,6 @@ void Dialog::GetEvent(TEvent& event) {
         event.what = evMessage;
         switch (code) {
             case 'm': {
-                std::cout << "Enter size: ";
-                std::cin >> event.a;
                 event.command = cmMake;
                 break;
             }
@@ -43,8 +41,6 @@ void Dialog::GetEvent(TEvent& event) {
                 break;
             }
             case '?': {
-//                std::cout << "Enter element number: ";
-//                std::cin >> event.a;
                 event.command = cmElemNumber;
                 break;
             }
@@ -67,6 +63,7 @@ void Dialog::HandleEvent(TEvent& event) {
         switch (event.command) {
             case cmMake: {
 #ifdef DEBUG_DIALOG
+                //
                 std::cout << "Delete [] begin " << begin;
                 delete [] begin;
 #endif //DEBUG_DIALOG

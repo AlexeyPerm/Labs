@@ -3,11 +3,10 @@
 #include "Tree.h"
 #include "Event.h"
 
-#define DEBUG_DIALOG
+//#define DEBUG_DIALOG
+
 #ifdef DEBUG_DIALOG
-
 #include <iostream>
-
 #endif //DEBUG_DIALOG
 
 class Dialog : public Tree {
