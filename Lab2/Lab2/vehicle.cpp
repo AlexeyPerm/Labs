@@ -1,7 +1,7 @@
 ﻿#include "Vehicle.h"
 
 
-//--------------- Setters ---------------
+// =========================== Setters ============================= //
 void Vehicle::set_brand(const string brand) {
 	this->brand = brand;
 }
@@ -13,7 +13,7 @@ void Vehicle::set_cost(const int cost) {
 	this->cost = cost;
 }
 
-//--------------- Getters ---------------
+// =========================== Getters ============================= //
 string Vehicle::get_brand() const {
 	return brand;
 }
@@ -26,7 +26,7 @@ int Vehicle::get_cost() const {
 	return cost;
 }
 
-//------------ Constructors ------------
+// ========================= Constructors ========================== //
 Vehicle::Vehicle() {
 	brand = "";
 	model = "";
@@ -47,7 +47,7 @@ Vehicle::Vehicle(const Vehicle &E) {	//Конструктор копирован
 
 Vehicle::~Vehicle() {}	//Деструктор создан только для выполнения задания. В данном случае его можно было не создавать. 
 
-//------------ Other funcions ------------
+//========================= Other funcions ========================= //
 void Vehicle::show() const {
 	cout << "brand: " << get_brand() << endl;
 	cout << "model: " << get_model() << endl;

@@ -1,7 +1,7 @@
 #include "List.h"
 #include "Error.h"
 
-// ------------------------- Constructors -------------------------- //
+// ========================= Constructors ========================== //
 List::List() {
     size = 0;
     arr = nullptr;
@@ -46,8 +46,8 @@ List::List(const List& l) {    //Конструктор копирования
     }
     current = l.arr;
 }
-// --------------------- Overloaded Functions ---------------------- //
 
+// ===================== Overloaded Functions ====================== //
 List& List::operator=(const List& l) {    //конструктор присваивания
     if (this == &l) {    //Проверка на самоприсваивание
         return *this;

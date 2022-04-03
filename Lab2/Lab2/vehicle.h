@@ -12,18 +12,19 @@ private:
 	int cost;
 
 public:
+// ========================= Constructors ========================== //
 	Vehicle();					//Конструктор по умолчанию
 	Vehicle(const string, const string, const int);	//Конструктор с параметрами
 	Vehicle(const Vehicle &);			//Конструктор копирования
 	~Vehicle();				//Деструктор
 	void show() const;
 
-	//--------- Setters ---------
+// =========================== Setters ============================= //
 	void set_brand(const string);
 	void set_model(const string);
 	void set_cost(const int);
 
-	//--------- Getters ---------
+// =========================== Getters ============================= //
 	string get_brand() const;
 	string get_model() const;
 	int get_cost() const;

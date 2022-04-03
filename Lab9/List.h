@@ -6,16 +6,16 @@
 
 class List {
 public:
-// ------------------------- Constructors -------------------------- //
+// ========================= Constructors ========================== //
     List();
     explicit List(int);
     List(const List&);
     List(const std::initializer_list<int>&);
     ~List();
 
-// --------------------------- Getters ----------------------------- //
+// =========================== Getters ============================= //
     int getCurrent() const { return *current; }
-// --------------------- Overloaded Functions ---------------------- //
+// ===================== Overloaded Functions ====================== //
     int& operator[](int) const;
     List& operator-(int);
     explicit operator int() const;
