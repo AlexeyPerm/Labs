@@ -1,19 +1,24 @@
 #include "List.h"
+#include "Error.h"
 
 // ------------------------- Constructors -------------------------- //
 List::List() {
     size = 0;
     arr = nullptr;
-
+    current = nullptr;
 }
 
 List::List(const int size) {
     if (size > 0) {
         this->size = size;
         arr = new int[size];
+        current = &arr[0];
     } else {
-        std::cout << "Error!!! Size <= 0\n";
-        arr = nullptr;
+#if OPTION == 2
+        throw Error("size <= 0\n");
+#elif OPTION == 3
+        throw NegativeSizeError();
+#endif
     }
 }
 
@@ -30,6 +35,7 @@ List::List(const std::initializer_list<int>& l) : List(static_cast<int> (l.size(
 List::~List() {
     delete[] arr;
     arr = nullptr;
+    current = nullptr;
 }
 
 List::List(const List& l) {    //Конструктор копирования
@@ -38,6 +44,7 @@ List::List(const List& l) {    //Конструктор копирования
     for (int i = 0; i < size; ++i) {
         this->arr[i] = arr[i];
     }
+    current = l.arr;
 }
 // --------------------- Overloaded Functions ---------------------- //
 
@@ -50,20 +57,34 @@ List& List::operator=(const List& l) {    //конструктор присва�
     }
 
     size = l.size;
+    current = l.current;
     arr = new int[size];
     for (int i = 0; i < size; ++i) {
         arr[i] = l.arr[i];
     }
+    current = l.current;
     return *this;
 }
 
 int& List::operator[](const int index) const {
-    if (size > index) {
-        return arr[index];
-    } else {
-        std::cout << "\nError! Index > size\nExit..." << std::endl;
-        exit(1);
+
+#if OPTION == 2
+    if (index < 0) {
+        throw Error("index < 0"); //если индекс i < 0, то бросаем исключение
     }
+    if (index >= size) {
+        throw Error("index > size");
+    }
+#elif OPTION == 3
+    if (index < 0) {
+        throw NegativeIndexError(); //если индекс i < 0, то бросаем исключение
+    }
+    if (index >= size) {
+        throw OversizeIndexError();
+    }
+#endif
+
+    return arr[index];
 }
 
 std::ostream& operator<<(std::ostream& out, const List& l) {
@@ -85,7 +106,24 @@ List::operator int() const {
     return size;
 }
 
-List& List::operator-(int index) {
-    current = &arr[index];
+List& List::operator-(const int index) {
+#if OPTION == 2
+    if (!size) {
+throw Error("List is empty");
+    }
+    if ((index + 1) > size) {
+        throw Error("Index > array");
+    }
+#elif OPTION == 3
+    if (!size) {
+        throw EmptySizeError();
+    }
+    if ((index + 1) > size) {
+        throw OversizeIndexError();
+    }
+#endif
 
+    current = &arr[index];
+    return *this;
 }
+

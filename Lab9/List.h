@@ -3,6 +3,7 @@
 #include <iostream>
 #include <initializer_list>
 
+
 class List {
 public:
 // ------------------------- Constructors -------------------------- //
@@ -11,6 +12,9 @@ public:
     List(const List&);
     List(const std::initializer_list<int>&);
     ~List();
+
+// --------------------------- Getters ----------------------------- //
+    int getCurrent() const { return *current; }
 // --------------------- Overloaded Functions ---------------------- //
     int& operator[](int) const;
     List& operator-(int);
@@ -21,5 +25,5 @@ public:
 private:
     int size;
     int* arr;
-    int *current;
+    int* current;
 };
