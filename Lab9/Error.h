@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#define OPTION 3  //Вариант реализации (2 или 3)
+#define OPTION 3  //Р’Р°СЂРёР°РЅС‚ СЂРµР°Р»РёР·Р°С†РёРё (2 РёР»Рё 3)
 
 #if OPTION == 2
 class Error {
@@ -21,7 +21,7 @@ private:
 };
 
 // ========================== Size Error =========================== //
-class SizeError : public Error {    //ошибка в размере списка
+class SizeError : public Error {    //РѕС€РёР±РєР° РІ СЂР°Р·РјРµСЂРµ СЃРїРёСЃРєР°
 protected:
     std::string msg;
 public:
@@ -47,7 +47,7 @@ public:
 };
 
 // ============================ Index ============================== //
-class IndexError : public Error {   //ошибка в индексе вектора
+class IndexError : public Error {   //РѕС€РёР±РєР° РІ РёРЅРґРµРєСЃРµ РІРµРєС‚РѕСЂР°
 protected:
     std::string msg;
 public:
