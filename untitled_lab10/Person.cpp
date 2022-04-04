@@ -25,15 +25,12 @@ std::istream& operator>>(std::istream& in, Person& p) {
 }
 
 std::fstream& operator<<(std::fstream& fout, const Person& p) {
-    fout << "Name: " << p.name << std::endl;
-    fout << "Age: " << p.age << std::endl;
+    fout << p.name << std::endl << p.age;
     return fout;
 }
 
 std::fstream& operator>>(std::fstream& fin, Person& p) {
-    std::cout << "Name > ";
-    std::cin >> p.name;
-    std::cout << "Age > ";
-    std::cin >> p.age;
+    fin >> p.name;
+    fin >> p.age;
     return fin;
 }

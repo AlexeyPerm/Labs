@@ -113,9 +113,8 @@ int Dialog::Execute() {
 int Dialog::Valid() const {
     if (EndState) {
         return 1;
-    } else {
-        return 0;
     }
+    return 0;
 }
 
 void Dialog::ClearEvent(TEvent& event) {
