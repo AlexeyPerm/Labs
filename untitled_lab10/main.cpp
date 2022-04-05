@@ -5,8 +5,8 @@
 int main() {
     Person p;
     char fileName[30]{};
-    int k = 0;  //Хранение значения возврата функции makeFile()
-    int c = 0;  //переменная выбора пункта меню в switch()
+    int k = 0;  //РҐСЂР°РЅРµРЅРёРµ Р·РЅР°С‡РµРЅРёСЏ РІРѕР·РІСЂР°С‚Р° С„СѓРЅРєС†РёРё makeFile()
+    int c = 0;  //РїРµСЂРµРјРµРЅРЅР°СЏ РІС‹Р±РѕСЂР° РїСѓРЅРєС‚Р° РјРµРЅСЋ РІ switch()
     do {
         std::cout << std::endl;
         std::cout << "1. Make file" << std::endl;
