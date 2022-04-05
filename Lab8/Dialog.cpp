@@ -1,4 +1,5 @@
 #include "Dialog.h"
+#include <string>
 #include <iostream>
 
 void Dialog::GetEvent(TEvent& event) {
