@@ -2,7 +2,8 @@
 #include "FileWork.h"
 #include <iostream>
 
-int main() {
+int main()
+{
     Person p;
     char fileName[30]{};
     int k = 0;  //Хранение значения возврата функции makeFile()
@@ -18,86 +19,86 @@ int main() {
         std::cout << ">";
         std::cin >> c;
         switch (c) {
-            case 1: {
-                std::cout << "File name>";
-                std::cin >> fileName;
-                k = makeFile(fileName);
-                if (k < 0) {
-                    std::cout << "Can't make the file. Exit...";
-                }
-                break;
+        case 1: {
+            std::cout << "File name>";
+            std::cin >> fileName;
+            k = makeFile(fileName);
+            if (k<0) {
+                std::cout << "Can't make the file. Exit...";
             }
-            case 2: {
-                std::cout << "Enter filename for output>";
-                std::cin >> fileName;
-                k = printFile(fileName);
-                if (k == 0) {
-                    std::cout << "Empty file";
-                    break;
-                }
-                if (k < 0) {
-                    std::cout << "Can't read the file";
-                }
-                break;
-            }
-            case 3: {
-                std::cout << "Enter filename for output>";
-                std::cin >> fileName;
-                std::cout << "Enter record number>";
-                int recordNumber = 0;
-                std::cin >> recordNumber;
-                delObjectFromFile(fileName, recordNumber);
-                if (k < 0) {
-                    std::cout << "Can't read the file";
-                }
-                break;
-            }
-            case 4: {
-                std::cout << "Enter filename for output>";
-                std::cin >> fileName;
-                std::cout << "Enter record number>";
-                int recordNumber = 0;
-                std::cin >> recordNumber;
-                std::cout << "Enter person:" << std::endl;
-                Person newPerson;
-                std::cin >> newPerson;
-                k = addObjectToFile(fileName, recordNumber, newPerson);
-                if (k < 0) {
-                    std::cout << "Can't make the file. Exit...";
-                    break;
-                }
-                if (k == 0) {
-                    k = addObjectToEndFile(fileName, newPerson);
-                }
-                break;
-            }
-            case 5: {
-                std::cout << "Enter filename for output>";
-                std::cin >> fileName;
-                std::cout << "Enter record number>";
-                int recordNumber = 0;
-                std::cin >> recordNumber;
-                std::cout << "Enter person>" << std::endl;
-                Person newPerson2;
-                std::cin >> newPerson2;
-                k = changeFileInStream(fileName, recordNumber, newPerson2);
-                if (k < 0) {
-                    std::cout << "Can't make the file. Exit...";
-                    break;
-                }
-                if (k == 0) {
-                    std::cout << "No such record";
-                }
-                break;
-            }
-            case 0: {
-                std::cout << "Exit program...";
-                break;
-            }
-            default:
-                break;
+            break;
         }
-    } while (c != 0);
+        case 2: {
+            std::cout << "Enter filename for output>";
+            std::cin >> fileName;
+            k = printFile(fileName);
+            if (k==0) {
+                std::cout << "Empty file";
+                break;
+            }
+            if (k<0) {
+                std::cout << "Can't read the file";
+            }
+            break;
+        }
+        case 3: {
+            std::cout << "Enter filename for output>";
+            std::cin >> fileName;
+            std::cout << "Enter record number>";
+            int recordNumber = 0;
+            std::cin >> recordNumber;
+            delObjectFromFile(fileName, recordNumber);
+            if (k<0) {
+                std::cout << "Can't read the file";
+            }
+            break;
+        }
+        case 4: {
+            std::cout << "Enter filename for output>";
+            std::cin >> fileName;
+            std::cout << "Enter record number>";
+            int recordNumber = 0;
+            std::cin >> recordNumber;
+            std::cout << "Enter person:" << std::endl;
+            Person newPerson;
+            std::cin >> newPerson;
+            k = addObjectToFile(fileName, recordNumber, newPerson);
+            if (k<0) {
+                std::cout << "Can't make the file. Exit...";
+                break;
+            }
+            if (k==0) {
+                k = addObjectToEndFile(fileName, newPerson);
+            }
+            break;
+        }
+        case 5: {
+            std::cout << "Enter filename for output>";
+            std::cin >> fileName;
+            std::cout << "Enter record number>";
+            int recordNumber = 0;
+            std::cin >> recordNumber;
+            std::cout << "Enter person:" << std::endl;
+            Person newPerson2;
+            std::cin >> newPerson2;
+            k = changeFileInStream(fileName, recordNumber, newPerson2);
+            if (k<0) {
+                std::cout << "Can't make the file. Exit...";
+                break;
+            }
+            if (k==0) {
+                std::cout << "No such record";
+            }
+            break;
+        }
+        case 0: {
+            std::cout << "Exit program...";
+            break;
+        }
+        default:break;
+        }
+    }
+    while (c!=0);
 
     return 0;
 }
