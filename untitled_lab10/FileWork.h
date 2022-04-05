@@ -65,9 +65,9 @@ int delObjectFromFile(const char* fName, const int& k) {
     return i;
 }
 
-int addObjectToFile(const char* fName, const int& k, const Person& tempPerson) {
-    std::fstream tmp("temp", std::ios::out);
-    std::fstream stream(fName, std::ios::in);
+int addObjectToFile(const char* fName, const int& k, const Person& pp) {
+    std::fstream tmp("temp", std::ios::out);        //запись
+    std::fstream stream(fName, std::ios::in);       //чтение
     if (!stream) {
         return -1;
     }
@@ -81,9 +81,10 @@ int addObjectToFile(const char* fName, const int& k, const Person& tempPerson) {
         }
         ++i;
         if (i == k) {
-            tmp << tempPerson;
+            tmp << pp;
             ++l;
         }
+        tmp << p;
     }
 
     stream.close();
@@ -93,11 +94,46 @@ int addObjectToFile(const char* fName, const int& k, const Person& tempPerson) {
     return l;
 }
 
-int addObjectToEndFile(const char* fName, Person & p){
+int addObjectToEndFile(const char* fName, Person& p) {
     std::fstream stream(fName, std::ios::app);
     if (!stream) {
         return -1;
     }
     stream << p;
     return 1;
+}
+
+int changeFileInStream(const char* fName, const int& k, const Person& tempPerson) {
+    std::fstream tmp("temp", std::ios::out);
+    std::fstream stream(fName, std::ios::in);
+    if (!stream) {
+        return -1;
+    }
+    Person p;
+    int i = 0;  //номер изменяемой записи
+    int l = 0;
+
+    while (stream >> p) {
+        if (stream.eof()) {
+            break;
+        }
+        ++i;
+        if (i == k) {
+            std::cout << p << "- is changing... Continue? [y/n]" << std::endl;
+            char x; //y (yes) or n (no)
+            std::cin >> x;
+            if (x == 'n' || x == 'N') {
+                break;
+            }
+            tmp << tempPerson;
+        } else {
+            tmp << p;
+        }
+    }
+
+    stream.close();
+    tmp.close();
+    remove(fName);
+    rename("temp", fName);
+    return l;
 }

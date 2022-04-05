@@ -9,11 +9,14 @@ int main() {
     int c = 0;  //переменная выбора пункта меню в switch()
     do {
         std::cout << std::endl;
+
         std::cout << "1. Make file" << std::endl;
         std::cout << "2. Open file" << std::endl;
         std::cout << "3. Delete record from file" << std::endl;
         std::cout << "4. Add record to file" << std::endl;
+        std::cout << "5. Change record in file" << std::endl;
         std::cout << "0. Exit" << std::endl;
+        std::cout << ">";
         std::cin >> c;
         switch (c) {
             case 1: {
@@ -55,7 +58,8 @@ int main() {
                 std::cin >> fileName;
                 std::cout << "Enter record number>";
                 int recordNumber = 0;
-                std::cout << "Enter person>";
+                std::cin >> recordNumber;
+                std::cout << "Enter person:" << std::endl;
                 Person newPerson;
                 std::cin >> newPerson;
                 k = addObjectToFile(fileName, recordNumber, newPerson);
@@ -65,6 +69,25 @@ int main() {
                 }
                 if (k == 0) {
                     k = addObjectToEndFile(fileName, newPerson);
+                }
+                break;
+            }
+            case 5: {
+                std::cout << "Enter filename for output>";
+                std::cin >> fileName;
+                std::cout << "Enter record number>";
+                int recordNumber = 0;
+                std::cin >> recordNumber;
+                std::cout << "Enter person>" << std::endl;
+                Person newPerson2;
+                std::cin >> newPerson2;
+                k = changeFileInStream(fileName, recordNumber, newPerson2);
+                if (k < 0) {
+                    std::cout << "Can't make the file. Exit...";
+                    break;
+                }
+                if (k == 0) {
+                    std::cout << "No such record";
                 }
                 break;
             }
