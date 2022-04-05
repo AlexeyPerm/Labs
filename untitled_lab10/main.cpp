@@ -9,7 +9,6 @@ int main() {
     int c = 0;  //переменная выбора пункта меню в switch()
     do {
         std::cout << std::endl;
-
         std::cout << "1. Make file" << std::endl;
         std::cout << "2. Open file" << std::endl;
         std::cout << "3. Delete record from file" << std::endl;
