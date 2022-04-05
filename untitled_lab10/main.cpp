@@ -98,5 +98,6 @@ int main() {
                 break;
         }
     } while (c != 0);
+
     return 0;
 }

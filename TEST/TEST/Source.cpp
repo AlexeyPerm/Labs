@@ -1,21 +1,10 @@
 #include <iostream>
-#include <string>
-using namespace std;
 
-class Point {
-public:
-	explicit Point() {
-		x = y = z = 0;
-	}
-	Point(int x, int y, int z) {
-		this->x = x;
-		this->y = y;
-		this->z = z;
+int main(){
+    constexpr double pi = 3.14159265359;
+    const  int s = 10;
+    pi++;
 
-	}
 
-private:
-	int x;
-	int y;
-	int z;
-};
+    return 0;
+}
