@@ -20,9 +20,10 @@ public:
 
 // --------------------------- Getters ----------------------------- //
     long getRubles() const { return rubles; }
-
+    friend std::fstream& operator>>(std::fstream&, Money&);
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
+    friend std::fstream& operator<<(std::fstream&, const Money&);
 private:
     long rubles;
     int kopeks;

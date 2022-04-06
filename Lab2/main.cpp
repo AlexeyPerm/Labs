@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm>    //используется функция all_of()
+#include <algorithm>    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ all_of()
 #include <windows.h>    //SetConsoleCP(1251);
 #include "vehicle.h"
 
@@ -15,7 +15,7 @@ int main()
     first.show();
 
     std::cout << "\n===================== With parameters =====================\n\n";
-    Vehicle second("ВАЗ", "2101", 1330);
+    Vehicle second("пїЅпїЅпїЅ", "2101", 1330);
     second.show();
 
     std::cout << "\n================== Copy (initialization) =================\n\n";
@@ -24,12 +24,12 @@ int main()
     third.set_model("Seltos");
     third.set_cost(9965);
     third.show();
-    std::cout << "Адрес элемента: " << &third << std::endl;
+    std::cout << "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << &third << std::endl;
 
     std::cout << "\n============= Copy (class as class parameter) ============\n\n";
     Vehicle fourth(third);
     fourth.show();
-    std::cout << "Адрес элемента: " << &fourth << std::endl;
+    std::cout << "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << &fourth << std::endl;
 
     std::cout << "\n===================== Copy (function) ====================\n\n";
     first = make_Vehicle();
@@ -46,11 +46,11 @@ Vehicle make_Vehicle()
     std::string s{};
     std::string costString{};
     int costInt{};
-    std::cout << "Введите марку: \n>";
+    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: \n>";
     getline(std::cin, n);
-    std::cout << "Введите модель: \n>";
+    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
     getline(std::cin, s);
-    std::cout << "Введите стоимость: \n>";
+    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
     getline(std::cin, costString);
     while (!CorrectInputCost(costString, costInt))
     {
@@ -64,17 +64,17 @@ Vehicle make_Vehicle()
 bool CorrectInputCost(const std::string& str, int& costInt)
 {
     if (!(std::all_of(str.begin(), str.end(), isdigit)))
-    {    //проверяем все элементы строки на число
-        std::cout << "Стоимость должна быть целым числом. Повторите ввод: \n>";
+    {    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: \n>";
         return false;
     }
     try
-    {    //Пробую на вкус обработку исключений.
+    {    //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
         costInt = stoi(str);
     }
     catch (const std::out_of_range& e)
     {
-        std::cout << e.what() << "\nВведите число поменьше: \n>";
+        std::cout << e.what() << "\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
         return false;
     }
     return true;
