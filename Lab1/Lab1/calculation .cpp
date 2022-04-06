@@ -1,4 +1,7 @@
-﻿#include "calculation.h"
+﻿#include <iomanip>    //setprecision
+#include <string>    //string
+#include "calculation.h"
+#include <algorithm>    //count
 using namespace std;
 
 
