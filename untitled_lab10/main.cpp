@@ -83,7 +83,7 @@ int main()
             std::cin >> newPerson2;
             k = changeFileInStream(fileName, recordNumber, newPerson2);
             if (k<0) {
-                std::cout << "Can't make the file. Exit...";
+                std::cout << "Can't read the file. Exit...";
                 break;
             }
             if (k==0) {
