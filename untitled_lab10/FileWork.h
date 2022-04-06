@@ -109,7 +109,6 @@ int changeFileInStream(const char* fName, const int& k, const Person& tempPerson
     if (!stream) {
         return -1;
     }
-
     Person p;
     int i = 0;  //номер изменяемой записи
     int l = 0;
