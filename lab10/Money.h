@@ -12,11 +12,11 @@ public:
     ~Money() = default;
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator++();
-    bool operator<(const Money&) const;
-    bool operator>(const Money&) const;
     Money operator++(int);
     Money& operator=(const Money&);
-
+    bool operator<(const Money&) const;
+    bool operator>(const Money&) const;
+    
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
 private:
