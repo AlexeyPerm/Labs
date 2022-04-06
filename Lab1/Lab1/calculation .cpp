@@ -2,19 +2,18 @@
 #include <string>    //string
 #include "calculation.h"
 #include <algorithm>    //count
-using namespace std;
 
 
 bool calculation::CheckCorrectInput(const std::string &input) const{
 	if (input[0] == '-') {	//Проверка на ввод отриц. числа.
-		cout << "Введёное значение должно быть больше нуля: \n> ";
+		std::cout << "Введёное значение должно быть больше нуля: \n> ";
 		return false;
 	}
 
 	//std::count возвращает кол-во символов (точек) в введёной строке. Использую std:: на всякий случай, 
 	//так как в main.cpp используется переменная с именемем count.
 	if (std::count(input.begin(), input.end(), '.') > 1) {
-		cout << "Некорректное значение. Повторите ввод: \n> ";
+        std::cout << "Некорректное значение. Повторите ввод: \n> ";
 		return false;
 	}
 
@@ -23,7 +22,7 @@ bool calculation::CheckCorrectInput(const std::string &input) const{
 	//length() возвращает size_t (Павловская. стр. 237). Использую, потому что интересно, что будет. 
 	for (int i = 0; i < static_cast<int> (input.length()); i++) {
 		if (!(isdigit(input[i]) || input[i] == '.')) {
-			cout << "Некорректное значение. Повторите ввод: \n> ";
+            std::cout << "Некорректное значение. Повторите ввод: \n> ";
 			return false;
 		}
 	}
@@ -48,41 +47,41 @@ bool calculation::CheckCorrectInput(const double F, const int S, const int D) co
 }
 
 void calculation::Show() const {
-	cout << "Salary = " << first << endl;
-	cout << "Working Days = " << second << endl;
-	cout << "Days in Month = " << daysInMonth << endl;
+	std::cout << "Salary = " << first << std::endl;
+    std::cout << "Working Days = " << second << std::endl;
+    std::cout << "Days in Month = " << daysInMonth << std::endl;
 }
 
 void calculation::Read() {
 	//Если включается русская локализация, то разделителем дробной и целой части должна быть запятая, а не точка. 
 	//Из-за этого stod() обнуляет дробную часть. Поэтому переводим нумерацию в англ. вариант, где разделителем является точка. 
 	setlocale(LC_NUMERIC, "eng");
-	cout << "Оклад: \n> ";
-	string a{};
-	cin >> a;
+	std::cout << "Оклад: \n> ";
+	std::string a{};
+	std::cin >> a;
 	while (!CheckCorrectInput(a)) {
-		cin >> a;
+        std::cin >> a;
 	}
 	first = stod(a);
 	//calculation::daysInMonth = 0;
 
-	string b{};	//second. Количество отработанных дней
-	string c{};	//daysInMonth
+	std::string b{};	//second. Количество отработанных дней
+	std::string c{};	//daysInMonth
 	bool correctInput = false;	//флаг проверки корректности ввода. 
 
 	while (!correctInput) {
 
-		cout << "Количество отработанных дней: \n> ";
-		cin >> b;
+		std::cout << "Количество отработанных дней: \n> ";
+		std::cin >> b;
 		while (!CheckCorrectInput(b)) {
-			cin >> b;
+            std::cin >> b;
 		}
 		second = stoi(b);
 
-		cout << "Количество дней в месяце: \n> ";
-		cin >> c;
+		std::cout << "Количество дней в месяце: \n> ";
+		std::cin >> c;
 		while (!CheckCorrectInput(c)) {
-			cin >> c;
+            std::cin >> c;
 		}
 		daysInMonth = stoi(c);
 
