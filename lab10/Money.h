@@ -10,8 +10,6 @@ public:
     Money(long, int);
     Money(const Money&);
     ~Money() = default;
-// --------------------------- Getters ----------------------------- //
-// --------------------------- Setters ----------------------------- //
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator++();
     bool operator<(const Money&) const;
