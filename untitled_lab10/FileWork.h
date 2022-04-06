@@ -14,7 +14,7 @@ int makeFile(const char* fName)
     std::cout << "Enter the number of person> ";
     std::cin >> n;
     Person p;
-    for (int i = 0; i<n; ++i) {
+    for (int i = 0; i < n; ++i) {
         std::cin >> p;
         stream << p << "\n";
     }
@@ -120,6 +120,7 @@ int changeFileInStream(const char* fName, const int& k, const Person& tempPerson
         ++i;
         if (i==k) {
             tmp << tempPerson;
+            l++;
         }
         else {
             tmp << p;
