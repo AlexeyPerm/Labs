@@ -1,9 +1,5 @@
-﻿#pragma once
+#pragma once
 #include <string>    //string
-#include <iostream>
-
-
-
 
 struct calculation
 {
@@ -17,7 +13,8 @@ private:
     double first{};    //Оклад
     int second{};    //Количество рабочий дней
     int daysInMonth = 31;    //Количество дней в месяце
-    //Рекомендуется описывать как константные те методы, которые предназначены для получения значение полей. Павловская. стр. 181
-    bool CheckCorrectInput(const std::string&) const;
-    bool CheckCorrectInput(double, int, int) const;
+    //Рекомендуется описывать как константные те методы, которые предназначены для получения
+    //значение полей. Павловская. стр. 181
+    static bool CheckCorrectInput(const std::string&);
+    static bool CheckCorrectInput(double, int, int);
 };
