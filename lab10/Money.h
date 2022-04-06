@@ -6,7 +6,8 @@ class Money
 {
 public:
 // ------------------------- Constructors -------------------------- //
-    Money() = default;
+    Money() { rubles = 0, kopeks = 0; }
+
     Money(long, int);
     Money(const Money&);
     ~Money() = default;
@@ -16,7 +17,10 @@ public:
     Money& operator=(const Money&);
     bool operator<(const Money&) const;
     bool operator>(const Money&) const;
-    
+
+// --------------------------- Getters ----------------------------- //
+    long getRubles() const { return rubles; }
+
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
 private:
