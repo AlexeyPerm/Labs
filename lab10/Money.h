@@ -17,11 +17,10 @@ public:
     bool operator<(const Money&) const;
     bool operator>(const Money&) const;
 
-// --------------------------- Getters ----------------------------- //
+// ---------------------- Getters / Setters ------------------------ //
     long getRubles() const { return rubles; }
-// --------------------------- Setters ----------------------------- //
     void setRubles(const long& r) { rubles = r; }
-
+// --------------------- Overloaded Functions ---------------------- //
     friend std::fstream& operator>>(std::fstream&, Money&);
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);

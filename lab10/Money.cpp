@@ -92,5 +92,3 @@ std::fstream& operator<<(std::fstream& fout, const Money& m) {
     fout << m.kopeks << std::endl;
     return fout;
 }
-
-
