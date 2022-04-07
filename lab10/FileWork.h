@@ -190,7 +190,7 @@ int halfObjectInFileByValue()
     return 1;
 }
 
-int addMultipleObjectsInFiles(const char* fName, const int& numOfObjects, const int& elemIndex)
+int addMultipleObjectsInFiles(const char* fName, const int& elementsCount, const int& elemIndex)
 {
     std::fstream tmp("temp", std::ios::out);        //запись
     std::fstream stream(fName, std::ios::in);       //чтение
@@ -210,14 +210,16 @@ int addMultipleObjectsInFiles(const char* fName, const int& numOfObjects, const 
         ++i;
         if (i == elemIndex)
         {
-            std::cin >> m;
-            tmp << m;
-            ++l;
+            for (int j = 0; j < elementsCount; ++j)
+            {
+                std::cin >> m;
+                tmp << m;
+                ++l;
+            }
         }
         tmp << m;
 
     }
-
     stream.close();
     tmp.close();
     remove(fName);
