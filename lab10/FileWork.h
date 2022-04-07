@@ -3,19 +3,16 @@
 #include <fstream>
 #include <string>
 
-int makeFile(const char* fName)
-{
+int makeFile(const char *fName) {
     std::fstream stream(fName, std::ios::out | std::ios::trunc);
-    if (!stream)
-    {
+    if (!stream) {
         return -1;  //Ошибка при открытии файла
     }
     int n;          //количество записываемых объектов Money;
     std::cout << "Enter the number of objects> ";
     std::cin >> n;
     Money money;
-    for (int i = 0; i < n; ++i)
-    {
+    for (int i = 0; i < n; ++i) {
         std::cin >> money;
         stream << money << "\n";
     }
@@ -23,17 +20,14 @@ int makeFile(const char* fName)
     return n;
 }
 
-int printFile(const char* fName)
-{
+int printFile(const char *fName) {
     std::fstream stream(fName, std::ios::in);
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     Money money;
     int i = 0;
-    while (stream >> money)
-    {
+    while (stream >> money) {
         std::cout << money << std::endl;
         i++;
     }
@@ -42,25 +36,20 @@ int printFile(const char* fName)
 
 }
 
-int removeObjectFromFile(const char* fName, const int& k)
-{
+int removeObjectFromFile(const char *fName, const int& k) {
     std::fstream tmp("temp", std::ios::out);
     std::fstream stream(fName, std::ios::in);
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     int i = 0;  //номер считываемого элемента
     Money money;
-    while (stream >> money)
-    {
-        if (stream.eof())
-        {
+    while (stream >> money) {
+        if (stream.eof()) {
             break;
         }
         i++;
-        if (i != k)
-        {
+        if (i != k) {
             tmp << money;
         }
     }
@@ -71,26 +60,21 @@ int removeObjectFromFile(const char* fName, const int& k)
     return i;
 }
 
-int addObjectToFile(const char* fName, const int& k, const Money& newMoney)
-{
+int addObjectToFile(const char *fName, const int& k, const Money& newMoney) {
     std::fstream tmp("temp", std::ios::out);        //запись
     std::fstream stream(fName, std::ios::in);       //чтение
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     Money money;
     int i = 0;      //номер считываемого элемента
     int l = 0;      //количество добавленных элементов
-    while (stream >> money)
-    {
-        if (stream.eof())
-        {
+    while (stream >> money) {
+        if (stream.eof()) {
             break;
         }
         ++i;
-        if (i == k)
-        {
+        if (i == k) {
             tmp << newMoney;
             ++l;
         }
@@ -103,43 +87,35 @@ int addObjectToFile(const char* fName, const int& k, const Money& newMoney)
     return l;
 }
 
-int addObjectToEndFile(const char* fName, Money& money)
-{
+int addObjectToEndFile(const char *fName, Money& money) {
     std::fstream stream(fName, std::ios::app);
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     stream << money;
     return 1;
 }
 
-int changeFileInStream(const char* fName, const int& k, const Money& tmpMoney)
-{
+int changeFileInStream(const char *fName, const int& k, const Money& tmpMoney) {
     std::fstream tmp("temp", std::ios::out);
     std::fstream stream(fName, std::ios::in);
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
-    Money money;
+    Money m;
     int i = 0;  //номер изменяемой записи
     int l = 0;
-    while (stream >> money)
-    {
-        if (stream.eof())
-        {
-            tmp << money;
+    while (stream >> m) {
+        if (stream.eof()) {
+            tmp << m;
             break;
         }
         ++i;
-        if (i == k)
-        {
+        if (i == k) {
             tmp << tmpMoney;
             ++l;
-        } else
-        {
-            tmp << money;
+        } else {
+            tmp << m;
         }
     }
     stream.close();
@@ -149,29 +125,23 @@ int changeFileInStream(const char* fName, const int& k, const Money& tmpMoney)
     return l;
 }
 
-int removeObjectsGreaterThanValue(const char* fName, const long& value)
-{
+int removeObjectsGreaterThanValue(const char *fName, const long& value) {
     std::fstream tmp("temp", std::ios::out);        //запись
     std::fstream stream(fName, std::ios::in);       //чтение
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     Money money;
     int l = 0;      //количество внесённых изменений
-    while (stream >> money)
-    {
-        if (stream.eof())
-        {
-            if (money.getRubles() < value)
-            {
+    while (stream >> money) {
+        if (stream.eof()) {
+            if (money.getRubles() < value) {
                 tmp << money;
                 ++l;
             }
             break;
         }
-        if (money.getRubles() < value)
-        {
+        if (money.getRubles() < value) {
             tmp << money;
             ++l;
         }
@@ -183,42 +153,56 @@ int removeObjectsGreaterThanValue(const char* fName, const long& value)
     return l;
 }
 
-int halfObjectInFileByValue()
-{
-
-
-    return 1;
+int halveObjectInFileByValue(const char *fName, const long& value) {
+    std::fstream tmp("temp", std::ios::out);
+    std::fstream stream(fName, std::ios::in);
+    if (!stream) {
+        return -1;
+    }
+    Money m;
+    int l = 0;
+    const long halfValue = value / 2;
+    while (stream >> m) {
+        if (stream.eof()) {
+            break;
+        }
+        if (m.getRubles() == value) {
+            m.setRubles(halfValue);
+            tmp << m;
+            ++l;
+        } else {
+            tmp << m;
+        }
+    }
+    stream.close();
+    tmp.close();
+    remove(fName);
+    rename("temp", fName);
+    return l;
 }
 
-int addMultipleObjectsInFiles(const char* fName, const int& elementsCount, const int& elemIndex)
-{
+int addMultipleObjectsInFiles(const char *fName, const int& elementsCount, const int& elemIndex) {
     std::fstream tmp("temp", std::ios::out);        //запись
     std::fstream stream(fName, std::ios::in);       //чтение
-    if (!stream)
-    {
+    if (!stream) {
         return -1;
     }
     int i = 0;  //счётчик элементов
     int l = 0;
     Money m;
-    while (stream >> m)
-    {
-        if (stream.eof())
-        {
+    while (stream >> m) {
+        if (stream.eof()) {
             break;
         }
         ++i;
-        if (i == elemIndex)
-        {
-            for (int j = 0; j < elementsCount; ++j)
-            {
+        tmp << m;   //записываем в файл temp текущий считанный объект
+        if (i == elemIndex) {
+            for (int j = 0; j < elementsCount; ++j) {
                 std::cin >> m;
                 tmp << m;
                 ++l;
             }
         }
-        tmp << m;
-
     }
     stream.close();
     tmp.close();
