@@ -27,8 +27,8 @@ public:
     friend std::fstream& operator<<(std::fstream&, const Money&);
 
 private:
-    long rubles;
     int kopeks;
+    long rubles;
 };
 
 
