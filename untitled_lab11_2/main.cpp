@@ -38,10 +38,15 @@ int main() {
         std::cout << "\nMaximum element: ";
         int nMax = max(v);
         std::cout << nMax;
-        std::cout << "\nRemove min element: " << std::endl;
+        std::cout << "\nRemove max element: " << std::endl;
         delVector(v, nMax);
         printVector(v);
         //делим каждый элемент на минимальное значение вектора
+        division(v);
+        std::cout << "\nDivision: " << std::endl;
+        printVector(v);
+
+
 
     }
     catch (int) {
@@ -70,15 +75,15 @@ void printVector(const Vec& v) {
 }
 
 Time average(const Vec& v) {
-    int s = 0;  //сумма всех элементов
+    long long s = 0;  //сумма всех элементов
     int n = v.size();
     for (int i = 0; i < n; ++i) {
         s += v[i].getMin() * 60 + v[i].getSec();
     }
-    int tmp = s / n;
+    long long tmp = s / n;
     Time t;
-    t.setMin(tmp / 60);
-    t.setSec(tmp % 60);
+    t.setMin(static_cast<int> (tmp / 60));
+    t.setSec(static_cast<int> (tmp % 60));
     return t;
 }
 
@@ -88,9 +93,9 @@ void addVector(Vec& v, const int position, const Time& element) {
 
 int min(const Vec& v) {
     //Time m = v[0];
-    int m = v[0].getMin() * 60 + v[0].getSec();
+    long long m = v[0].getMin() * 60 + v[0].getSec();
     int n = 0;  //номер элемента
-    int tmp = 0;
+    long long tmp = 0;
     for (int i = 0; i < v.size(); ++i) {
         tmp = v[i].getMin() * 60 + v[i].getSec();   //вычисляем кол-во секунд в каждом элементе вектора
         if (tmp < m) {
@@ -99,19 +104,15 @@ int min(const Vec& v) {
         }
     }
     Time t;
-    t.setMin(m / 60);
-    t.setSec(m % 60);
+    t.setMin(static_cast<int> (m / 60));
+    t.setSec(static_cast<int> (m % 60));
     return n;
 }
 
-void delVector(Vec& v, const int position) {
-    v.erase(v.begin() + position);
-}
-
 int max(const Vec& v) {
-    int m = v[0].getMin() * 60 + v[0].getSec();
+    long long m = v[0].getMin() * 60 + v[0].getSec();
     int n = 0;  //номер элемента
-    int tmp = 0;
+    long long tmp = 0;
     for (int i = 0; i < v.size(); ++i) {
         tmp = v[i].getMin() * 60 + v[i].getSec();   //вычисляем кол-во секунд в каждом элементе вектора
         if (tmp > m) {
@@ -120,15 +121,23 @@ int max(const Vec& v) {
         }
     }
     Time t;
-    t.setMin(m / 60);
-    t.setSec(m % 60);
+    t.setMin(static_cast<int> (m / 60));
+    t.setSec(static_cast<int> (m % 60));
     return n;
+}
+
+void delVector(Vec& v, const int position) {
+    v.erase(v.begin() + position);
 }
 
 void division(Vec& v) {
     int m = min(v);
-    int tmp = v[0].getMin() * 60 + v[0].getSec();
-    for (int i = 0; i < v.size(); ++i) {
-
+    long long denominator = v[m].getMin() * 60 + v[m].getSec();   //вычисляем кол-во секунд у минимального элемента
+    long long tmp = 0;
+    for (auto& i: v) {
+        long long numerator = i.getMin() * 60 + i.getSec();
+        tmp = numerator / denominator;
+        i.setMin(static_cast<int> (tmp / 60));
+        i.setSec(static_cast<int> (tmp % 60));
     }
 }
