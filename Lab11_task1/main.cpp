@@ -5,9 +5,11 @@
 
 typedef std::vector<double> Vec;
 
-auto average(const Vec& v) -> double;
 auto makeVector(const int& k) -> Vec;
+auto average(const Vec& v) -> double;
 auto printVector(const Vec& v) -> void;
+auto minElement(const Vec& v) -> double;
+auto subtractMinElement(Vec& v) -> void;   //вычитание минимального числа элементов массива
 auto removeElementByIndex(Vec& v, const int& index) -> void;
 auto addItemToBeginVector(Vec& v, const double& item) -> void;
 auto generateRandom(const double& l, const double& r) -> double;  //рандомайзер
@@ -18,7 +20,7 @@ int main() {
     Vec v = makeVector(elementsCount);
     std::cout << "Generated vector: ";
     printVector(v);
-    std::cout << "\nAverage: ";
+    std::cout << "Average: ";
     auto averageNum = average(v);
     std::cout << averageNum << std::endl;
 
@@ -26,8 +28,8 @@ int main() {
     addItemToBeginVector(v, averageNum);
     printVector(v);
     try {
-        std::cout << "\nRemove element from the vector. ";
-        std::cout << "Index must be [0;" << v.size() <<")" <<std::endl;
+        std::cout << "Remove element from the vector. ";
+        std::cout << "Index must be [0;" << v.size() << ")" << std::endl;
         int n;
         std::cout << "Index>";
         std::cin >> n;
@@ -39,6 +41,11 @@ int main() {
     } catch (int) {
         std::cout << "Error!" << std::endl;
     }
+
+    std::cout << "Min element: " << minElement(v) << std::endl;
+    std::cout << "Every element minus minElement: ";
+    subtractMinElement(v);
+    printVector(v);
     return 0;
 }
 
@@ -55,8 +62,8 @@ Vec makeVector(const int& k) {
 
 double generateRandom(const double& l, const double& r) {
     /* -------------------------------------------------------------------------------------------------
-     * std::random_device rd генератор для недетерминированных, зависящий от непредсказуемого источинка,
-     * случайных чисел.
+     * std::random_device rd генератор для недетерминированных случайных чисел,
+     * зависящий от непредсказуемого источника.
      * https://en.cppreference.com/w/cpp/numeric/random/random_device
      * -------------------------------------------------------------------------------------------------
      * std::mt19937 Генератор псевдослучайных чисел, использующий алгоритм Вихрь Мерсенна.
@@ -80,6 +87,7 @@ void printVector(const Vec& v) {
         std::cout << std::setprecision(2);
         std::cout << item << " ";
     }
+    std::cout << std::endl;
 }
 
 double average(const Vec& v) {
@@ -96,4 +104,21 @@ void addItemToBeginVector(Vec& v, const double& item) {
 
 void removeElementByIndex(Vec& v, const int& index) {
     v.erase(v.begin() + index);
+}
+
+double minElement(const Vec& v) {
+    double min = v[0];
+    for (const auto& item: v) {
+        if (item < min) {
+            min = item;
+        }
+    }
+    return min;
+}
+
+void subtractMinElement(Vec& v) {
+    double min = minElement(v);
+    for (auto& item: v) {
+        item -= min;
+    }
 }
