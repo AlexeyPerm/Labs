@@ -17,7 +17,7 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 
 int main() {
-
+//Генерируем размер вектора от 1 до 10. При необходимости диапазон можно изменить.
     const int n = generateRandom(1, 10);
     std::cout << "Generated vector with size = " << n << ":\n";
     auto v = makeVector(n);
@@ -55,6 +55,7 @@ Vec makeVector(const int& n) {
     constexpr long lRubles = 0;
     constexpr int iKopeks = 0;
     for (int i = 0; i < n; ++i) {
+//Верхняя граница генерирования ограничена, чтобы вывод на экран был более читаем и влез в одну строку.
         long r = generateRandom(lRubles, lRubles + 1000);
         int k = generateRandom(iKopeks, iKopeks + 99);
         Money m(r, k);
