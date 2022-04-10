@@ -30,12 +30,12 @@ Money& Money::operator=(const Money& m) {
     return *this;
 }
 
-//bool Money::operator<(const Money& rhs) const {
-//    long long lhsTmp = rubles * 100 + kopeks;
-//    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-//    return lhsTmp < rhsTmp;
-//}
-//
+bool Money::operator<(const Money& rhs) const {
+    long long lhsTmp = rubles * 100 + kopeks;
+    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
+    return lhsTmp < rhsTmp;
+}
+
 //bool Money::operator>(const Money& rhs) const {
 //    long long lhsTmp = rubles * 100 + kopeks;
 //    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;

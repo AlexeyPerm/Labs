@@ -16,7 +16,7 @@ int main() {
     std::vector<Money> v;
     generateElementsInVector(v, n);
 
-
+//через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
     List<Money> list{v[0], v[1], v[2], v[3], v[4]};
     std::cout << "Created vector: ";
     list.print();
@@ -29,12 +29,21 @@ int main() {
     list.addItemToBeginVector(averageMoney);
     list.print();
 
+    std::cout << "Remove element from the vector. ";
+    int eraseItem = generateRandom(0, static_cast<int> (list.getSize()));
+    std::cout << "Index of removed element: " << eraseItem << std::endl;
+    list.removeElementByIndex(eraseItem);
+    list.print();
+
+    std::cout << "Minimum element: ";
+    auto minimumElement = list.minElement();
+    std::cout << minimumElement << std::endl;
 
 #else
     Money m(10, 20);
     Money z(60, 99);
-    List<Money> ar{m, z};
-    ar.print();
+    List<Money> qq{m, z};
+    qq.print();
 #endif  //DEBUG
 
     return 0;
