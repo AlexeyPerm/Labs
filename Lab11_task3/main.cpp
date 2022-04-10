@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include <random>
 #include "List.h"
 #include "Money.h"
@@ -6,12 +7,17 @@
 
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
+void generateElementsInVector(std::vector<Money>& v, const int& n);
 
 int main() {
 #ifndef DEBUG
-//    const int n = generateRandom(1, 10);
-//    std::cout << "Generated vector with size = " << n << ":\n";
-    List<Money> list(5);
+//генерирую объекты класса Money для того, чтобы не вводит это всё постоянно руками.
+    constexpr int n = 5;
+    std::vector<Money> v;
+    generateElementsInVector(v, n);
+
+
+    List<Money> list{v[0], v[1], v[2], v[3], v[4]};
     std::cout << "Created vector: ";
     list.print();
 
@@ -24,11 +30,11 @@ int main() {
     list.print();
 
 
-
-
 #else
-    List<int> list(7);
-    std::cout << list.average();
+    Money m(10, 20);
+    Money z(60, 99);
+    List<Money> ar{m, z};
+    ar.print();
 #endif  //DEBUG
 
     return 0;
@@ -66,4 +72,15 @@ T generateRandom(const T& left, const T& right) {
         return dis(gen);
     }
     return 0;
+}
+
+void generateElementsInVector(std::vector<Money>& v, const int& n){
+    constexpr long lRubles = 0;
+    constexpr int iKopeks = 0;
+    for (int i = 0; i < n; ++i) {
+        long r = generateRandom(lRubles, lRubles + 1000);
+        int k = generateRandom(iKopeks, iKopeks + 99);
+        Money m(r, k);
+        v.push_back(m);
+    }
 }

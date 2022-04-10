@@ -31,6 +31,8 @@ public:
 // ------------------------- Constructors -------------------------- //
     List() { size = 0; }
     explicit List(const int&);
+//Использую список инициализации ввиду того, что лень вручную заполнять значениями каждый объект класса
+    List(const std::initializer_list<T> &);
     ~List() = default;
 // ---------------------------- Methods ---------------------------- //
     T average() const;
@@ -39,8 +41,7 @@ public:
 // --------------------------- Overloads --------------------------- //
 
     friend std::istream& operator>><T>(std::istream&, List<T>&);
-    friend std::ostream& operator
-    <<<T>(std::ostream&, const List<T>&);
+    friend std::ostream& operator<<<T>(std::ostream&, const List<T>&);
 
 private:
     int size;   //размер списка
@@ -53,10 +54,18 @@ template<class T>
 List<T>::List(const int& s) {
     T a;
     for (int i = 0; i < s; ++i) {
-        std::cin >> a;
+        //std::cin >> a;
         v.push_back(a);
     }
     size = v.size();
+}
+//Принимает список объектов <T> и заполняем ими вектор.
+template<class T>
+List<T>::List(const std::initializer_list<T>& list) {
+    for (auto& element : list){
+        v.push_back(element);
+    }
+    size = list.size();
 }
 
 // ---------------------------- Methods ---------------------------- //
