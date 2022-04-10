@@ -13,7 +13,6 @@ auto addItemToBeginVector(Vec& v, const double& item) -> void;
 auto generateRandom(const double& l, const double& r) -> double;  //рандомайзер
 
 int main() {
-
 //constexpr: "Programming. Principles and Practice Using C++". Second Edition. Bjarne Stroustrup. Стр. 95
     constexpr int elementsCount = 5;   //Количество элементов в массиве. Смысла делать больше пяти нет.
     Vec v = makeVector(elementsCount);
@@ -76,7 +75,7 @@ double generateRandom(const double& l, const double& r) {
 
 void printVector(const Vec& v) {
     for (const auto& item: v) {
-        std::cout.width(6);     //форматируем вывод, ограничив его в ширину 5 символов
+        std::cout.width(6);     //форматируем вывод, ограничив его в ширину 6 символов
         std::cout << std::fixed;
         std::cout << std::setprecision(2);
         std::cout << item << " ";
