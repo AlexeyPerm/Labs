@@ -35,11 +35,11 @@ public:
     List(const std::initializer_list<T>&);
     ~List() = default;
 // ---------------------------- Methods ---------------------------- //
-
     T average() const;
     void print() const;
     int getSize() const { return size; }
     T minElement() const;
+    void subtractMinElement();
     void addItemToBeginVector(T& elem);
     void removeElementByIndex(const int& index);
 // --------------------------- Overloads --------------------------- //
@@ -58,7 +58,7 @@ template<class T>
 List<T>::List(const int& s) {
     T a;
     for (int i = 0; i < s; ++i) {
-        //std::cin >> a;
+        //std::cin >> a;    //заменил генерацией случайных чисел.
         v.push_back(a);
     }
     size = v.size();
@@ -86,7 +86,7 @@ T List<T>::average() const {
     T m;
     m = 0;
     for (const auto& item: v) {
-        m = m + item;
+        m += item;
     }
     T a;
     a = m / v.size();
@@ -111,5 +111,12 @@ T List<T>::minElement() const {
         }
     }
     return minElem;
+}
+template<class T>
+void List<T>::subtractMinElement() {
+    T a = minElement();
+    for (auto& item: v) {
+        item -= a;
+    }
 }
 

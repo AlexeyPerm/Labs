@@ -10,13 +10,14 @@ public:
     Money(const Money&);
     ~Money() = default;
 // --------------------- Overloaded Functions ---------------------- //
-    Money& operator=(const Money&);
-    Money& operator=(const int&);   //присваиваем объекту число.
+    Money& operator=(const Money& rhs);
+    Money& operator=(const int& n);   //конвертируем число в объект класса
     bool operator<(const Money& rhs) const;
-//    bool operator>(const Money& rhs) const;
     Money operator+(const Money& rhs) const;
-//    Money operator/(const Money& rhs) const;
-    Money operator/(const int&) const;
+    Money& operator+=(const Money& rhs);
+    Money operator-(const Money& rhs) const;
+    Money& operator-=(const Money& rhs);
+    Money operator/(const int& n) const;
 // ---------------------- Getters / Setters ------------------------ //
 //    int getKopeks() const { return kopeks; }
 //    long getRubles() const { return rubles; }

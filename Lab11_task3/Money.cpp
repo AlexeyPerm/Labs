@@ -21,12 +21,12 @@ Money::Money(const Money& m) {
 
 // --------------------- Overloaded Functions ---------------------- //
 
-Money& Money::operator=(const Money& m) {
-    if (this == &m) {
+Money& Money::operator=(const Money& rhs) {
+    if (this == &rhs) {
         return *this;
     }
-    rubles = m.rubles;
-    kopeks = m.kopeks;
+    rubles = rhs.rubles;
+    kopeks = rhs.kopeks;
     return *this;
 }
 
@@ -74,6 +74,41 @@ Money Money::operator+(const Money& rhs) const {
         m.kopeks = kopeks + rhs.kopeks;
     }
     return m;
+}
+
+Money& Money::operator+=(const Money& rhs) {
+    if ((kopeks + rhs.kopeks) >= 100) {
+        rubles = rubles + rhs.rubles + 1;
+        kopeks = (kopeks + rhs.kopeks) % 100;
+    } else {
+        rubles = rubles + rhs.rubles;
+        kopeks = kopeks + rhs.kopeks;
+    }
+    return *this;
+}
+
+
+Money Money::operator-(const Money& rhs) const {
+    Money m;
+    if ((kopeks - rhs.kopeks) < 0) {
+        m.rubles = rubles - rhs.rubles - 1;
+        m.kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        m.rubles = rubles - rhs.rubles;
+        m.kopeks = kopeks - rhs.kopeks;
+    };
+    return m;
+}
+
+Money& Money::operator-=(const Money& rhs)  {
+    if ((kopeks - rhs.kopeks) < 0) {
+        rubles = rubles - rhs.rubles - 1;
+        kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        rubles = rubles - rhs.rubles;
+        kopeks = kopeks - rhs.kopeks;
+    };
+    return *this;
 }
 
 //Money Money::operator/(const Money& rhs) const {

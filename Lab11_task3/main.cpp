@@ -3,6 +3,7 @@
 #include <random>
 #include "List.h"
 #include "Money.h"
+
 //#define DEBUG
 
 template<class T>
@@ -11,12 +12,12 @@ void generateElementsInVector(std::vector<Money>& v, const int& n);
 
 int main() {
 #ifndef DEBUG
-//генерирую объекты класса Money для того, чтобы не вводит это всё постоянно руками.
+    //генерирую объекты класса Money для того, чтобы не вводит это всё постоянно руками.
     constexpr int n = 5;
     std::vector<Money> v;
     generateElementsInVector(v, n);
 
-//через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
+    //через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
     List<Money> list{v[0], v[1], v[2], v[3], v[4]};
     std::cout << "Created vector: ";
     list.print();
@@ -39,11 +40,19 @@ int main() {
     auto minimumElement = list.minElement();
     std::cout << minimumElement << std::endl;
 
+    std::cout << "Every element minus minimumElement: ";
+    list.subtractMinElement();
+    list.print();
+
+
 #else
-    Money m(10, 20);
-    Money z(60, 99);
-    List<Money> qq{m, z};
-    qq.print();
+    Money a(60, 60);
+    Money b(10, 99);
+    a = a + b;
+    std::cout << a;
+//    List<Money> qq{m, z};
+//    qq.print();
+
 #endif  //DEBUG
 
     return 0;
@@ -83,7 +92,7 @@ T generateRandom(const T& left, const T& right) {
     return 0;
 }
 
-void generateElementsInVector(std::vector<Money>& v, const int& n){
+void generateElementsInVector(std::vector<Money>& v, const int& n) {
     constexpr long lRubles = 0;
     constexpr int iKopeks = 0;
     for (int i = 0; i < n; ++i) {
