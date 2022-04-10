@@ -5,15 +5,17 @@
 
 typedef std::vector<Money> Vec;
 
-auto makeVector(const int& n) -> Vec;
 auto average(const Vec& v) -> Money;
+auto makeVector(const int& n) -> Vec;
 auto printVector(const Vec& v) -> void;
+auto removeElementByIndex(Vec& v, const int& index) -> void;
+auto addItemToBeginVector(Vec& v, const Money& item) -> void;
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
 
 int main() {
-    std::cout << "Generated vector: \n";
+    std::cout << "Generated vector:\n";
     constexpr int n = 10;
     auto v = makeVector(n);
     printVector(v);
@@ -21,6 +23,18 @@ int main() {
     std::cout << "Average: ";
     auto averageMoney = average(v);
     std::cout << averageMoney << std::endl;
+
+    std::cout << "Add average item to the beginning of the vector:\n";
+    addItemToBeginVector(v, averageMoney);
+    printVector(v);
+
+    std::cout << "Remove element from the vector. ";
+    //немного схалявим и срандомизируем номер удаляемого элемента
+    int eraseItem = generateRandom(0, static_cast<int> (v.size() - 1));
+    std::cout << "Index of removed element: " << eraseItem << std::endl;
+    removeElementByIndex(v, eraseItem);
+    printVector(v);
+
 
     return 0;
 }
@@ -56,6 +70,21 @@ Money average(const Vec& v) {
     m.setKopeks(static_cast<int> (tmp % 100));
     return m;
 }
+
+void addItemToBeginVector(Vec& v, const Money& item) {
+    v.insert(v.begin(), item);
+}
+
+void removeElementByIndex(Vec& v, const int& index){
+    v.erase(v.begin() + index);
+}
+
+
+
+
+
+
+
 
 
 template<class T>
