@@ -8,6 +8,8 @@ typedef std::vector<Money> Vec;
 auto average(const Vec& v) -> Money;
 auto makeVector(const int& n) -> Vec;
 auto printVector(const Vec& v) -> void;
+auto minElement(const Vec& v) -> Money;
+auto subtractMinElement(Vec& v) -> void;
 auto removeElementByIndex(Vec& v, const int& index) -> void;
 auto addItemToBeginVector(Vec& v, const Money& item) -> void;
 template<class T>
@@ -15,8 +17,9 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 
 int main() {
-    std::cout << "Generated vector:\n";
-    constexpr int n = 10;
+
+    const int n = generateRandom(1, 10);
+    std::cout << "Generated vector with size = " << n << ":\n";
     auto v = makeVector(n);
     printVector(v);
 
@@ -33,6 +36,14 @@ int main() {
     int eraseItem = generateRandom(0, static_cast<int> (v.size() - 1));
     std::cout << "Index of removed element: " << eraseItem << std::endl;
     removeElementByIndex(v, eraseItem);
+    printVector(v);
+
+    std::cout << "Minimum element: ";
+    auto minimumElement = minElement(v);;
+    std::cout << minimumElement << std::endl;
+
+    std::cout << "Every element minus minimumElement: ";
+    subtractMinElement(v);
     printVector(v);
 
 
@@ -75,17 +86,34 @@ void addItemToBeginVector(Vec& v, const Money& item) {
     v.insert(v.begin(), item);
 }
 
-void removeElementByIndex(Vec& v, const int& index){
+void removeElementByIndex(Vec& v, const int& index) {
     v.erase(v.begin() + index);
 }
 
+Money minElement(const Vec& v) {
+    long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
+    long long tmp;
+    for (const auto& item: v) {
+        tmp = item.getRubles() * 100 + item.getKopeks();
+        if (tmp < minElem) {
+            minElem = tmp;
+        }
+    }
+    Money m;
+    m.setRubles(static_cast<int> (minElem / 100));
+    m.setKopeks(static_cast<int> (minElem % 100));
+    return m;
+}
 
-
-
-
-
-
-
+void subtractMinElement(Vec& v) {
+    Money minElem = minElement(v);
+    long long tmp = minElem.getRubles() * 100 + minElem.getKopeks();
+    for (auto& item: v) {
+        long long resultItem = (item.getRubles() * 100 + item.getKopeks()) - tmp;
+        item.setRubles(static_cast<int> (resultItem / 100));
+        item.setKopeks(static_cast<int> (resultItem % 100));
+    }
+}
 
 template<class T>
 T generateRandom(const T& left, const T& right) {
