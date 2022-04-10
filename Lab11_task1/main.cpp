@@ -12,7 +12,8 @@ auto minElement(const Vec& v) -> double;
 auto subtractMinElement(Vec& v) -> void;   //вычитание минимального числа элементов массива
 auto removeElementByIndex(Vec& v, const int& index) -> void;
 auto addItemToBeginVector(Vec& v, const double& item) -> void;
-auto generateRandom(const double& l, const double& r) -> double;  //рандомайзер
+template<class T>
+auto generateRandom(const T& left, const T& right) -> T;  //рандомайзер
 
 int main() {
 //constexpr: "Programming. Principles and Practice Using C++". Second Edition. Bjarne Stroustrup. Стр. 95
@@ -60,7 +61,8 @@ Vec makeVector(const int& k) {
     return v;
 }
 
-double generateRandom(const double& l, const double& r) {
+template<class T>
+T generateRandom(const T& left, const T& right) {
     /* -------------------------------------------------------------------------------------------------
      * std::random_device rd генератор для недетерминированных случайных чисел,
      * зависящий от непредсказуемого источника.
@@ -74,10 +76,23 @@ double generateRandom(const double& l, const double& r) {
      * https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
      * -------------------------------------------------------------------------------------------------
      */
+    //
+    const char* i = typeid(int).name();
+    const char* l = typeid(long).name();
+    const char* d = typeid(double).name();
+    const char* e = typeid(long double).name();
+
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_real_distribution<> dis(l, r);
-    return dis(gen);
+
+    if (typeid(T).name() == i || typeid(T).name() == l) {
+        std::uniform_int_distribution<> dis(left, right);
+        return dis(gen);
+    } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
+        std::uniform_real_distribution<> dis(left, right);
+        return dis(gen);
+    }
+    return 0;
 }
 
 void printVector(const Vec& v) {
