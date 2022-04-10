@@ -25,6 +25,7 @@ std::istream& operator>>(std::istream& in, List<T>& v) {
     return in;
 }
 
+
 template<class T>
 class List {
 public:
@@ -43,10 +44,8 @@ public:
     void addItemToBeginVector(T& elem);
     void removeElementByIndex(const int& index);
 // --------------------------- Overloads --------------------------- //
-
     friend std::istream& operator>><T>(std::istream&, List<T>&);
-    friend std::ostream& operator
-    <<<T>(std::ostream&, const List<T>&);
+    friend std::ostream& operator<<<T>(std::ostream&, const List<T>&);
 
 private:
     int size;   //размер списка
@@ -63,6 +62,7 @@ List<T>::List(const int& s) {
     }
     size = v.size();
 }
+
 //Принимает список объектов <T> и заполняем ими вектор.
 template<class T>
 List<T>::List(const std::initializer_list<T>& list) {
@@ -71,6 +71,7 @@ List<T>::List(const std::initializer_list<T>& list) {
     }
     size = list.size();
 }
+
 
 // ---------------------------- Methods ---------------------------- //
 template<class T>
@@ -102,6 +103,7 @@ template<class T>
 void List<T>::removeElementByIndex(const int& index) {
     v.erase(v.begin() + index);
 }
+
 template<class T>
 T List<T>::minElement() const {
     T minElem = v[0];
@@ -112,6 +114,7 @@ T List<T>::minElement() const {
     }
     return minElem;
 }
+
 template<class T>
 void List<T>::subtractMinElement() {
     T a = minElement();

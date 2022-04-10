@@ -18,11 +18,6 @@ public:
     Money operator-(const Money& rhs) const;
     Money& operator-=(const Money& rhs);
     Money operator/(const int& n) const;
-// ---------------------- Getters / Setters ------------------------ //
-//    int getKopeks() const { return kopeks; }
-//    long getRubles() const { return rubles; }
-//    void setKopeks(const int& k) { kopeks = k; }
-//    void setRubles(const long& r) { rubles = r; }
 // --------------------- Overloaded Functions ---------------------- //
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);

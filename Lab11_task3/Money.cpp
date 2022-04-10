@@ -36,12 +36,6 @@ bool Money::operator<(const Money& rhs) const {
     return lhsTmp < rhsTmp;
 }
 
-//bool Money::operator>(const Money& rhs) const {
-//    long long lhsTmp = rubles * 100 + kopeks;
-//    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-//    return lhsTmp > rhsTmp;
-//}
-
 std::ostream& operator<<(std::ostream& out, const Money& m) {
     std::cout << m.rubles << ",";
     if (m.kopeks < 10) {
@@ -110,20 +104,6 @@ Money& Money::operator-=(const Money& rhs)  {
     };
     return *this;
 }
-
-//Money Money::operator/(const Money& rhs) const {
-//    long long lhsTmp = static_cast<long long> (rubles * 100) + kopeks;
-//    long long rhsTmp = static_cast<long long> (rhs.rubles * 100) + rhs.kopeks;
-//    if (rhsTmp == 0) {
-//        std::cout << "Error! Divide by zero!";
-//        exit(1);
-//    }
-//    long long tmp = lhsTmp / rhsTmp;
-//    Money m;
-//    m.rubles = static_cast<long> (tmp / 100);
-//    m.kopeks = static_cast<int> (tmp % 100);
-//    return m;
-//}
 
 Money Money::operator/(const int& n) const {
     long long tmp = (static_cast<long long> (rubles * 100) + kopeks) / n;
