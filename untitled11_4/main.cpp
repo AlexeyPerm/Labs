@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
-#include "..\untitled_lab11_2\Time.h"
-#include "..\untitled_lab11_2\Time.cpp"
+#include "../untitled_lab11_2/Time.h"
+#include "../untitled_lab11_2/Time.cpp"
 #include <vector>
 #include <stack>
 
