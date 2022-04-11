@@ -8,11 +8,12 @@ typedef std::stack<Money> st;
 typedef std::vector<Money> vec;
 
 auto average(st s) -> Money;
-auto minElem(st& s) -> Money;
+auto minElement(st& s) -> Money;
 auto printStack(st s) -> void;
 auto makeStack(const int& n) -> st;
 auto copyVectorToStack(vec& v) -> st;
 auto copyStackToVector(st& s) -> vec;
+auto subtractMinElement(st& s) -> void;
 auto delByElemNumber(st& s, int& number) -> void;
 auto addElementToBeginStack(st& s, const Money& elem) -> void;
 
@@ -50,7 +51,13 @@ int main() {
         std::cout << "Error!" << std::endl;
     }
 
+    std::cout << "Minimum element: ";
+    auto minimumElement = minElement(st);
+    std::cout << minimumElement << std::endl;
 
+    std::cout << "Every element minus minimumElement:\n";
+    subtractMinElement(st);
+    printStack(st);
     return 0;
 }
 
@@ -133,7 +140,7 @@ void delByElemNumber(st& s, int& number) {
 
 }
 
-Money minElem(st& s) {
+Money minElement(st& s) {
     vec v = copyStackToVector(s);
     long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
     long long tmp;
@@ -149,6 +156,20 @@ Money minElem(st& s) {
     return m;
 }
 
+void subtractMinElement(st& s) {
+    vec v = copyStackToVector(s);
+    Money minElem = minElement(s);
+    long long tmp = minElem.getRubles() * 100 + minElem.getKopeks();
+    for (auto& item: v) {
+        long long resultItem = (item.getRubles() * 100 + item.getKopeks()) - tmp;
+        item.setRubles(static_cast<int> (resultItem / 100));
+        item.setKopeks(static_cast<int> (resultItem % 100));
+    }
+    while (!s.empty()) {
+        s.pop();
+    }
+    s = copyVectorToStack(v);
+}
 
 template<class T>
 T generateRandom(const T& left, const T& right) {
