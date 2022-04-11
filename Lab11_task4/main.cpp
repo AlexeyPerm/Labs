@@ -9,11 +9,11 @@ typedef std::vector<Money> vec;
 
 auto min(st s) -> int;
 auto average(st s) -> Money;
-auto delElementbyIndex(st& s, int& index) -> st;
 auto printStack(st s) -> void;
 auto makeStack(const int& n) -> st;
 auto copyVectorToStack(vec& v) -> st;
 auto copyStackToVector(st& s) -> vec;
+auto delByElemNumber(st& s, int& number) -> void;
 auto addElementToBeginStack(st& s, const Money& elem) -> void;
 
 template<class T>
@@ -21,6 +21,7 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 
 int main() {
+
 //Генерируем размер вектора от 1 до 10. При необходимости диапазон можно изменить.
     const int n = generateRandom(1, 10);
     std::cout << "Generated stack with size = " << n << ":\n";
@@ -34,6 +35,20 @@ int main() {
     std::cout << "Add average item to the beginning of the stack:\n";
     addElementToBeginStack(st, averageMoney);
     printStack(st);
+
+    try {
+        std::cout << "Remove element from the vector by index\n";
+        int number = number = generateRandom(0, static_cast<int> (st.size() - 1));
+        std::cout << "Index of removed element: " << number << std::endl;
+//        std::cout << "Element index must be [0;" << st.size() << ")" << std::endl;
+//        std::cout << "Index>";
+//        int number = 0;
+//        std::cin >> number;
+        delByElemNumber(st, number);
+        printStack(st);
+    } catch (int) {
+        std::cout << "Error!" << std::endl;
+    }
 
 
     return 0;
@@ -64,7 +79,7 @@ void printStack(st s) {
 Money average(st s) {
     Money m;
     m = 0;
-    int n = s.size();   //количество элементов в стеке
+    auto n = s.size();   //количество элементов в стеке
     while (!s.empty()) {
         m += s.top();
         s.pop();
@@ -84,9 +99,10 @@ vec copyStackToVector(st& s) {
     s = copyVectorToStack(v);
     return v;
 }
+
 st copyVectorToStack(vec& v) {
     st s;
-    for (int i = (v.size() - 1) ; i >= 0 ; --i) {
+    for (int i = (v.size() - 1); i >= 0; --i) {
         s.push(v[i]);
     }
     return s;
@@ -96,13 +112,24 @@ st copyVectorToStack(vec& v) {
 void addElementToBeginStack(st& s, const Money& elem) {
     vec v = copyStackToVector(s);
     v.insert(v.begin() + v.size(), elem);   //помещаем элемент в начало стека.
-    while (!s.empty()){
+    while (!s.empty()) {
         s.pop();
     }
     s = copyVectorToStack(v);
 }
 
-st delElementbyIndex(st& s, int& index){
+void delByElemNumber(st& s, int& number) {
+    vec v = copyStackToVector(s);
+    while (!s.empty()) {
+        s.pop();
+    }
+    int i = v.size() - 1;
+    do {
+        if (i != (v.size() - 1 - number)) {
+            s.push(v[i]);
+        }
+        --i;
+    } while (i >= 0);
 
 }
 
