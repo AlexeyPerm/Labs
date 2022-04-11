@@ -9,16 +9,20 @@ public:
     Money(long, int);
     Money(const Money&);
     ~Money() = default;
+
+// ---------------------- Getters / Setters ------------------------ //
+    long getRubles() const { return rubles; }
+    int getKopeks () const { return kopeks; }
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator=(const Money& rhs);
     Money& operator=(const int& n);   //конвертируем число в объект класса
-    bool operator<(const Money& rhs) const;
     Money operator+(const Money& rhs) const;
     Money& operator+=(const Money& rhs);
     Money operator-(const Money& rhs) const;
     Money& operator-=(const Money& rhs);
     Money operator/(const int& n) const;
-// --------------------- Overloaded Functions ---------------------- //
+    bool operator<(const Money& rhs) const;
+
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
 

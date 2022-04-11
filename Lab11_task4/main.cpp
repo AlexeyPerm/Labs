@@ -7,8 +7,8 @@
 typedef std::stack<Money> st;
 typedef std::vector<Money> vec;
 
-auto min(st s) -> int;
 auto average(st s) -> Money;
+auto minElem(st& s) -> Money;
 auto printStack(st s) -> void;
 auto makeStack(const int& n) -> st;
 auto copyVectorToStack(vec& v) -> st;
@@ -132,6 +132,25 @@ void delByElemNumber(st& s, int& number) {
     } while (i >= 0);
 
 }
+
+Money minElem(st& s) {
+    vec v = copyStackToVector(s);
+
+    long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
+    v[0].
+    long long tmp;
+    for (const auto& item: v) {
+        tmp = item.getRubles() * 100 + item.getKopeks();
+        if (tmp < minElem) {
+            minElem = tmp;
+        }
+    }
+    Money m;
+    m.setRubles(static_cast<int> (minElem / 100));
+    m.setKopeks(static_cast<int> (minElem % 100));
+    return m;
+}
+
 
 template<class T>
 T generateRandom(const T& left, const T& right) {
