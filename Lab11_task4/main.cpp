@@ -135,9 +135,7 @@ void delByElemNumber(st& s, int& number) {
 
 Money minElem(st& s) {
     vec v = copyStackToVector(s);
-
     long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
-    v[0].
     long long tmp;
     for (const auto& item: v) {
         tmp = item.getRubles() * 100 + item.getKopeks();
