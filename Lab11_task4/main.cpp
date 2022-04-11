@@ -14,7 +14,7 @@ auto makeStack(const int& n) -> st;
 auto copyVectorToStack(vec& v) -> st;
 auto copyStackToVector(st& s) -> vec;
 auto subtractMinElement(st& s) -> void;
-auto delByElemNumber(st& s, int& number) -> void;
+auto delByElemNumber(st& s, const int& number) -> void;
 auto addElementToBeginStack(st& s, const Money& elem) -> void;
 
 template<class T>
@@ -125,7 +125,7 @@ void addElementToBeginStack(st& s, const Money& elem) {
     s = copyVectorToStack(v);
 }
 
-void delByElemNumber(st& s, int& number) {
+void delByElemNumber(st& s, const int& number) {
     vec v = copyStackToVector(s);
     while (!s.empty()) {
         s.pop();
