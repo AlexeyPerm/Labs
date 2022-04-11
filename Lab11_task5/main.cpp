@@ -5,25 +5,45 @@
 #include "../Lab11_task3/Money.cpp"
 #include "List.h"
 
-std::vector<Money> copyStackToVector(std::stack<Money> st);
+/* Программа должна корректно (но это не точно) работать при типах данных int, long, long long, double, long double
+ * Для проверки работы при числовых типах данных раскомментировать строку #define NUMERIC_TYPES и в строке
+ * typedef int numType; вместо int указать необходимый тип
+ * Если необходимо работать с объектами класса Money, то строку #define NUMERIC_TYPES необходимо закомментировать.
+ */
+//#define NUMERIC_TYPES
+typedef double numType; //можно указать int, long, long long, double, long double,
+
 void generateElementsInStack(std::stack<Money>& st, const int& n);
+void generateElementsInStack(std::stack<numType>& st, const int& n);
+
+template<class T>
+std::vector<T> copyStackToVector(std::stack<T> st);
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
 int main() {
-//генерирую объекты класса Money для того, чтобы не вводит это всё постоянно руками, ибо лень
-    constexpr int n = 5;
-    std::stack<Money> st;
-    generateElementsInStack(st, n);
-    std::vector<Money> myVector = copyStackToVector(st);
+#ifndef NUMERIC_TYPES
+    //генерирую объекты класса Money для того, чтобы не вводит это всё постоянно руками, ибо лень
+        constexpr int n = 5;
+        std::stack<Money> st;
+        generateElementsInStack(st, n);
+        std::vector<Money> myVector = copyStackToVector(st);
 
-//через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
-    List<Money> list{myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
+    //через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
+        List<Money> list{myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
+        std::cout << "Created stack:\n";
+        list.print();
+#else
+    constexpr int n = 5;
+    std::stack<numType> st;
+    generateElementsInStack(st, n);
+    std::vector<numType> myVector = copyStackToVector(st);
+    List<numType> list{myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
     std::cout << "Created stack:\n";
     list.print();
-
+#endif //NUMERIC_TYPES
     std::cout << "Average: ";
-    Money averageMoney = list.average();
+    auto averageMoney = list.average();
     std::cout << averageMoney << std::endl;
 
     std::cout << "Add average item to the beginning of stack:\n";
@@ -40,14 +60,13 @@ int main() {
     auto minimumElement = list.minElement();
     std::cout << minimumElement << std::endl;
 
-    std::cout << "Every element minus minimumElement: ";
+    std::cout << "Every element minus minimumElement:\n";
     list.subtractMinElement();
     list.print();
 
-
-
     return 0;
 }
+
 
 void generateElementsInStack(std::stack<Money>& st, const int& n) {
     constexpr long lRubles = 0;
@@ -60,11 +79,21 @@ void generateElementsInStack(std::stack<Money>& st, const int& n) {
     }
 }
 
+void generateElementsInStack(std::stack<numType>& st, const int& n) {
+    for (int i = 0; i < n; ++i) {
+        numType left = 0;
+        numType right = 100;
+        auto k = generateRandom(left, right);
+        st.push(k);
+    }
+}
+
 template<class T>
 T generateRandom(const T& left, const T& right) {
     const char* i = typeid(int).name();
     const char* l = typeid(long).name();
     const char* d = typeid(double).name();
+    const char* ll = typeid(long long).name();
     const char* e = typeid(long double).name();
 
     std::random_device rd;
@@ -73,15 +102,16 @@ T generateRandom(const T& left, const T& right) {
     if (typeid(T).name() == i || typeid(T).name() == l) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
+    } else if ((typeid(T).name() == d) || (typeid(T).name() == e) || (typeid(T).name() == ll)) {
         std::uniform_real_distribution<> dis(left, right);
         return dis(gen);
     }
     return 0;
 }
 
-std::vector<Money> copyStackToVector(std::stack<Money> st) {
-    std::vector<Money> v;
+template<class T>
+std::vector<T> copyStackToVector(std::stack<T> st) {
+    std::vector<T> v;
     while (!st.empty()) {
         //добавить элемент из вершины стека
         v.push_back(st.top());
