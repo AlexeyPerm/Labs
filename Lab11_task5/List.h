@@ -41,11 +41,9 @@ public:
     T minElement ();
     T average() const;
     void subtractMinElement();
-    void addItemToBeginStack(T& elem);
-    int getSize() const { return size; }
-    void delByElemNumber(const int& number);
-
-
+    void addItemToBeginStack(T& elem) ;
+    int  getSize() const { return size; }
+    void delByElemNumber (const int& number);
 // --------------------------- Overloads --------------------------- //
     friend std::istream& operator>><T>(std::istream&, List<T>&);
     friend std::ostream& operator
@@ -55,7 +53,7 @@ private:
     int size;   //размер списка
     std::stack<T> st;    //указатель на массив элементов списка
     std::vector<T> copyStackToVector();
-    std::stack<T> copyVectorToStack(std::vector<T>& v);
+    std::stack<T>  copyVectorToStack(std::vector<T>& v);
 };
 
 // ------------------------- Constructors -------------------------- //
@@ -115,7 +113,6 @@ void List<T>::addItemToBeginStack(T& elem) {
 }
 
 template<class T>
-
 std::vector<T> List<T>::copyStackToVector() {
     std::vector<T> v;
     std::stack<T> tmp = st;
@@ -162,6 +159,7 @@ T List<T>::minElement() {
     }
     return minElem;
 }
+
 template<class T>
 void List<T>::subtractMinElement() {
     std::vector<T> v = copyStackToVector();
