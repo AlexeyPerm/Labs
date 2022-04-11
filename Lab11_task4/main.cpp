@@ -8,8 +8,8 @@ typedef std::stack<Money> st;
 typedef std::vector<Money> vec;
 
 auto min(st s) -> int;
-auto delElement(st& s) -> st;
 auto average(st s) -> Money;
+auto delElementbyIndex(st& s, int& index) -> st;
 auto printStack(st s) -> void;
 auto makeStack(const int& n) -> st;
 auto copyVectorToStack(vec& v) -> st;
@@ -31,7 +31,7 @@ int main() {
     auto averageMoney = average(st);
     std::cout << averageMoney << std::endl;
 
-    std::cout << "Add average item to the beginning of the vector:\n";
+    std::cout << "Add average item to the beginning of the stack:\n";
     addElementToBeginStack(st, averageMoney);
     printStack(st);
 
@@ -86,8 +86,8 @@ vec copyStackToVector(st& s) {
 }
 st copyVectorToStack(vec& v) {
     st s;
-    for (const auto& i: v) {
-        s.push(i);
+    for (int i = (v.size() - 1) ; i >= 0 ; --i) {
+        s.push(v[i]);
     }
     return s;
 }
@@ -95,12 +95,15 @@ st copyVectorToStack(vec& v) {
 
 void addElementToBeginStack(st& s, const Money& elem) {
     vec v = copyStackToVector(s);
-//    while (!s.empty()){
-//        v.push_back(s.top());
-//        s.pop();
-//    }
-    v.insert(v.begin(), elem);
+    v.insert(v.begin() + v.size(), elem);   //помещаем элемент в начало стека.
+    while (!s.empty()){
+        s.pop();
+    }
     s = copyVectorToStack(v);
+}
+
+st delElementbyIndex(st& s, int& index){
+
 }
 
 template<class T>
