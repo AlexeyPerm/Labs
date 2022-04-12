@@ -10,8 +10,8 @@
  * typedef int numType; вместо int указать необходимый тип
  * Если необходимо работать с объектами класса Money, то строку #define NUMERIC_TYPES необходимо закомментировать.
  */
-#define NUMERIC_TYPES
-typedef int numType; //можно указать int, long, long long, double, long double,
+//#define NUMERIC_TYPES
+typedef double numType; //можно указать int, long, long long, double, long double,
 
 void generateElementsInStack(std::stack<Money>&   st, const int& n);
 void generateElementsInStack(std::stack<numType>& st, const int& n);
@@ -85,8 +85,8 @@ void generateElementsInStack(std::stack<Money>& st, const int& n) {
 
 void generateElementsInStack(std::stack<numType>& st, const int& n) {
     for (int i = 0; i < n; ++i) {
-        numType left  = 0;
-        numType right = 100;
+        constexpr numType left  = 0;
+        constexpr numType right = 100;
         auto k = generateRandom(left, right);
         st.push(k);
     }
