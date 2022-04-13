@@ -55,16 +55,16 @@ ms makeMultiset(const int& n) {
  *это нужно для того, чтобы убедиться, что multiset отрабатывает так, как ожидается.
  * В конце цикла дублируем x.
 */
-    ms ms;
+    ms mset;
     for (int i = 0; i < n; ++i) {
         constexpr double right = 10.0;
         const double x = generateRandom(0.0, right);
-        ms.insert(x);
+        mset.insert(x);
         if (i == (n - 1)) {
-            ms.insert(x);
+            mset.insert(x);
         }
     }
-    return ms;
+    return mset;
 }
 
 void printMultiset(const ms& ms) {
