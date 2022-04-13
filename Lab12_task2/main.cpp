@@ -26,7 +26,7 @@ int main() {
     std::cout << msetAverage << std::endl;
 
 
-    std::cout << "Add average item to the beginning of the multiset:\n";
+    std::cout << "Add average item to the multiset:\n";
     mset.insert(msetAverage);
     printMultiset(mset);
 

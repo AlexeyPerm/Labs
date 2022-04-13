@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <stack>
 #include <istream>
 #include <ostream>
 #include <iostream>
@@ -38,12 +37,12 @@ public:
     ~List() = default;
 // ---------------------------- Methods ---------------------------- //
     void print();
-    T minElement ();
+    T minElement();
     T average() const;
     void subtractMinElement();
-    void addItemToBeginStack(T& elem) ;
-    int  getSize() const { return size; }
-    void delByElemNumber (const int& number);
+    void addItemToMultiSet(const T elem) { mset.insert(elem); }
+    int getSize() const { return size; }
+    void remove(T elem);
 // --------------------------- Overloads --------------------------- //
     friend std::istream& operator>><T>(std::istream&, List<T>&);
     friend std::ostream& operator
@@ -51,9 +50,7 @@ public:
 
 private:
     int size;   //размер списка
-    std::multiset<Money> mset;
-    std::multiset<Money>::iterator it;
-
+    std::multiset<T> mset;
 };
 
 // ------------------------- Constructors -------------------------- //
@@ -61,7 +58,7 @@ template<class T>
 List<T>::List(const int& n) {
     T a;
     for (int i = 0; i < n; ++i) {
-        //std::cin >> a;    //заменил генерацией случайных чисел.
+        std::cin >> a;    //заменил генерацией случайных чисел.
         mset.insert(a);
     }
     size = mset.size();
@@ -76,8 +73,49 @@ List<T>::List(const std::initializer_list<T>& list) {
     size = list.size();
 }
 
+template<class T>
+void List<T>::print() {
+    for (const auto item: mset) {
+        std::cout << item << "  ";
+    }
+    std::cout << std::endl;
+}
+
+template<class T>
+T List<T>::average() const {
+    T sum;
+    sum = 0;
+    for (const auto& item: mset) {
+        sum += item;
+    }
+
+    return sum / size;
+}
+
+template<class T>
+void List<T>::remove(T elem) {
+    auto i = mset.find(elem);
+    mset.erase(i);
+}
+
+template<class T>
+T List<T>::minElement() {
+    return *mset.begin();
+}
+
+template<class T>
+void List<T>::subtractMinElement() {
+    T minElement = *mset.begin();
+    std::vector<Money> vec;
+    for (const auto & i : mset) {
+        vec.push_back(i - minElement);
+    }
+    mset.clear();
+    for (const auto& item: vec) {
+        mset.insert(item);
+    }
+}
+
+
 // ---------------------------- Methods ---------------------------- //
 
-void print(){
-
-}
