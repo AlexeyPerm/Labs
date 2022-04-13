@@ -31,9 +31,10 @@ Money& Money::operator=(const Money& rhs) {
 }
 
 bool Money::operator<(const Money& rhs) const {
-    long long lhsTmp = rubles * 100 + kopeks;
-    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-    return lhsTmp < rhsTmp;
+//    long long lhsTmp = rubles * 100 + kopeks;
+//    long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
+//    return lhsTmp < rhsTmp;
+    return rubles < rhs.rubles || (rubles == rhs.rubles && kopeks < rhs.kopeks);
 }
 
 std::ostream& operator<<(std::ostream& out, const Money& m) {
@@ -94,7 +95,7 @@ Money Money::operator-(const Money& rhs) const {
     return m;
 }
 
-Money& Money::operator-=(const Money& rhs)  {
+Money& Money::operator-=(const Money& rhs) {
     if ((kopeks - rhs.kopeks) < 0) {
         rubles = rubles - rhs.rubles - 1;
         kopeks = 100 + (kopeks - rhs.kopeks);
