@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <set>
 
+//std::less<> - сортировка от меньшего к большему
 typedef std::multiset<double, std::less<>> mset;
 
 auto average(mset& ms) -> double;
@@ -30,7 +31,10 @@ int main() {
     mset.insert(msetAverage);
     printMultiset(mset);
 
-
+//Так как функция find() возвращает итератор, то создадим его.
+    mset::iterator it;
+   //it = mset.find(average);
+    //std::cout << (*it);
 
 
     return 0;
@@ -38,19 +42,16 @@ int main() {
 
 mset makeMultiset(const int& n) {
 /*Заполняем множество рандомными значениями. Одно из значений обязательно дублируем, так как
- *это нужно для того, чтобы убедить, что multiset отрабатывает так, как ожидается.
- *В цикле if() если номер элемента i будет равен сгенерированному числу, а это произойдёт в любому
- * случае, тогда дублируем элемент, значение которого хранится в переменной x.
+ *это нужно для того, чтобы убедиться, что multiset отрабатывает так, как ожидается.
+ * В конце цикла дублируем x.
 */
     mset ms;
-    bool flag = true;
     for (int i = 0; i < n; ++i) {
         constexpr double right = 10.0;
-        double x = generateRandom(0.0, right);
+        const double x = generateRandom(0.0, right);
         ms.insert(x);
-        if (i == generateRandom(i, n - 1) && flag) {
+        if (i == (n - 1)) {
             ms.insert(x);
-            flag = false;
         }
     }
     return ms;
