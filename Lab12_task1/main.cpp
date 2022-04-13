@@ -23,7 +23,7 @@ int main() {
     printMultiset(mset);
 
     std::cout << "Average: ";
-    auto msetAverage = average(mset);
+    const auto msetAverage = average(mset);
     std::cout << msetAverage << std::endl;
 
 //В задании говорится, что нужно поместить в начало контейнера среднее арифметическое.
@@ -36,11 +36,11 @@ int main() {
 //Так как функция find() возвращает итератор, то создадим его.
     auto i = mset.find(msetAverage);
     std::cout << "Remove element < " << *i << " > from the multiset.\n";
-    mset.erase(i);
+    mset.erase(i);  //удаляется элемент с позицией, на которую указывает итератор.
     printMultiset(mset);
 
     std::cout << "Minimum element: ";
-    double minElement = (*mset.begin());    //begin() возвращает итератор. Получаем значение с помощью *
+    const double minElement = (*mset.begin());    //begin() возвращает итератор. Получаем значение с помощью *
     std::cout << minElement << std::endl;
 
     std::cout << "Every element minus minimumElement:\n";
