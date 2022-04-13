@@ -1,23 +1,25 @@
-#include <iostream>
-#include <random>
-#include <iomanip>
 #include <set>
+#include <random>
+#include <vector>
+#include <iomanip>
+#include <iostream>
 
 //std::less<> - сортировка от меньшего к большему
-typedef std::multiset<double, std::less<>> mset;
+typedef std::multiset<double> ms;
+typedef std::multiset<double>::iterator it;
 
-auto average(mset& ms) -> double;
-auto printMultiset(mset& ms) -> void;
-auto makeMultiset(const int& n) -> mset;
-
+auto makeMultiset(const int& n) -> ms;
+auto average(const ms& mset) -> double;
+auto printMultiset(const ms& mset) -> void;
+auto subtractMinElement(ms& mset, double elem) -> void;
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
 int main() {
     constexpr int n = 9;
 //Генерируем 9 элементов множества плюс одно дублируем. На выходе получаем множество с 10 элементами.
-    auto mset = makeMultiset(n);
-    std::cout << "Created stack:\n";
+    ms mset = makeMultiset(n);
+    std::cout << "\nCreated stack:\n";
     printMultiset(mset);
 
     std::cout << "Average: ";
@@ -32,20 +34,28 @@ int main() {
     printMultiset(mset);
 
 //Так как функция find() возвращает итератор, то создадим его.
-    mset::iterator it;
-   //it = mset.find(average);
-    //std::cout << (*it);
+    auto i = mset.find(msetAverage);
+    std::cout << "Remove element < " << *i << " > from the multiset.\n";
+    mset.erase(i);
+    printMultiset(mset);
 
+    std::cout << "Minimum element: ";
+    double minElement = (*mset.begin());    //begin() возвращает итератор. Получаем значение с помощью *
+    std::cout << minElement << std::endl;
+
+    std::cout << "Every element minus minimumElement:\n";
+    subtractMinElement(mset, minElement);
+    printMultiset(mset);
 
     return 0;
 }
 
-mset makeMultiset(const int& n) {
+ms makeMultiset(const int& n) {
 /*Заполняем множество рандомными значениями. Одно из значений обязательно дублируем, так как
  *это нужно для того, чтобы убедиться, что multiset отрабатывает так, как ожидается.
  * В конце цикла дублируем x.
 */
-    mset ms;
+    ms ms;
     for (int i = 0; i < n; ++i) {
         constexpr double right = 10.0;
         const double x = generateRandom(0.0, right);
@@ -57,28 +67,40 @@ mset makeMultiset(const int& n) {
     return ms;
 }
 
-void printMultiset(mset& ms) {
+void printMultiset(const ms& ms) {
     for (const auto& item: ms) {
         std::cout << std::fixed << std::setprecision(2) << item << "  ";
     }
     std::cout << std::endl;
 }
 
-double average(mset& ms) {
+double average(const ms& ms) {
     double sum = 0;
-    for (auto& item: ms) {
+    for (const auto& item: ms) {
         sum += item;
     }
     return (sum / ms.size());
 }
 
+void subtractMinElement(ms& mset, const double elem) {
+    std::vector<double> vec;
+    int k = 0;
+    for (auto i = mset.begin(); i != mset.end(); ++i, ++k) {
+        vec.push_back(*i - elem);
+    }
+    mset.clear();
+    for (auto item: vec) {
+        mset.insert(item);
+    }
+}
+
 template<class T>
 T generateRandom(const T& left, const T& right) {
-    const char* i = typeid(int).name();
-    const char* l = typeid(long).name();
-    const char* d = typeid(double).name();
+    const char* i  = typeid(int).name();
+    const char* l  = typeid(long).name();
+    const char* d  = typeid(double).name();
     const char* ll = typeid(long long).name();
-    const char* e = typeid(long double).name();
+    const char* e  = typeid(long double).name();
 
     std::random_device rd;
     std::mt19937 gen(rd());
