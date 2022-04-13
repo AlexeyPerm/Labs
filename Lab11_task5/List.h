@@ -61,7 +61,7 @@ template<class T>
 List<T>::List(const int& s) {
     T a;
     for (int i = 0; i < s; ++i) {
-        //std::cin >> a;    //заменил генерацией случайных чисел.
+        std::cin >> a;    //заменил генерацией случайных чисел
         st.push(a);
     }
     size = st.size();
