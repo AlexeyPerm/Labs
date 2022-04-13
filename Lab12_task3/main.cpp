@@ -10,7 +10,7 @@
  * typedef int numType; вместо int указать необходимый тип
  * Если необходимо работать с объектами класса Money, то строку #define NUMERIC_TYPES необходимо закомментировать.
  */
-#define NUMERIC_TYPES
+//#define NUMERIC_TYPES
 
 typedef double numType; //можно указать int, long, long long, double, long double,
 
@@ -27,17 +27,19 @@ int main() {
 //Генерируем 9 элементов множества плюс одно дублируем. На выходе получаем множество с 10 элементами.
     constexpr int n = 5;
     //List<Money> list(n);  //если хочется вводить данные руками %-)
-    std::vector<Money> myVector;
-    generateElementsInMultiset(myVector, n);
-    List<Money> list{myVector[5], myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
+    std::vector<Money> myVector;    //закомментировать при ручном вводе.
+    generateElementsInMultiset(myVector, n);    //закомментировать при ручном вводе.
+    List<Money> list{myVector[5], myVector[4], myVector[3],
+                     myVector[2], myVector[1], myVector[0]};    //закомментировать при ручном вводе.
     std::cout << "\nCreated multiset:\n";
     list.print();
 #else
     constexpr int n = 5;
-    //List<numType> list(n);
-    std::vector<numType> myVector;
-    generateElementsInMultiset(myVector, n);
-    List<numType> list{myVector[5], myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
+    //List<numType> list(n);    //если хочется вводить данные руками %-)
+    std::vector<numType> myVector;  //закомментировать при ручном вводе.
+    generateElementsInMultiset(myVector, n);    //закомментировать при ручном вводе.
+    List<numType> list{myVector[5], myVector[4], myVector[3],
+                       myVector[2], myVector[1], myVector[0]};   //закомментировать при ручном вводе.
     std::cout << "\nCreated multiset:\n";
     list.print();
 
