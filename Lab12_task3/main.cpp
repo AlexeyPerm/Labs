@@ -5,6 +5,13 @@
 #include "Money.h"
 #include "List.h"
 
+/* Программа должна корректно (но это не точно) работать при типах данных int, long, long long, double, long double
+ * Для проверки работы при числовых типах данных раскомментировать строку #define NUMERIC_TYPES и в строке
+ * typedef int numType; вместо int указать необходимый тип
+ * Если необходимо работать с объектами класса Money, то строку #define NUMERIC_TYPES необходимо закомментировать.
+ */
+#define NUMERIC_TYPES
+
 typedef double numType; //можно указать int, long, long long, double, long double,
 
 void generateElementsInMultiset(std::vector<Money>&, const int& n);
@@ -15,6 +22,8 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 
 int main() {
+#ifndef NUMERIC_TYPES
+
 //Генерируем 9 элементов множества плюс одно дублируем. На выходе получаем множество с 10 элементами.
     constexpr int n = 5;
     //List<Money> list(n);  //если хочется вводить данные руками %-)
@@ -23,7 +32,16 @@ int main() {
     List<Money> list{myVector[5], myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
     std::cout << "\nCreated multiset:\n";
     list.print();
+#else
+    constexpr int n = 5;
+    //List<numType> list(n);
+    std::vector<numType> myVector;
+    generateElementsInMultiset(myVector, n);
+    List<numType> list{myVector[5], myVector[4], myVector[3], myVector[2], myVector[1], myVector[0]};
+    std::cout << "\nCreated multiset:\n";
+    list.print();
 
+#endif //NUMERIC_TYPES
     std::cout << "Average: ";
     const auto msetAverage = list.average();
     std::cout << msetAverage << std::endl;
@@ -37,7 +55,7 @@ int main() {
     list.print();
 
     std::cout << "Minimum element: ";
-    const Money minElement = list.minElement();    //begin() возвращает итератор. Получаем значение с помощью *
+    const auto minElement = list.minElement();    //begin() возвращает итератор. Получаем значение с помощью *
     std::cout << minElement << std::endl;
 
     std::cout << "Every element minus minimumElement:\n";

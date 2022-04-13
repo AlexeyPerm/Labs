@@ -39,10 +39,9 @@ public:
     void print();
     T minElement();
     T average() const;
+    void remove(T elem);
     void subtractMinElement();
     void addItemToMultiSet(const T elem) { mset.insert(elem); }
-    int getSize() const { return size; }
-    void remove(T elem);
 // --------------------------- Overloads --------------------------- //
     friend std::istream& operator>><T>(std::istream&, List<T>&);
     friend std::ostream& operator
@@ -106,7 +105,7 @@ T List<T>::minElement() {
 template<class T>
 void List<T>::subtractMinElement() {
     T minElement = *mset.begin();
-    std::vector<Money> vec;
+    std::vector<T> vec;
     for (const auto & i : mset) {
         vec.push_back(i - minElement);
     }
