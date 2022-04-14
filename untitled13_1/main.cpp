@@ -1,7 +1,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
-#include "../Lab12_task3/Money.cpp"
+#include "Money.h"
 
 typedef std::vector<Money> Vec;
 Vec makeVector(int n);
@@ -12,17 +12,23 @@ Money average(Vec& v);
 Money g_m;
 
 struct Greater_s {
-    bool operator()(Money m) {
+    bool operator()(const Money& m) {
         return m > g_m;
     }
 };
 
 struct compLess {
-    bool operator()(Money m1, Money m2) {
+    bool operator()(const Money& m1, const Money& m2) {
         return m1 > m2;
     }
 };
 
+struct equalS {
+    bool operator()(const Money& m) {
+        return m == g_m;
+    }
+
+};
 
 int main() {
     int n = 3;
@@ -46,6 +52,18 @@ int main() {
     std::cout << "sorted <" << std::endl;
     sort(v.begin(), v.end(), compLess());
     printVector(v);
+
+    std::cout << "POISK" << std::endl;
+
+    std::cin>>g_m;
+
+    it = find_if(v.begin(), v.end(), equalS());
+    if (it != v.end()) {
+        std::cout << *(it) << std::endl;
+    } else {
+        std::cout << "Not such element!" << std::endl;
+    }
+
 
     return 0;
 }
