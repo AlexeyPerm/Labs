@@ -35,9 +35,9 @@ int main() {
 
     std::cout << "Remove element with value = " << v[randomIndex] << " from the vector. " << std::endl;
     auto removeElement = v[randomIndex];
-//Можно сразу передать в erase() возвращаемый итератор функции remove(), как стартовую позицию. Сложно читается.
+//Можно сразу передать в erase() возвращаемый итератор функции remove(), как стартовую позицию, но это сложно читается.
 //v.erase(remove(v.begin(), v.end(), removeElement), v.end());
-//а создать переменную, которая будет хранить возвращаемый итератор.
+//А можно создать переменную, которая будет хранить возвращаемый итератор.
     auto it = remove(v.begin(), v.end(), removeElement);
     v.erase(it, v.end());
     printVector(v);
