@@ -37,6 +37,11 @@ bool Money::operator<(const Money& rhs) const {
     return rubles < rhs.rubles || (rubles == rhs.rubles && kopeks < rhs.kopeks);
 }
 
+bool Money::operator>(const Money& rhs) const {
+    return rubles > rhs.rubles || (rubles == rhs.rubles && kopeks > rhs.kopeks);
+}
+
+
 std::ostream& operator<<(std::ostream& out, const Money& m) {
     std::cout << m.rubles << ",";
     if (m.kopeks < 10) {

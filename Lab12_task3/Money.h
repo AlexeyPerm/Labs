@@ -22,7 +22,8 @@ public:
     Money operator-(const Money& rhs) const;
     Money& operator-=(const Money& rhs);
     Money operator/(const int& n) const;
-    bool operator<(const Money& rhs) const;
+    bool operator<(const Money& rhs) const; 
+	bool operator>(const Money& rhs) const;
 
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
