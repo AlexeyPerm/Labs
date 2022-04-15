@@ -11,7 +11,6 @@ const Money g_m;
 
 auto printStack(St s) -> void;
 auto genRandomMoney() -> Money;
-auto minElement(St& s) -> Money;
 auto makeStack(const int& n) -> St;
 auto copyVectorToStack(Vec& v) -> St;
 auto copyStackToVector(St& s) -> Vec;
@@ -115,37 +114,6 @@ void delByElemNumber(St& s, const int& number) {
         --i;
     } while (i >= 0);
 
-}
-
-Money minElement(St& s) {
-    Vec v = copyStackToVector(s);
-    long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
-    long long tmp;
-    for (const auto& item: v) {
-        tmp = item.getRubles() * 100 + item.getKopeks();
-        if (tmp < minElem) {
-            minElem = tmp;
-        }
-    }
-    Money m;
-    m.setRubles(static_cast<int> (minElem / 100));
-    m.setKopeks(static_cast<int> (minElem % 100));
-    return m;
-}
-
-void subtractMinElement(St& s) {
-    Vec v = copyStackToVector(s);
-    Money minElem = minElement(s);
-    long long tmp = minElem.getRubles() * 100 + minElem.getKopeks();
-    for (auto& item: v) {
-        long long resultItem = (item.getRubles() * 100 + item.getKopeks()) - tmp;
-        item.setRubles(static_cast<int> (resultItem / 100));
-        item.setKopeks(static_cast<int> (resultItem % 100));
-    }
-    while (!s.empty()) {
-        s.pop();
-    }
-    s = copyVectorToStack(v);
 }
 
 template<class T>
