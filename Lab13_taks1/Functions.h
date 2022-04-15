@@ -4,14 +4,14 @@
 #include <iomanip>
 #include "Money.h"
 
-Money g_m;
+const Money g_m;    //Обнулённый объект класса.
 typedef std::vector<Money> Vec;
 auto makeVector(const int& n) -> Vec;
 auto printVector(const Vec& v) -> void;
 auto genRandomMoney() -> Money;
 
 template<class T>
-T generateRandom(const T& left, const T& right);  //рандомайзер
+T generateRandom(const T& left, const T& right);    //рандомайзер
 
 // --------------------- Predicates --------------------- //
 
