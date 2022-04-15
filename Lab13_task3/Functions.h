@@ -18,10 +18,10 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 // --------------------- Predicates --------------------- //
 
 
-template<class T>
-struct equalMoney : std::binary_function<T, T, bool> {
-    bool operator()(const T& lhs, const T& rhs) const {
-        return lhs == rhs.second;
+
+struct equalMoney {
+    bool operator()(std::pair<int, Money>& lhs, Money& rhs) const {
+        return lhs.second == rhs;
     }
 };
 

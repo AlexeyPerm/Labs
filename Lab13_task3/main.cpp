@@ -37,8 +37,12 @@ int main() {
 //В связывателе bind2nd(equalMoney<Money>(), randomMoney) через предикат сравниваем каждый элемент контейнера
 //с randomMoney. Если они равны, тогда сравниваемый элемент заменяется на элемент averageMoney. Тем самым
 //было выполнено п.3 задачи №1.
-    std::replace_if(myMap.begin(), myMap.end(),
-                    std::bind2nd(equalMoney<std::pair<int, Money>>(), randomMoney), averageMoney);
+//    std::replace_if(myMap.begin(), myMap.end(),
+//                    std::bind2nd(equalMoney(), randomMoney), randomMoney), averageMoney);
+    std::replace_if(myMap.begin(), myMap.end(), [&randomMoney](auto& item){
+        return randomMoney == item.second;
+    }, averageMoney);
+
     printMap(myMap);
 
 
