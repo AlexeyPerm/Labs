@@ -12,16 +12,23 @@ auto printVector(const Vec& v) -> void;
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
-// --------------------- Predicates ---------------------- //
+// --------------------- Predicates --------------------- //
+
+
+
+struct evenRubles{
+    bool operator()(Money &m) {
+        return ((m.getRubles() % 2) == 0 && m.getRubles() != 0);
+    }
+};
 
 struct compLess {
-    bool operator()(Money &rhs, Money& lsh) {
-        return rhs > lsh;
+    bool operator()(Money &lsh , Money& rhs) {
+        return lsh > rhs;
     }
 };
 
 // --------------------- Functions ---------------------- //
-
 Vec makeVector(const int& n) {
     Vec v;
     constexpr long lRubles = 0;
