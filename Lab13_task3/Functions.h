@@ -17,14 +17,6 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 // --------------------- Predicates --------------------- //
 
-
-
-struct equalMoney {
-    bool operator()(std::pair<int, Money>& lhs, Money& rhs) const {
-        return lhs.second == rhs;
-    }
-};
-
 //Подсмотрел этот вариант https://stackoverflow.com/questions/31354947/adding-all-values-of-map-using-stdaccumulate
 //Шаблон не обязателен, но он более универсален.
 //struct accumulateMapValues {
@@ -54,6 +46,10 @@ struct compLess {
 };
 
 // --------------------- Functions ---------------------- //
+
+bool equalMoney(const std::pair<int, Money>& lhs, const Money& rhs) {
+    return lhs.second == rhs;
+}
 
 Money genRandomMoney() {
     long r = generateRandom(0, 1000);
