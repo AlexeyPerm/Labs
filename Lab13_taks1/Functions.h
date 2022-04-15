@@ -8,22 +8,28 @@ Money g_m;
 typedef std::vector<Money> Vec;
 auto makeVector(const int& n) -> Vec;
 auto printVector(const Vec& v) -> void;
+auto genRandomMoney() -> Money;
 
 template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
 // --------------------- Predicates --------------------- //
 
+template<class T>
+struct equalMoney : std::binary_function<T, T, bool> {
+    bool operator()(const T& lhs, const T& rhs) const {
+        return lhs == rhs;
+    }
+};
 
-
-struct evenRubles{
-    bool operator()(Money &m) {
+struct evenRubles {
+    bool operator()(Money& m) {
         return ((m.getRubles() % 2) == 0 && m.getRubles() != 0);
     }
 };
 
 struct compLess {
-    bool operator()(Money &lsh , Money& rhs) {
+    bool operator()(Money& lsh, Money& rhs) {
         return lsh > rhs;
     }
 };
@@ -51,6 +57,14 @@ void printVector(const Vec& v) {
     }
     std::cout << std::endl;
 }
+
+Money genRandomMoney() {
+    long r = generateRandom(0, 1000);
+    int k = generateRandom(0, 99);
+    Money genMoney(r, k);
+    return genMoney;
+}
+
 
 template<class T>
 T generateRandom(const T& left, const T& right) {

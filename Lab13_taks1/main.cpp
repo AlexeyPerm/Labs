@@ -9,10 +9,15 @@ typedef std::vector<Money> Vec;
 int main() {
 //Генерируем размер вектора от 4 до 10. При необходимости диапазон можно изменить.
     const int n = generateRandom(4, 10);
+
     std::cout << "Generated vector with size = " << n << ":\n";
     Vec v = makeVector(n);
     printVector(v);
-    std::cout << "Average: ";
+
+//Генерируем случайны элемент. И вставляем его в начало контейнера.
+//Нужно для выполнения задания с заменой элементов.
+    Money randomMoney = genRandomMoney();
+    v.insert(v.begin(), randomMoney);
 
 /*std::accumulate() суммирует элементы в контейнере.
 * Последний параметр функции - с какого значения будут производиться
@@ -20,12 +25,18 @@ int main() {
 * https://en.cppreference.com/w/cpp/algorithm/accumulate
  *https://youtu.be/kxYJkyQuYQU
 */
+    std::cout << "Average: ";
     auto averageMoney = std::accumulate(v.begin(), v.end(), g_m) / static_cast<int> (v.size());
     std::cout << averageMoney << std::endl;
-
     std::cout << "Add average item to the beginning of the vector:\n";
-    v.insert(v.begin(), averageMoney);
+
+//В связывателе bind2nd(equalMoney<Money>(), randomMoney) через предикат сравниваем каждый элемент контейнера
+//с randomMoney. Если они равны, тогда сравниваемый элемент заменяется на элемент averageMoney. Тем самым
+//было выполнено п.3 задачи №1.
+    std::replace_if(v.begin(), v.end(),
+                    std::bind2nd(equalMoney<Money>(), randomMoney), averageMoney);
     printVector(v);
+
 
     std::cout << "Duplicate random item:\n";
     //добавляем дубликат какого-либо элемента в контейнере в случайное место.
@@ -33,6 +44,7 @@ int main() {
     int randomPos = generateRandom(0, static_cast<int> (v.size()) - 1); //случайной номер позиции в контейнере
     v.insert(v.begin() + randomNum, v[randomPos]);
     printVector(v);
+
 
     std::cout << "Remove elements with value = " << v[randomNum] << " from the vector. " << std::endl;
     auto removeElement = v[randomNum];
