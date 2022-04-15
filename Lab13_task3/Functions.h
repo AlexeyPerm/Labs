@@ -17,10 +17,11 @@ T generateRandom(const T& left, const T& right);  //рандомайзер
 
 // --------------------- Predicates --------------------- //
 
+
 template<class T>
 struct equalMoney : std::binary_function<T, T, bool> {
     bool operator()(const T& lhs, const T& rhs) const {
-        return lhs == rhs;
+        return lhs == rhs.second;
     }
 };
 
@@ -32,6 +33,7 @@ struct equalMoney : std::binary_function<T, T, bool> {
 //        return value + item.second;
 //    }
 //};
+
 //Считаем сумму текущего элемента item контейнера с временной переменной value, в которой накапливается результат
 struct accumulateMapValues {
     Money operator()(const Money& value, const auto& item) const {

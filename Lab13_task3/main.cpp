@@ -32,9 +32,14 @@ int main() {
     auto averageMoney = std::accumulate(myMap.begin(), myMap.end(),
                                         g_m, accumulateMapValues()) / static_cast<int> (myMap.size());
     std::cout << averageMoney << std::endl;
-    std::cout << "Add average item to the beginning of the vector:\n";
+    std::cout << "Add average item to the beginning of the map:\n";
 
-
+//В связывателе bind2nd(equalMoney<Money>(), randomMoney) через предикат сравниваем каждый элемент контейнера
+//с randomMoney. Если они равны, тогда сравниваемый элемент заменяется на элемент averageMoney. Тем самым
+//было выполнено п.3 задачи №1.
+    std::replace_if(myMap.begin(), myMap.end(),
+                    std::bind2nd(equalMoney<std::pair<int, Money>>(), randomMoney), averageMoney);
+    printMap(myMap);
 
 
     return 0;
