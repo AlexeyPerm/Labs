@@ -16,7 +16,6 @@ template<class T>
 T generateRandom(const T& left, const T& right);  //рандомайзер
 
 // --------------------- Predicates --------------------- //
-
 //Подсмотрел этот вариант https://stackoverflow.com/questions/31354947/adding-all-values-of-map-using-stdaccumulate
 //Шаблон не обязателен, но он более универсален.
 //struct accumulateMapValues {
@@ -33,23 +32,7 @@ struct accumulateMapValues {
     }
 };
 
-struct evenRubles {
-    bool operator()(Money& m) {
-        return ((m.getRubles() % 2) == 0 && m.getRubles() != 0);
-    }
-};
-
-struct compLess {
-    bool operator()(Money& lsh, Money& rhs) {
-        return lsh > rhs;
-    }
-};
-
 // --------------------- Functions ---------------------- //
-
-bool equalMoney(const std::pair<int, Money>& lhs, const Money& rhs) {
-    return lhs.second == rhs;
-}
 
 Money genRandomMoney() {
     long r = generateRandom(0, 1000);
@@ -59,6 +42,16 @@ Money genRandomMoney() {
 }
 
 Map makeMap(const int& n) {
+/*
+ * Решил попробовать метод emplace(), вместо insert(). Так как во время вызова insert() можно увидеть
+ * следующее:
+ * 1. Сначала выполняется конструктор временного объекта класса Money
+ * 2. Затем, для объекта, непосредственно расположенного внутри вектора, вызывается конструктор перемещения
+ * (если такой определен в MyClass, если не определен – тогда вызывается конструктор копирования)
+ * 3. Деструктор временного объекта.
+ * В свою очередь метод emplace_back() сразу создаёт объект внутри вектора.
+ * https://habr.com/ru/post/242639/
+*/
     Map s;
     constexpr long lRubles = 0;
     constexpr int iKopeks = 0;
@@ -66,7 +59,7 @@ Map makeMap(const int& n) {
         long r = generateRandom(lRubles, lRubles + 1000);
         int k = generateRandom(iKopeks, iKopeks + 99);
         Money m(r, k);
-        s.insert(std::make_pair(i + 1, m));
+        s.emplace(std::make_pair(i + 1, m));
     }
     return s;
 }
