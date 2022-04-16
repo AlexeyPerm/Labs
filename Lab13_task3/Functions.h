@@ -8,8 +8,6 @@ typedef std::map<int, Money> Map;
 const Money g_m;
 
 auto printMap(const Map& m) -> void;
-auto genRandomMoney() -> Money;
-auto minElement(Map& s) -> Money;
 auto makeMap(const int& n) -> Map;
 
 template<class T>
@@ -34,13 +32,6 @@ struct accumulateMapValues {
 
 // --------------------- Functions ---------------------- //
 
-Money genRandomMoney() {
-    long r = generateRandom(0, 1000);
-    int k = generateRandom(0, 99);
-    Money genMoney(r, k);
-    return genMoney;
-}
-
 Map makeMap(const int& n) {
 /*
  * Решил попробовать метод emplace(), вместо insert(). Так как во время вызова insert() можно увидеть
@@ -54,10 +45,10 @@ Map makeMap(const int& n) {
 */
     Map s;
     constexpr long lRubles = 0;
-    constexpr int iKopeks = 0;
+    constexpr int  iKopeks = 0;
     for (int i = 0; i < n; ++i) {
         long r = generateRandom(lRubles, lRubles + 1000);
-        int k = generateRandom(iKopeks, iKopeks + 99);
+        int  k = generateRandom(iKopeks, iKopeks + 99);
         Money m(r, k);
         s.emplace(std::make_pair(i + 1, m));
     }
@@ -68,9 +59,7 @@ void printMap(const Map& m) {
     for (const auto& item: m) {
         std::cout << item.first << " : " << item.second << std::endl;
     }
-
 }
-
 
 template<class T>
 T generateRandom(const T& left, const T& right) {
@@ -88,19 +77,20 @@ T generateRandom(const T& left, const T& right) {
      * -------------------------------------------------------------------------------------------------
      */
 
-    const char* i = typeid(int).name();
-    const char* l = typeid(long).name();
-    const char* d = typeid(double).name();
+    const char* i  = typeid(int).name();
+    const char* l  = typeid(long).name();
+    const char* d  = typeid(double).name();
     const char* ll = typeid(long long).name();
-    const char* e = typeid(long double).name();
+    const char* e  = typeid(long double).name();
 
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    if (typeid(T).name() == i || typeid(T).name() == l) {
+    if (typeid(T).name() == i || typeid(T).name() == l || typeid(T).name() == ll) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
+    }
+    else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
         std::uniform_real_distribution<> dis(left, right);
         return dis(gen);
     }

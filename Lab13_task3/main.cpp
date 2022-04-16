@@ -11,7 +11,7 @@ int main() {
 
     const int n = generateRandom(4, 10);
     std::cout << "Generated stack with size = " << n << ":\n";
-    auto myMap = makeMap(n);
+    Map myMap = makeMap(n);
     printMap(myMap);
 
 /*std::accumulate() суммирует элементы в контейнере.
@@ -23,7 +23,7 @@ int main() {
  *                                   _Tp __init, _BinaryOperation __binary_op)
 */
     std::cout << "Average item: ";
-    auto averageMoney = std::accumulate(myMap.begin(), myMap.end(),
+    Money averageMoney = std::accumulate(myMap.begin(), myMap.end(),
                                         g_m, accumulateMapValues()) / static_cast<int> (myMap.size());
     std::cout << averageMoney << std::endl;
     std::cout << "Add average item to the map:\n";
@@ -41,7 +41,7 @@ int main() {
     auto it = std::min_element(myMap.begin(), myMap.end(),
                                [](const auto& lhs, const auto& rhs) { return lhs.second < rhs.second; });
     std::cout << it->first << " : " << it->second << std::endl;
-    auto minElement = it->second;
+    Money minElement = it->second;
 
     std::cout << "Every element minus minimumElement:\n";
     std::for_each(myMap.begin(), myMap.end(),

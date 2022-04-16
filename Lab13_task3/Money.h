@@ -9,10 +9,10 @@ public:
     Money(const Money&);
     ~Money() = default;
 // ---------------------- Getters / Setters ------------------------ //
-    long getRubles() const { return rubles; }
-    int getKopeks() const  { return kopeks; }
-    void setRubles(const long r) { rubles = r; }
-    void setKopeks(const int k)  { kopeks = k; }
+    inline long getRubles() const { return rubles; }
+    inline int getKopeks() const  { return kopeks; }
+    inline void setRubles(const long r) { rubles = r; }
+    inline void setKopeks(const int k)  { kopeks = k; }
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator=(const int& n);   //конвертируем число в объект класса
     Money& operator=(const  Money& rhs);
