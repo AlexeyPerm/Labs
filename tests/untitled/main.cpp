@@ -1,94 +1,74 @@
 #include <iostream>
-#include "Point.h"
-#include <ctime>
-using namespace std;
 
-int main()
-{
-    setlocale(LC_ALL, "rus");
-    srand(time(0));
 
-    int choose;
-    point* root = nullptr;
-    bool is_tree_find = false;
+typedef struct Node {
+    int value;
+    Node* left;
+    Node* right;
+} Node;
 
-    do
-    {
-        cout << "0.Выход" << endl;
-        cout << "1.Сформировать идеально сбалансированное бинарное дерево" << endl;
-        cout << "2.Распечатать дерево" << endl;
-        cout << "3.Найти минимальный элемент в дереве" << endl;
-        cout << "4.Преобразовать идеально сбалансированное дерево в дерево поиска" << endl;
+//создание нового элемента
+Node* createNode(int i);
 
-        cin >> choose;
+//вставляет элемент в дерево с корнем root
+void insertIntoTree(Node* root, Node* elem);
 
-        switch (choose)
-        {
-            case 1:
-            {
-                int count;
-                cout << "Кол-во эл-тов = ";
-                cin >> count;
+//Печать дерево от элемента вниз.
+void printTree(Node* curElem);
 
-                if (root != nullptr)
-                    destroy(root);
+int main() {
 
-                is_tree_find = false;
-                root = build_ideal_tree(count);
-                break;
-            }
-            case 2:
-            {
-                if (root != nullptr)
-                    print_tree(root, 0);
-                else
-                    cout << "Сначала сформируйте дерево!" << endl;
-                break;
-            }
-            case 3:
-            {
-                if (root != nullptr)
-                {
-                    double min;
-                    if (is_tree_find == false)
-                    {
-                        min = root->data;
-                        find_min(root, min);
-                    }
-                    else
-                    {
-                        min = find_min_find_tree(root);
-                    }
+    int a[7]{-3, 1, -5, 40, 2, -6, 8};
+    Node* root = createNode(0);
+    for (int i = 0; i < 7; ++i) {
+        Node* el = createNode(a[i]);
+        insertIntoTree(root, el);
+    }
 
-                    cout << "Минимальный элемент = " << min << endl;
-                }
-                else
-                    cout << "Сначала сформируйте дерево!" << endl;
-                break;
-            }
-            case 4:
-            {
-                if (root != nullptr)
-                {
-                    point* new_root = nullptr;
-                    build_find_tree(root, &new_root);
-                    destroy(root);
-                    root = new_root;
-                    is_tree_find = true;
-                }
-                else
-                    cout << "Сначала сформируйте дерево!" << endl;
-                break;
-            }
-            case 0:
-            {
-                destroy(root);
-                break;
-            }
-            default:
-                cout << "Неверный пункт меню" << endl;
-                break;
+
+    std::cout << "My tree: " << std::endl;
+    printTree(root);
+
+    return 0;
+}
+
+Node* createNode(int i) {
+    Node* elem = new Node;
+    elem->value = i;
+    elem->left = nullptr;
+    elem->right = nullptr;
+    return elem;
+}
+
+void insertIntoTree(Node* root, Node* elem) {
+    if (elem->value < root->value) {
+        //Идёт в левое поддерево
+        if (root->left == nullptr) {
+            //Левое поддерево пустое. Сюда вставим elem.
+            root->left = elem;
+        }
+        else {
+            //Слева что-то есть. Рекурсивное вставляем влево
+            insertIntoTree(root->left, elem);
         }
     }
-    while (choose != 0);
+    else {
+        //Идёт в левое поддерево
+        if (root->right == nullptr) {
+            root->right = elem;
+        }
+        else {
+            insertIntoTree(root->right, elem);
+        }
+    }
+}
+
+void printTree(Node* curElem) {
+    if (curElem->right != nullptr) {
+        printTree(curElem->right);
+    }
+    std::cout << " Value = " << curElem->value << std::endl;
+    if (curElem->left != nullptr) {
+        printTree(curElem->left);
+    }
 }
