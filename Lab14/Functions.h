@@ -12,11 +12,12 @@ auto getHeight(Node* tree) -> int;
 auto createNode(double dt) -> Node*;
 auto buildBalancedTree(int n) -> Node*;
 auto printTree(Node* tree, int level) -> void;
-auto balancedTreeToVector(Node* tree) -> std::vector<double>;
+auto createBalancedSearchTree(Node*) -> Node*;
 auto addLeftBranch(Node* root, Node* data) -> void;
 auto minElementInBalancedTree(Node* tree) -> double;
-auto createBalancedSearchTree(Node*) -> Node*;
+auto balancedTreeToVector(Node* tree) -> std::vector<double>;
 auto sortedArrayToSearchTree(std::vector<double> v, int start, int end) -> Node*;
+
 struct Node {           //Структура Node. Он же узел в дереве.
     double data;
     Node* left;        //указатель на объект структуры Node слева
@@ -31,6 +32,22 @@ Node* createBalancedSearchTree(Node* tree) {
 }
 
 Node* sortedArrayToSearchTree(std::vector<double> v, int start, int end) {
+/* Подглядел алгоритм создания сбалансированного дерева поиска из ОТСОРТИРОВАННОГО массива. https://bit.ly/3xEi628
+ *                                      [ -20, -10, -3, 0, 5, 9, 27 ]
+ *                                                      |
+ *                                                Корень дерева
+ *
+ *                    Левый "подкорень"                          Правый "подкорень"
+ *      [ -20,               -10,           -3 ]           [ 5,           9,                     27 ]
+ *         |                  |              |               |            |                      |
+ *         |          Корень поддерева       |               |      Корень поддерева             |
+ *        Лист                             Лист             Лист                                Лист
+ *
+ *       1. Центральный элемент массива - корень дерева;
+ *       2. Рекурсивно делим массив пополам. Центр каждой половины массива будет корнем поддерева.
+ *
+ */
+
     if (start > end) {
         return nullptr;
     }
