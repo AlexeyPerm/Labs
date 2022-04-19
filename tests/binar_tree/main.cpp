@@ -1,37 +1,50 @@
 #include <iostream>
+#include <iomanip>
+#include <vector>
 
-//#include "Tree.h"
-struct Node {
+typedef std::vector<int> vec;
+struct TNode {
     int data;
-    //Node* left;
-    Node* right;
+    TNode* left;
+    TNode* right;
 };
 
-Node* createNode(int data) {
-    Node* a = new Node;
-    a->data = data;
-    a->right = nullptr;
-    //a->left = nullptr;
-    return a;
+TNode* newNode(int data) {
+    TNode* node = new TNode;
+    node->data = data;
+    node->left = nullptr;
+    node->right = nullptr;
+    return node;
 }
 
-void addRight(Node* root, Node* data) {
-    if (root->right == nullptr) {
-        root->right = data;
+TNode* sortedArrayToBST(vec v, int start, int end) {
+    if (start > end) {
+        return nullptr;
     }
-    else {
-        addRight(root->right, data);
-    }
+    int middle = (start + end) / 2;
+    TNode* root = newNode(v[middle]);
+    root->left = sortedArrayToBST(v, start, middle - 1);
+    root->right = sortedArrayToBST(v, middle + 1, end);
+    return root;
 }
 
+void printTree(TNode* const tree, int const level) {
+    if (tree) {
+        printTree(tree->right, level + 1);
+        for (int i = 0; i < level; ++i) {
+            std::cout << "\t";
+        }
+        std::cout << std::fixed << std::setprecision(2) << tree->data << std::endl;
+        printTree(tree->left, level + 1);
+    }
+}
 
 int main() {
+    vec v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-    Node* a = createNode(999);
-    for (int i = 0; i < 10; ++i) {
-        Node* el = createNode(i);
-        addRight(a, el);
-    }
 
+    TNode *root = sortedArrayToBST(v, 0, v.size()  - 1);
+    printTree(root , 1);
     return 0;
 }
+

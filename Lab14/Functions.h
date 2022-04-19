@@ -4,8 +4,6 @@
 #include <random>
 #include <vector>
 
-typedef std::vector<double> vec;
-
 
 template<class T>
 T generateRandom(const T& low, const T& high);
@@ -14,11 +12,11 @@ auto getHeight(Node* tree) -> int;
 auto createNode(double dt) -> Node*;
 auto buildBalancedTree(int n) -> Node*;
 auto printTree(Node* tree, int level) -> void;
-auto balancedTreeToVector(Node* tree) -> vec;
+auto balancedTreeToVector(Node* tree) -> std::vector<double>;
 auto addLeftBranch(Node* root, Node* data) -> void;
 auto minElementInBalancedTree(Node* tree) -> double;
-auto createBalancedSearchTree(const vec& v) -> Node*;
-
+auto createBalancedSearchTree(Node*) -> Node*;
+auto sortedArrayToSearchTree(std::vector<double> v, int start, int end) -> Node*;
 struct Node {           //Структура Node. Он же узел в дереве.
     double data;
     Node* left;        //указатель на объект структуры Node слева
@@ -26,17 +24,31 @@ struct Node {           //Структура Node. Он же узел в дер�
 };
 
 
-Node* createBalancedSearchTree(const vec& v) {
-
+Node* createBalancedSearchTree(Node* tree) {
+    std::vector<double> v = balancedTreeToVector(tree);
+    Node* root = sortedArrayToSearchTree(v, 0, static_cast<int> (v.size()) - 1);
+    return root;
 }
 
-vec balancedTreeToVector(Node* tree) {
-    static vec v;
+Node* sortedArrayToSearchTree(std::vector<double> v, int start, int end) {
+    if (start > end) {
+        return nullptr;
+    }
+    int middle = (start + end) / 2;
+    Node* root = createNode(v[middle]);
+    root->left = sortedArrayToSearchTree(v, start, middle - 1);
+    root->right = sortedArrayToSearchTree(v, middle + 1, end);
+    return root;
+}
+
+std::vector<double> balancedTreeToVector(Node* tree) {
+    static std::vector<double> v;
     if (tree != nullptr) {
-        v.emplace_back(tree->data);
+        v.push_back(tree->data);
         balancedTreeToVector(tree->left);
         balancedTreeToVector(tree->right);
     }
+    std::sort(v.begin(), v.end());
     return v;
 }
 
