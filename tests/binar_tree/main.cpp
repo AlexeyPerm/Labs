@@ -23,6 +23,8 @@ void addRight(Node* root, Node* data) {
         addRight(root->right, data);
     }
 }
+
+
 int main() {
 
     Node* a = createNode(999);
