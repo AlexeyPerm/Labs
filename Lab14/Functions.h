@@ -10,6 +10,7 @@ T generateRandom(const T& low, const T& high);
 struct Node;
 auto getHeight(Node* tree) -> int;
 auto createNode(double dt) -> Node*;
+auto deleteTree(Node* tree) -> void;
 auto buildBalancedTree(int n) -> Node*;
 auto printTree(Node* tree, int level) -> void;
 auto createBalancedSearchTree(Node*) -> Node*;
@@ -31,8 +32,22 @@ Node* createBalancedSearchTree(Node* tree) {
     return root;
 }
 
+void deleteTree(Node* tree) {       //Рекурсивно удаляем узлы дерева.
+    if (tree != nullptr) {
+        deleteTree(tree->left);
+        deleteTree(tree->right);
+        delete tree;
+    }
+    else {
+        return;
+    }
+}
+
 Node* sortedArrayToSearchTree(std::vector<double> v, int start, int end) {
-/* Подглядел алгоритм создания сбалансированного дерева поиска из ОТСОРТИРОВАННОГО массива. https://bit.ly/3xEi628
+/* Подглядел алгоритм создания сбалансированного дерева поиска из ОТСОРТИРОВАННОГО массива.
+ * https://bit.ly/3xEi628
+ * https://bit.ly/3uVjhZf
+ *
  *                                      [ -20, -10, -3, 0, 5, 9, 27 ]
  *                                                      |
  *                                                Корень дерева

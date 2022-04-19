@@ -39,12 +39,21 @@ void printTree(TNode* const tree, int const level) {
     }
 }
 
+void deleteTree(TNode* tree) {
+    if (tree != nullptr) {
+        deleteTree(tree->left);
+        deleteTree(tree->right);
+        delete tree;
+    }
+    else {
+        return;
+    }
+}
+
 int main() {
     vec v{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-
-    TNode *root = sortedArrayToBST(v, 0, v.size()  - 1);
-    printTree(root , 1);
+    TNode* root = sortedArrayToBST(v, 0, v.size() - 1);
+    deleteTree(root);
     return 0;
 }
 
