@@ -8,6 +8,7 @@
 template<class T>
 T generateRandom(const T& low, const T& high);
 struct Node;
+auto selection() -> bool;
 auto getHeight(Node* tree) -> int;
 auto createNode(double dt) -> Node*;
 auto deleteTree(Node* tree) -> void;
@@ -189,4 +190,71 @@ T generateRandom(const T& low, const T& high) {
         return dis(gen);
     }
     return 0;
+}
+
+bool selection() {
+    std::cout << "Enter option number.\n";
+    std::cout << "1. Create Binary Balanced Tree.\n";
+    std::cout << "2. Find minimum element.\n";
+    std::cout << "3. Convert perfect to Binary Search Tree.\n";
+    std::cout << "4. Print Binary Balanced Tree.\n";
+    std::cout << "5. Print Binary Search Tree.\n";
+    std::cout << "0. Exit.\n";
+    std::cout << ">";
+    int choice;
+    (std::cin >> choice).get();
+    static Node* myBalancedTree = nullptr;
+    static Node* mySearchTree = nullptr;
+    switch (choice) {
+        case 1 : {        //Create Binary Balanced Tree.
+            std::cout << "Enter nodes count :\n>";
+            int nodesCount{};
+            std::cin >> nodesCount;
+            myBalancedTree = buildBalancedTree(nodesCount);
+            return true;
+        }
+        case 2 : {        //Find minimum element.
+            double minEl = minElementInBalancedTree(myBalancedTree);
+            std::cout << "Minimum element = " << minEl << std::endl;
+            return true;
+        }
+        case 3 : {        //Convert perfect to Binary Search Tree
+            mySearchTree = createBalancedSearchTree(myBalancedTree);
+            return true;
+        }
+        case 4 : {        //Print Binary Balanced Tree
+            if (myBalancedTree != nullptr) {
+                std::cout << "===============================================================" << std::endl;
+                std::cout << "======================== Balanced Tree ========================" << std::endl;
+                std::cout << "===============================================================" << std::endl;
+                printTree(myBalancedTree, 0);
+            }
+            else {
+                std::cout << "\nNothing to print..." << std::endl << std::endl;
+            }
+            return true;
+        }
+        case 5 : {        //Print Binary Search Tree
+            if (mySearchTree != nullptr) {
+                std::cout << "===============================================================" << std::endl;
+                std::cout << "========================= Search Tree =========================" << std::endl;
+                std::cout << "===============================================================" << std::endl;
+                printTree(mySearchTree, 0);
+            }
+            else {
+                std::cout << "\nNothing to print..." << std::endl << std::endl;
+            }
+            return true;
+        }
+        case 0 : {        //Exit
+            deleteTree(myBalancedTree);
+            deleteTree(mySearchTree);
+            std::cout << "Exit...";
+            exit(0);
+        }
+        default:
+            std::cout << "Error. Enter option number.";
+            return true;
+    }
+    return true;
 }
