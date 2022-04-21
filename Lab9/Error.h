@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-#define OPTION 3  //Вариант реализации (2 или 3)
+#define OPTION 2  //Вариант реализации (2 или 3)
 
 #if OPTION == 2
 class Error {

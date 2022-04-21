@@ -59,7 +59,7 @@ void Dialog::GetEvent(TEvent& event) {
 }
 
 void Dialog::HandleEvent(TEvent& event) {
-    if (event.what == evMessage) {
+    if (event.what == evMessage) {      //Если event.what == 100 (не пустое событие), то переходим к switch
         switch (event.command) {
             case cmMake: {
                 size = event.a;     //размер группы
@@ -101,7 +101,7 @@ void Dialog::HandleEvent(TEvent& event) {
 }
 
 int Dialog::Execute() {
-    TEvent event;
+    TEvent event{};
     do {
         EndState = 0;
         GetEvent(event);
