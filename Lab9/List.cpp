@@ -13,7 +13,8 @@ List::List(const int size) {
         this->size = size;
         arr = new int[size];
         current = &arr[0];
-    } else {
+    }
+    else {
 #if OPTION == 2
         throw Error("size <= 0\n");
 #elif OPTION == 3
@@ -109,7 +110,7 @@ List::operator int() const {
 List& List::operator-(const int index) {
 #if OPTION == 2
     if (!size) {
-throw Error("List is empty");
+        throw Error("List is empty");
     }
     if ((index + 1) > size) {
         throw Error("Index > array");
