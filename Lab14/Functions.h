@@ -17,8 +17,9 @@ auto printTree(Node* tree, int level) -> void;
 auto createBalancedSearchTree(Node*) -> Node*;
 auto addLeftBranch(Node* root, Node* data) -> void;
 auto minElementInBalancedTree(Node* tree) -> double;
+auto insertToTree(Node* tree, const double dt) -> Node*;
 auto balancedTreeToVector(Node* tree) -> std::vector<double>;
-auto sortedArrayToSearchTree(std::vector<double> v, int start, int end) -> Node*;
+auto sortedArrayToSearchTree(std::vector<double> v, const int start, const int end) -> Node*;
 
 struct Node {           //Структура Node. Он же узел в дереве.
     double data;
@@ -169,6 +170,19 @@ double minElementInBalancedTree(Node* const tree) {
     return minElem;
 }
 
+Node* insertToTree(Node* tree, const double dt) {
+    if (tree == nullptr) {
+        tree = createNode(dt);
+        return tree;
+    }
+    if (dt < tree->data) {
+        tree->left = insertToTree(tree->left, dt);
+    }
+    else {
+        tree->right = insertToTree(tree->right, dt);
+    }
+    return tree;
+}
 
 template<class T>
 T generateRandom(const T& low, const T& high) {
@@ -246,9 +260,21 @@ bool selection() {
             }
             return true;
         }
+        case 6 : {
+            //Добавить элемент в сбалансированное дерево.
+            break;
+        }
+        case 7: {
+            //Добавить элемент в дерево поиска.
+            break;
+        }
         case 0 : {        //Exit
-            deleteTree(myBalancedTree);
-            deleteTree(mySearchTree);
+            if (myBalancedTree) {
+                deleteTree(myBalancedTree);
+            }
+            if (mySearchTree) {
+                deleteTree(mySearchTree);
+            }
             std::cout << "Exit...";
             exit(0);
         }
