@@ -1,6 +1,5 @@
 #include <iostream>
-#include <algorithm>    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ all_of()
-#include <windows.h>    //SetConsoleCP(1251);
+#include <algorithm>    //используется функция all_of()
 #include "vehicle.h"
 
 Vehicle make_Vehicle();
@@ -9,13 +8,12 @@ static bool CorrectInputCost(const std::string&, int&);
 int main()
 {
     setlocale(LC_ALL, "rus");
-    //SetConsoleCP(866);
     std::cout << "\n=================== Without parameters ===================\n\n";
     Vehicle first;
     first.show();
 
     std::cout << "\n===================== With parameters =====================\n\n";
-    Vehicle second("пїЅпїЅпїЅ", "2101", 1330);
+    Vehicle second("Vaz", "2101", 1330);
     second.show();
 
     std::cout << "\n================== Copy (initialization) =================\n\n";
@@ -24,12 +22,12 @@ int main()
     third.set_model("Seltos");
     third.set_cost(9965);
     third.show();
-    std::cout << "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << &third << std::endl;
+    std::cout << "Address: " << &third << std::endl;
 
     std::cout << "\n============= Copy (class as class parameter) ============\n\n";
     Vehicle fourth(third);
     fourth.show();
-    std::cout << "пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: " << &fourth << std::endl;
+    std::cout << "Address: " << &fourth << std::endl;
 
     std::cout << "\n===================== Copy (function) ====================\n\n";
     first = make_Vehicle();
@@ -46,11 +44,11 @@ Vehicle make_Vehicle()
     std::string s{};
     std::string costString{};
     int costInt{};
-    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ: \n>";
+    std::cout << "ведите марку: \n>";
     getline(std::cin, n);
-    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
+    std::cout << "ведите модель: \n>";
     getline(std::cin, s);
-    std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
+    std::cout << "ведите стоимость: \n>";
     getline(std::cin, costString);
     while (!CorrectInputCost(costString, costInt))
     {
@@ -64,17 +62,17 @@ Vehicle make_Vehicle()
 bool CorrectInputCost(const std::string& str, int& costInt)
 {
     if (!(std::all_of(str.begin(), str.end(), isdigit)))
-    {    //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
-        std::cout << "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: \n>";
+    {    //проверяем все элементы строки на число
+        std::cout << "Стоимость должна быть целым числом. Повторите ввод: \n>";
         return false;
     }
     try
-    {    //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+    {    //Пробую на вкус обработку исключений
         costInt = stoi(str);
     }
     catch (const std::out_of_range& e)
     {
-        std::cout << e.what() << "\nпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: \n>";
+        std::cout << e.what() << "\nВведите число поменьше: \n>";
         return false;
     }
     return true;

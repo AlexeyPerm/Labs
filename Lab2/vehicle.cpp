@@ -44,14 +44,14 @@ Vehicle::Vehicle()
 }
 
 Vehicle::Vehicle(const std::string& n, const std::string& s, const int& sg)
-{    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
+{    //Конструктор с параметрами
     brand = n;
     model = s;
     cost = sg;
 }
 
 Vehicle::Vehicle(const Vehicle& E)
-{    //РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ T::T(const T&) {...}
+{    //Конструктор копирования T::T(const T&) {...}
     brand = E.brand;
     model = E.model;
     cost = E.cost;
