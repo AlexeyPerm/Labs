@@ -3,6 +3,7 @@
 #include "vehicle.h"
 
 Vehicle make_Vehicle();
+void print_Vehicle(Vehicle &v);
 static bool CorrectInputCost(const std::string&, int&);
 
 int main()
@@ -29,11 +30,9 @@ int main()
     fourth.show();
     std::cout << "Address: " << &fourth << std::endl;
 
-    std::cout << "\n===================== Copy (function) ====================\n\n";
+    std::cout << "\n===================== make_Vehicle  ====================\n\n";
     first = make_Vehicle();
-    first.show();
-    std::cout << std::endl;
-    first.show();
+    print_Vehicle(first);
 
     return 0;
 }
@@ -58,6 +57,10 @@ Vehicle make_Vehicle()
     Vehicle temp(n, s, costInt);
     return temp;
 }
+void print_Vehicle(Vehicle &v){
+    v.show();
+}
+
 
 bool CorrectInputCost(const std::string& str, int& costInt)
 {
