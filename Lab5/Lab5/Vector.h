@@ -1,19 +1,19 @@
 #pragma once
+
 #include "Object.h"
 #include <iostream>
-using namespace std;
 
 class Vector {
 public:
-	Vector();
-	Vector(const int);
-	Vector(const Vector &);
-	~Vector();
-	void Add(Object *);
-	friend ostream &operator << (ostream &, const Vector &);
+    Vector();
+    explicit Vector(int s);
+    Vector(const Vector&);
+    ~Vector();
+    void Add(Object*);
+    friend std::ostream& operator<<(std::ostream& out, const Vector& V);
 
 private:
-	Object **begin; //”казатель типа Object на адрес массива, где будут хранитьс€ объекты классов.
-	int size;
-	int cur;
+    int cur;
+    int size;
+    Object** begin; //”казатель типа Object на адрес массива, где будут хранитьс€ объекты классов.
 };

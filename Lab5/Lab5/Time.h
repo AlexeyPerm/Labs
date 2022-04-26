@@ -34,22 +34,22 @@ public:
 
 	//Делаем недоступными методы базового класса: void foo() = delete;
 	//При их вызове комплитор будет жаловаться, что методы удалены.
-	int get_first () = delete;
-	int get_second() = delete;
-	int get_third () = delete;
-	void set_first (int) = delete;
-	void set_second(int) = delete;
-	void set_third (int) = delete;
+	int get_first   () = delete;
+	int get_second  () = delete;
+	int get_third   () = delete;
+	void set_first  (int) = delete;
+	void set_second (int) = delete;
+	void set_third  (int) = delete;
 
 	//override в С++ не обязателен при переопределении. Используется как некая перестраховка
-	int FirstAddOne () override;
-	int SecondAddOne() override;
-	int ThirdAddOne () override;
+    int FirstAddOne  () override { return (++hours); }
+    int SecondAddOne () override { return (++minutes); }
+    int ThirdAddOne  () override { return (++seconds); }
 
 	//-- Overloading operators  --
 	Time &operator = (const Time &);
-	friend istream &operator >> (istream &in, Time &);
-	friend ostream &operator << (ostream &out, const Time &);
+	friend std::istream &operator >> (std::istream &in, Time &);
+	friend std::ostream &operator << (std::ostream &out, const Time &);
 
 	//----- Other Functions -----	
 	void AddMinutes(int);

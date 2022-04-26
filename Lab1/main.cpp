@@ -4,14 +4,13 @@
 
 calculation make_calculation(double, int, int);
 
-int main()
-{
+int main() {
     std::setlocale(LC_ALL, "rus");
 
     //--------------------- Method calculation::Init() --------------------
 
-    calculation initCalc{};
-    calculation initCalc_2{};
+    calculation initCalc;
+    calculation initCalc_2;
     std::cout << "\n------------ Method Init() ------------\n";
     initCalc.Init(4.54, 10, 30);
     initCalc_2.Init(4.54, 10, 28);
@@ -24,7 +23,7 @@ int main()
 
     //------------------------- Pointer to Struct -------------------------
     //
-    //РЎРѕР·РґР°С‘Рј СЃС‚СЂСѓРєС‚СѓСЂСѓ Рё РїСЂРёСЃРІР°РёРІР°РµРј РµС‘ Р°РґСЂРµСЃ СѓРєР°Р·Р°С‚РµР»СЋ
+    //Создаём структуру и присваиваем её адрес указателю
     std::cout << "\n---------  Pointer to Struct ---------\n";
     calculation* pCalcPointer = new calculation{};
     pCalcPointer->Init(12, 25, 31);
@@ -39,11 +38,10 @@ int main()
     int const count = 2;
     calculation staticArrayCalc[count];
 
-    //РџРёС€СѓС‚, С‡С‚Рѕ СЌС‚Р° РєРѕРЅСЃС‚СЂСѓРєС†РёСЏ rfor() РїСЂРµРґРїРѕС‡С‚РёС‚РµР»СЊРЅРµРµ, С‡РµРј С†РёРєР»С‹ for РЅР° РѕСЃРЅРѕРІРµ РёРЅРґРµРєСЃР°. РРЅС‚РµСЂРµСЃРЅРѕ Р±С‹Р»Рѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ.
+    //Пишут, что эта конструкция rfor() предпочтительнее, чем циклы for на основе индекса. Интересно было использовать.
     //https://docs.microsoft.com/en-us/cpp/cpp/range-based-for-statement-cpp?view=msvc-170
     //https://en.cppreference.com/w/cpp/language/range-for
-    for (auto& i: staticArrayCalc)
-    {
+    for (auto& i: staticArrayCalc) {
         i.Read();
         i.Show();
         std::cout << "Sum = " << i.summa() << std::endl << std::endl;
@@ -53,34 +51,31 @@ int main()
 
     std::cout << "---------  Dynamic Array ---------\n";
     calculation* dynamicArrayCalc = new calculation[count]{};
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         dynamicArrayCalc[i].Read();
         dynamicArrayCalc[i].Show();
-        std::cout << std::fixed << "Hypotenuse = " << dynamicArrayCalc[i].summa() << std::endl << std::endl;
+        std::cout << std::fixed << "Sum =  " << dynamicArrayCalc[i].summa() << std::endl << std::endl;
     }
     delete[] dynamicArrayCalc;
 
     //---------------------- func make_calculation() ----------------------
-
     std::cout << "\n-------  func make_calculation() -------\n";
     double x{};
     int y{}, z{};
-    std::cout << "РћРєР»Р°Рґ: \n> ";
+    std::cout << "Оклад: \n> ";
     std::cin >> x;
-    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РѕС‚СЂР°Р±РѕС‚Р°РЅРЅС‹С… РґРЅРµР№: \n> ";
+    std::cout << "Количество отработанных дней: \n> ";
     std::cin >> y;
-    std::cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РґРЅРµР№ РІ РјРµСЃСЏС†Рµ: \n> ";
+    std::cout << "Количество дней в месяце: \n> ";
     std::cin >> z;
     calculation C = make_calculation(x, y, z);
     C.Show();
-    std::cout << "РЎСѓРјРјР° = " << C.summa();
+    std::cout << "Сумма = " << C.summa();
 
     return 0;
 }
 
-calculation make_calculation(const double F, const int S, const int D)
-{
+calculation make_calculation(const double F, const int S, const int D) {
     calculation tmp{};
     tmp.Init(F, S, D);
     return tmp;

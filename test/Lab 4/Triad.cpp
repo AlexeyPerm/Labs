@@ -3,20 +3,21 @@
 #include <iostream>
 
 //---------------- Constructors -----------------
+
 Triad::Triad(const Triad& T) {
-    first   = T.first;
-    second  = T.second;
-    third   = T.third;
+    first = T.first;
+    second = T.second;
+    third = T.third;
 }
 
-//---------------- Overloadings -----------------
+//---------------- Overloading -----------------
 Triad& Triad::operator=(const Triad& other) {
     if (&other == this) {
         return *this;
     }
-    this->first  = other.first;
+    this->first = other.first;
     this->second = other.second;
-    this->third  = other.third;
+    this->third = other.third;
     return *this;
 }
 
@@ -26,26 +27,26 @@ std::ostream& operator<<(std::ostream& out, const Triad& T) {
 
 std::istream& operator>>(std::istream& in, Triad& T) {
     std::string tmp;
-    std::cout << "Ââåäèòå first \n>";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ first \n>";
     in >> tmp;
     while (!Triad::InputValidation(tmp)) {
-        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä first: \n>";
+        std::cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ first: \n>";
         in >> tmp;
     }
     T.first = stoi(tmp);
 
-    std::cout << "Ââåäèòå second \n>";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ second \n>";
     in >> tmp;
     while (!Triad::InputValidation(tmp)) {
-        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä second: \n>";
+        std::cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ second: \n>";
         in >> tmp;
     }
     T.second = stoi(tmp);
 
-    std::cout << "Ââåäèòå third \n>";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ third \n>";
     in >> tmp;
     while (!Triad::InputValidation(tmp)) {
-        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä third: \n>";
+        std::cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ third: \n>";
         in >> tmp;
     }
     T.third = stoi(tmp);
@@ -58,19 +59,20 @@ void Triad::Show() const {
     std::cout << "first = " << first << ", second = " << second << ", third = " << third << std::endl;
 }
 
+
 bool Triad::InputValidation(const std::string& s) {
     if (s[0] == '-' || !(std::all_of(s.begin(), s.end(), isdigit))) {
         return false;
     }
     try {
-        int tmp = stoi(s);
+        int tmp = std::stoi(s);
     }
     catch (const std::invalid_argument& e) {
-        std::cout << e.what() << "\nÍåêîððåêòíîå çíà÷åíèå.";
+        std::cout << e.what() << "\nÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ.";
         return false;
     }
     catch (const std::out_of_range& e) {
-        std::cout << e.what() << "\nÂâåäèòå ÷èñëî ïîìåíüøå.";
+        std::cout << e.what() << "\nÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð¿Ð¾Ð¼ÐµÐ½ÑŒÑˆÐµ.";
         return false;
     }
     return true;

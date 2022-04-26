@@ -1,9 +1,8 @@
 #pragma once
+
 #include <string>
 
-
-class Vehicle
-{
+class Vehicle {
 
 public:
 // ------------------------- Constructors -------------------------- //
@@ -25,5 +24,4 @@ private:
     int cost;
     std::string brand;
     std::string model;
-    //Проверка корректности ввода цены. По условию цена должна быть типа int
 };

@@ -1,7 +1,7 @@
 ﻿#include "Time.h"
 #include <iostream>
 #include <iomanip>
-using namespace std;
+
 
 //---------------- Constructors -----------------
 
@@ -15,44 +15,31 @@ Time::Time(int h, int m, int s) : Triad(h, m, s) {
 	this->seconds = s;
 }
 
-
-int Time::FirstAddOne() {
-	return (++hours);
-}
-
-int Time::SecondAddOne() {
-	return (++minutes);
-}
-
-int Time::ThirdAddOne() {
-	return (++seconds);
-}
-
 void Time::Show() const {
 	//пока не придумал способа задать параметры вывода setfill() и setw() единожды на все значения. 
-	cout << setfill('0') << setw(2) << hours << ":";
-	cout << setfill('0') << setw(2) << minutes << ":";
-	cout << setfill('0') << setw(2) << seconds << endl;
+	std::cout << std::setfill('0') << std::setw(2) << hours << ":";
+	std::cout << std::setfill('0') << std::setw(2) << minutes << ":";
+	std::cout << std::setfill('0') << std::setw(2) << seconds << std::endl;
 }
 
 void Time::AddMinutes(int value) {
 	if (value < 0) {
-		cout << "Нельзя добавить отрицательное значение минут. Отмена операции AddMinutes() " << endl;
+        std::cout << "Нельзя добавить отрицательное значение минут. Отмена операции AddMinutes() " << std::endl;
 		return;
 	}
-	long totalMinutes{};
-	totalMinutes = hours * 60 + minutes + value;	//преобразумем выражение в long и высчитываем значения кол-во минут в часах
+//Преобразуем выражение в long и высчитываем значения кол-во минут в часах
+    long totalMinutes = hours * 60 + minutes + value;
 	hours = totalMinutes / 60;
 	minutes = totalMinutes % 60;
 }
 
 void Time::AddSeconds(int value) {
 	if (value < 0) {
-		cout << "Нельзя добавить отрицательное значение секунд. Отмена операции AddSeconds() " << endl;
+        std::cout << "Нельзя добавить отрицательное значение секунд. Отмена операции AddSeconds() " << std::endl;
 		return;
 	}
 	long totalSeconds{};
-	totalSeconds = static_cast <long> (hours * 3600 + minutes * 60 + seconds + value);
+	totalSeconds = hours * 3600 + minutes * 60 + seconds + value;
 	hours = totalSeconds / 3600;
 	minutes = totalSeconds / 60 % 60;
 	seconds = totalSeconds % 60;
@@ -69,19 +56,19 @@ Time &Time::operator=(const Time &other) {
 	return *this;
 }
 
-istream &operator>>(istream &in, Time &T) {
-	string tmp;
+std::istream &operator>>(std::istream &in, Time &T) {
+    std::string tmp;
 	bool flag = false;
-	cout << "Введите часы \n>";
+    std::cout << "Введите часы \n>";
 	in >> tmp;
 	while (!Triad::InputValidation(tmp)) {
-		cout << "Не корректное значение. Повторите ввод часов: \n>";
+        std::cout << "Не корректное значение. Повторите ввод часов: \n>";
 		in >> tmp;
 	}
 	T.hours = stoi(tmp);
 //Это очень, очень плохая конструкция. Но мозгов хватило только на это.
 	while (!flag) {
-		cout << "Введите минуты \n>";
+        std::cout << "Введите минуты \n>";
 		in >> tmp;
 		if (Triad::InputValidation(tmp)) {
 			T.minutes = stoi(tmp);
@@ -90,12 +77,12 @@ istream &operator>>(istream &in, Time &T) {
 				break;
 			}
 			else {
-				cout << "Не корректное значение. Повторите ввод минут: \n>";
+                std::cout << "Не корректное значение. Повторите ввод минут: \n>";
 				flag = false;
 			}
 		}
 		else {
-			cout << "Не корректное значение. Повторите ввод минут: \n>";
+            std::cout << "Не корректное значение. Повторите ввод минут: \n>";
 			flag = false;
 		}
 	}
@@ -103,7 +90,7 @@ istream &operator>>(istream &in, Time &T) {
 
 	flag = false;
 	while (!flag) {
-		cout << "Введите секунды \n>";
+        std::cout << "Введите секунды \n>";
 		in >> tmp;
 		if (Triad::InputValidation(tmp)) {
 			T.seconds = stoi(tmp);
@@ -112,12 +99,12 @@ istream &operator>>(istream &in, Time &T) {
 				break;
 			}
 			else {
-				cout << "Не корректное значение. Повторите ввод секунд: \n>";
+                std::cout << "Не корректное значение. Повторите ввод секунд: \n>";
 				flag = false;
 			}
 		}
 		else {
-			cout << "Не корректное значение. Повторите ввод секунд: \n>";
+            std::cout << "Не корректное значение. Повторите ввод секунд: \n>";
 			flag = false;
 		}
 	}
@@ -125,8 +112,8 @@ istream &operator>>(istream &in, Time &T) {
 	return in;
 }
 
-ostream &operator << (ostream &out, const Time &T) {
-	return (out << "Time: " << setfill('0') << setw(2) << T.hours << ":" << \
-		setfill('0') << setw(2) << T.minutes << ":" << \
-		setfill('0') << setw(2) << T.seconds << endl);
+std::ostream &operator << (std::ostream &out, const Time &T) {
+	return (out << "Time: " << std::setfill('0') << std::setw(2) << T.hours << ":" << \
+		std::setfill('0') << std::setw(2) << T.minutes << ":" << \
+		std::setfill('0') << std::setw(2) << T.seconds << std::endl);
 }
