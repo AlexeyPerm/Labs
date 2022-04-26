@@ -1,58 +1,58 @@
 #pragma once
+
 #include <fstream>
 #include "Triad.h"
 
 /*
-ÐŸÐ¾Ð´Ð³Ð»ÑÐ´ÐµÐ» Ð¸Ð½Ñ‚ÐµÑ€ÐµÑÐ½Ñ‹Ð¹ Ð¼Ð°ÐºÑ€Ð¾Ñ Ñ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ð¼Ð¸ Ð¸ Ð¿Ñ€Ð¸Ñ‚Ð°Ñ‰Ð¸Ð» Ðº ÑÐµÐ±Ðµ. Ð¢Ð¾Ð»ÑŒÐºÐ¾ Ð¸Ð· Ð»ÑŽÐ±Ð¾Ð¿Ñ‹Ñ‚ÑÑ‚Ð²Ð° Ð¸ Ð¶ÐµÐ»Ð°Ð½Ð¸Ñ ÑÐ´ÐµÐ»Ð°Ñ‚ÑŒ Ñ‚Ð°Ðº Ð¶Ðµ.
+Ïîäãëÿäåë èíòåðåñíûé ìàêðîñ ñ ïàðàìåòðàìè è ïðèòàùèë ê ñåáå. Òîëüêî èç ëþáîïûòñòâà è æåëàíèÿ ñäåëàòü òàê æå.
 https://habr.com/ru/post/546946/
 https://habr.com/ru/post/246971/
 https://docs.microsoft.com/en-us/cpp/preprocessor/token-pasting-operator-hash-hash?view=msvc-170
-ÐœÐ°ÐºÑ€Ð¾ÑÐ° SET_GET_TIME, Ð¿Ñ€Ð¸Ð½Ð¸Ð¼Ð°ÐµÑ‚ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ VAL, ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ðµ Ð¿ÐµÑ€ÐµÐ´Ð°Ñ‘Ñ‚ÑÑ Ð² Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ñ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¹ Ð¸ ÐºÐ°Ðº Ð¿ÐµÑ€ÐµÐ¼ÐµÐ½Ð½Ð°Ñ Ð² Ð½Ð¸Ñ… Ð¶Ðµ.
-Ð’ Ð´Ð°Ð½Ð½Ð¾Ð¼ ÑÐ»ÑƒÑ‡Ð°Ðµ Ñ€ÐµÐ·ÑƒÐ»ÑŒÑ‚Ð°Ñ‚ Ð±ÑƒÐ´ÐµÑ‚ Ð²Ð¸Ð´Ð°:
+Ìàêðîñà SET_GET_TIME, ïðèíèìàåò çíà÷åíèå VAL, êîòîðîå ïåðåäà¸òñÿ â íàçâàíèÿ ôóíêöèé è êàê ïåðåìåííàÿ â íèõ æå.
+Â äàííîì ñëó÷àå ðåçóëüòàò áóäåò âèäà:
 void set_first(const x) { first = x; }
 */
 
 #define SET_GET_TIME(VAL) \
-	int  get_##VAL() const { return VAL; } \
-	void set_##VAL(const int x) { VAL = x; }
+    int  get_##VAL() const { return VAL; } \
+    void set_##VAL(const int x) { VAL = x; }
 
-class Time : public Triad
-{
+class Time : public Triad {
 private:
-	int hours;
-	int minutes;
-	int seconds;
+    int hours;
+    int minutes;
+    int seconds;
 
 public:
-	Time();
-	Time(int, int, int);
+    Time();
+    Time(int, int, int);
 
-	//--- Setters and Getters ---
-	SET_GET_TIME(hours);
-	SET_GET_TIME(minutes);
-	SET_GET_TIME(seconds);
+    //--- Setters and Getters ---
+    SET_GET_TIME(hours);
+    SET_GET_TIME(minutes);
+    SET_GET_TIME(seconds);
 
-	//Ð”ÐµÐ»Ð°ÐµÐ¼ Ð½ÐµÐ´Ð¾ÑÑ‚ÑƒÐ¿Ð½Ñ‹Ð¼Ð¸ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ Ð±Ð°Ð·Ð¾Ð²Ð¾Ð³Ð¾ ÐºÐ»Ð°ÑÑÐ°: void foo() = delete;
-	//ÐŸÑ€Ð¸ Ð¸Ñ… Ð²Ñ‹Ð·Ð¾Ð²Ðµ ÐºÐ¾Ð¼Ð¿Ð»Ð¸Ñ‚Ð¾Ñ€ Ð±ÑƒÐ´ÐµÑ‚ Ð¶Ð°Ð»Ð¾Ð²Ð°Ñ‚ÑŒÑÑ, Ñ‡Ñ‚Ð¾ Ð¼ÐµÑ‚Ð¾Ð´Ñ‹ ÑƒÐ´Ð°Ð»ÐµÐ½Ñ‹.
-	int get_first () = delete;
-	int get_second() = delete;
-	int get_third () = delete;
-	void set_first (int) = delete;
-	void set_second(int) = delete;
-	void set_third (int) = delete;
+    //Äåëàåì íåäîñòóïíûìè ìåòîäû áàçîâîãî êëàññà: void foo() = delete;
+    //Ïðè èõ âûçîâå êîìïèëÿòîð áóäåò æàëîâàòüñÿ, ÷òî ìåòîäû óäàëåíû.
+    int get_first   () = delete;
+    int get_second  () = delete;
+    int get_third   () = delete;
+    void set_first  (int) = delete;
+    void set_second (int) = delete;
+    void set_third  (int) = delete;
 
-	//override Ð² Ð¡++ Ð½Ðµ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÐµÐ½ Ð¿Ñ€Ð¸ Ð¿ÐµÑ€ÐµÐ¾Ð¿Ñ€ÐµÐ´ÐµÐ»ÐµÐ½Ð¸Ð¸. Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÑ‚ÑÑ ÐºÐ°Ðº Ð½ÐµÐºÐ°Ñ Ð¿ÐµÑ€ÐµÑÑ‚Ñ€Ð°Ñ…Ð¾Ð²ÐºÐ°
-	int FirstAddOne () override;
-	int SecondAddOne() override;
-	int ThirdAddOne () override;
+    //Override â Ñ++ íå îáÿçàòåëåí ïðè ïåðåîïðåäåëåíèè. Èñïîëüçóåòñÿ êàê íåêàÿ ïåðåñòðàõîâêà
+    int FirstAddOne  () override { return (++hours); }
+    int SecondAddOne () override { return (++minutes); }
+    int ThirdAddOne  () override { return (++seconds); }
 
-	//-- Overloading operators  --
-	Time &operator = (const Time &);
-	friend istream &operator >> (istream &in, Time &);
-	friend ostream &operator << (ostream &out, const Time &);
+    //-- Overloading operators  --
+    Time& operator=(const Time&);
+    friend std::istream& operator>>(std::istream& in, Time&);
+    friend std::ostream& operator<<(std::ostream& out, const Time&);
 
-	//----- Other Functions -----	
-	void AddMinutes(int);
-	void AddSeconds(int);
-	void Show() const override;
+    //----- Other Functions -----
+    void AddMinutes(int);
+    void AddSeconds(int);
+    void Show() const override;
 };

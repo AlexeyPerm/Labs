@@ -1,131 +1,118 @@
-п»ї#include "Time.h"
+#include "Time.h"
 #include <iostream>
 #include <iomanip>
-using namespace std;
 
 //---------------- Constructors -----------------
-
-Time::Time() {
-	hours = minutes = seconds = 0;
+Time::Time() : Triad() {
+    hours = minutes = seconds = 0;
 }
 
 Time::Time(int h, int m, int s) : Triad(h, m, s) {
-	this->hours = h;
-	this->minutes = m;
-	this->seconds = s;
-}
-
-int Time::FirstAddOne() {
-	return (++hours);
-}
-
-int Time::SecondAddOne() {
-	return (++minutes);
-}
-
-int Time::ThirdAddOne() {
-	return (++seconds);
+    this->hours   = h;
+    this->minutes = m;
+    this->seconds = s;
 }
 
 void Time::Show() const {
-	//РїРѕРєР° РЅРµ РїСЂРёРґСѓРјР°Р» СЃРїРѕСЃРѕР±Р° Р·Р°РґР°С‚СЊ РїР°СЂР°РјРµС‚СЂС‹ РІС‹РІРѕРґР° setfill() Рё setw() РЅР° РµРґРёРЅРѕР¶РґС‹ РЅР° РІСЃРµ Р·РЅР°С‡РµРЅРёСЏ. 
-	cout << setfill('0') << setw(2) << hours << ":";
-	cout << setfill('0') << setw(2) << minutes << ":";
-	cout << setfill('0') << setw(2) << seconds << endl;
+    //пока не придумал способа задать параметры вывода setfill() и setw() на единожды на все значения.
+    std::cout << std::setfill('0') << std::setw(2) << hours << ":";
+    std::cout << std::setfill('0') << std::setw(2) << minutes << ":";
+    std::cout << std::setfill('0') << std::setw(2) << seconds << std::endl;
 }
 
-void Time::AddMinutes(int value) {
-	if (value < 0) {
-		cout << "РќРµР»СЊР·СЏ РґРѕР±Р°РІРёС‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РјРёРЅСѓС‚. РћС‚РјРµРЅР° РѕРїРµСЂР°С†РёРё AddMinutes() " << endl;
-		return;
-	}
-	long totalMinutes{};
-	totalMinutes = hours * 60 + minutes + value;	//РїСЂРµРѕР±СЂР°Р·СѓРјРµРј РІС‹СЂР°Р¶РµРЅРёРµ РІ long Рё РІС‹СЃС‡РёС‚С‹РІР°РµРј Р·РЅР°С‡РµРЅРёСЏ РєРѕР»-РІРѕ РјРёРЅСѓС‚ РІ С‡Р°СЃР°С…
-	hours = totalMinutes / 60;
-	minutes = totalMinutes % 60;
+void Time::AddMinutes(const int value) {
+    if (value < 0) {
+        std::cout << "Нельзя добавить отрицательное значение минут. Отмена операции AddMinutes() " << std::endl;
+        return;
+    }
+    long totalMinutes{};
+    totalMinutes =
+            hours * 60 + minutes + value;    //преобразумем выражение в long и высчитываем значения кол-во минут в часах
+    hours   = totalMinutes / 60;
+    minutes = totalMinutes % 60;
 }
 
-void Time::AddSeconds(int value) {
-	if (value < 0) {
-		cout << "РќРµР»СЊР·СЏ РґРѕР±Р°РІРёС‚СЊ РѕС‚СЂРёС†Р°С‚РµР»СЊРЅРѕРµ Р·РЅР°С‡РµРЅРёРµ СЃРµРєСѓРЅРґ. РћС‚РјРµРЅР° РѕРїРµСЂР°С†РёРё AddSeconds() " << endl;
-		return;
-	}
-	long totalSeconds{};
-	totalSeconds = static_cast <long> (hours * 3600 + minutes * 60 + seconds + value);
-	hours = totalSeconds / 3600;
-	minutes = totalSeconds / 60 % 60;
-	seconds = totalSeconds % 60;
+void Time::AddSeconds(const int value) {
+    if (value < 0) {
+        std::cout << "Нельзя добавить отрицательное значение секунд. Отмена операции AddSeconds() " << std::endl;
+        return;
+    }
+    long totalSeconds;
+    totalSeconds = hours * 3600 + minutes * 60 + seconds + value;
+    hours   = totalSeconds / 3600;
+    minutes = totalSeconds / 60 % 60;
+    seconds = totalSeconds % 60;
 }
 
 //---------------- Overloadings -----------------
-Time &Time::operator=(const Time &other) {
-	if (&other == this) {
-		return *this;
-	}
-	this->hours = other.hours;
-	this->minutes = other.minutes;
-	this->seconds = other.seconds;
-	return *this;
+Time& Time::operator=(const Time& other) {
+    if (&other == this) {
+        return *this;
+    }
+    this->hours   = other.hours;
+    this->minutes = other.minutes;
+    this->seconds = other.seconds;
+    return *this;
 }
 
-istream &operator>>(istream &in, Time &T) {
-	string tmp;
-	bool flag = false;
-	cout << "Р’РІРµРґРёС‚Рµ С‡Р°СЃС‹ \n>";
-	in >> tmp;
-	while (!Triad::InputValidation(tmp)) {
-		cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ С‡Р°СЃРѕРІ: \n>";
-		in >> tmp;
-	}
-	T.hours = stoi(tmp);
-//Р­С‚Рѕ РѕС‡РµРЅСЊ, РѕС‡РµРЅСЊ РїР»РѕС…Р°СЏ РєРѕРЅСЃС‚СЂСѓРєС†РёСЏ. РќРѕ РјРѕР·РіРѕРІ С…РІР°С‚РёР»Рѕ С‚РѕР»СЊРєРѕ РЅР° СЌС‚Рѕ.
-	while (!flag) {
-		cout << "Р’РІРµРґРёС‚Рµ РјРёРЅСѓС‚С‹ \n>";
-		in >> tmp;
-		if (Triad::InputValidation(tmp)) {
-			T.minutes = stoi(tmp);
-			if (T.minutes >= 0 && T.minutes < 60) {
-				flag = true;
-				break;
-			}
-			else {
-				cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ РјРёРЅСѓС‚: \n>";
-				flag = false;
-			}
-		}
-		else {
-			cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ РјРёРЅСѓС‚: \n>";
-			flag = false;
-		}
-	}
+std::istream& operator>>(std::istream& in, Time& T) {
+    std::string tmp;
+    bool flag = false;
+    std::cout << "Введите часы \n>";
+    in >> tmp;
+    while (!Triad::InputValidation(tmp)) {
+        std::cout << "Не корректное значение. Повторите ввод часов: \n>";
+        in >> tmp;
+    }
+    T.hours = stoi(tmp);
+//Это очень, очень плохая конструкция. Но мозгов хватило только на это.
+    while (!flag) {
+        std::cout << "Введите минуты \n>";
+        in >> tmp;
+        if (Triad::InputValidation(tmp)) {
+            T.minutes = stoi(tmp);
+            if (T.minutes >= 0 && T.minutes < 60) {
+                flag = true;
+                break;
+            }
+            else {
+                std::cout << "Не корректное значение. Повторите ввод минут: \n>";
+                flag = false;
+            }
+        }
+        else {
+            std::cout << "Не корректное значение. Повторите ввод минут: \n>";
+            flag = false;
+        }
+    }
 
 
-	flag = false;
-	while (!flag) {
-		cout << "Р’РІРµРґРёС‚Рµ СЃРµРєСѓРЅРґС‹ \n>";
-		in >> tmp;
-		if (Triad::InputValidation(tmp)) {
-			T.seconds = stoi(tmp);
-			if (T.seconds >= 0 && T.seconds < 60) {
-				flag = true;
-				break;
-			}
-			else {
-				cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ СЃРµРєСѓРЅРґ: \n>";
-				flag = false;
-			}
-		}
-		else {
-			cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ СЃРµРєСѓРЅРґ: \n>";
-			flag = false;
-		}
-	}
+    flag = false;
+    while (!flag) {
+        std::cout << "Введите секунды \n>";
+        in >> tmp;
+        if (Triad::InputValidation(tmp)) {
+            T.seconds = stoi(tmp);
+            if (T.seconds >= 0 && T.seconds < 60) {
+                flag = true;
+                break;
+            }
+            else {
+                std::cout << "Не корректное значение. Повторите ввод секунд: \n>";
+                flag = false;
+            }
+        }
+        else {
+            std::cout << "Не корректное значение. Повторите ввод секунд: \n>";
+            flag = false;
+        }
+    }
 
-	return in;
+    return in;
 }
 
-ostream &operator << (ostream &out, const Time &T) {
-	return (out << "Time: " << setfill('0') << setw(2) << T.hours << ":" << \
-		setfill('0') << setw(2) << T.minutes << ":" << \
-		setfill('0') << setw(2) << T.seconds << endl);
+std::ostream& operator<<(std::ostream& out, const Time& T) {
+    return (out << "Time: " << std::setfill('0') << std::setw(2) << T.hours << ":" << \
+        std::setfill('0') << std::setw(2) << T.minutes << ":" << \
+        std::setfill('0') << std::setw(2) << T.seconds << std::endl);
 }

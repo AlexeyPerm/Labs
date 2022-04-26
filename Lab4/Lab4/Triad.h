@@ -1,43 +1,41 @@
-п»ї#pragma once
+#pragma once
+
 #include <fstream>
 #include <string>
-using namespace std;
 
-class Triad
-{
+class Triad {
 protected:
-	int first;
-	int second;
-	int third;
-	static bool InputValidation(const string &);
+    int first;
+    int second;
+    int third;
+    static bool InputValidation(const std::string&);
 
 public:
-	Triad();	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
-	Triad(const int, const int, const int);	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
-	Triad(const Triad &);	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
-	~Triad() = default;	//Р”РµСЃС‚СЂСѓРєС‚РѕСЂ
-	virtual void Show() const;
+    Triad() { first = second = third = 0; }    //Конструктор по умолчанию
+    Triad(int f, int s, int t) : first(f), second(s), third(t) {};    //Конструктор с параметрами
+    Triad(const Triad&);    //Конструктор копирования
+    ~Triad() = default;    //Деструктор
+    virtual void Show() const;
 
-	//--------- Setters ---------
+    //--------- Setters ---------
 
-	void set_first (const int);
-	void set_second(const int);
-	void set_third (const int);
+    void set_first  (int f) { first = f; }
+    void set_second (int s) { second = s; }
+    void set_third  (int t) { third = t; }
 
-	//--------- Getters ---------
+    //--------- Getters ---------
 
-	int get_first () const;
-	int get_second() const;
-	int get_third () const;
+    int get_first  () const { return first; }
+    int get_second () const { return second; }
+    int get_third  () const { return third; }
 
-	//-- Operators overloading --
-	Triad &operator = (const Triad &);
-	friend ostream &operator << (ostream &out, const Triad &);
-	friend istream &operator >> (istream &in, Triad &);
+    //-- Operators overloading --
+    Triad& operator=(const Triad&);
+    friend std::ostream& operator<<(std::ostream& out, const Triad&);
+    friend std::istream& operator>>(std::istream& in, Triad&);
 
-	//----- Other Functions -----
-	virtual int FirstAddOne ();	//СѓРІРµР»РёС‡РµРЅРёРµ РЅР° РµРґРёРЅРёС‡РєСѓ
-	virtual int SecondAddOne();	//СѓРІРµР»РёС‡РµРЅРёРµ РЅР° РµРґРёРЅРёС‡РєСѓ
-	virtual int ThirdAddOne ();	//СѓРІРµР»РёС‡РµРЅРёРµ РЅР° РµРґРёРЅРёС‡РєСѓ
-
+    //----- Other Functions -----
+    virtual int FirstAddOne  () { return (++first); }
+    virtual int SecondAddOne () { return (++second); }
+    virtual int ThirdAddOne  () { return (++third); }
 };

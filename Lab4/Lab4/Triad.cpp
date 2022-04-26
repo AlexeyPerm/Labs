@@ -1,127 +1,77 @@
-ï»¿#include "Triad.h"
-#include <algorithm>	//all_of()
+#include "Triad.h"
+#include <algorithm>    //all_of()
 #include <iostream>
-using namespace std;
 
 //---------------- Constructors -----------------
-Triad::Triad() {
-	first = second = third = 0;
-}
-
-Triad::Triad(int first, int second, int third) {
-	this->first  = first;
-	this->second = second;
-	this->third  = third;
-}
-
-Triad::Triad(const Triad &T) {
-	first  = T.first;
-	second = T.second;
-	third  = T.third;
-}
-
-
-//------------------- Setters -----------------
-void Triad::set_first(const int f) {
-	first = f;
-}
-
-void Triad::set_second(const int s) {
-	second = s;
-}
-
-void Triad::set_third(const int t) {
-	third = t;
-}
-
-//------------------- Getters -------------------
-int Triad::get_first() const {
-	return first;
-}
-
-int Triad::get_second() const {
-	return second;
-}
-
-int Triad::get_third() const {
-	return third;
+Triad::Triad(const Triad& T) {
+    first   = T.first;
+    second  = T.second;
+    third   = T.third;
 }
 
 //---------------- Overloadings -----------------
-Triad &Triad::operator=(const Triad &other) {
-	if (&other == this) {
-		return *this;
-	}
-	this->first  = other.first;
-	this->second = other.second;
-	this->third  = other.third;
-	return *this;
+Triad& Triad::operator=(const Triad& other) {
+    if (&other == this) {
+        return *this;
+    }
+    this->first  = other.first;
+    this->second = other.second;
+    this->third  = other.third;
+    return *this;
 }
 
-ostream &operator<<(ostream &out, const Triad &T) {
-	return (out << "first = " << T.first << ", second = " << T.second << ", third = " << T.third << endl);
+std::ostream& operator<<(std::ostream& out, const Triad& T) {
+    return (out << "first = " << T.first << ", second = " << T.second << ", third = " << T.third << std::endl);
 }
 
-istream &operator >> (istream &in, Triad &T) {
-	string tmp;
-	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ first \n>";
-	in >> tmp;
-	while (!Triad::InputValidation(tmp)) {
-		cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ first: \n>";
-		in >> tmp;
-	}
-	T.first = stoi(tmp);
+std::istream& operator>>(std::istream& in, Triad& T) {
+    std::string tmp;
+    std::cout << "Ââåäèòå first \n>";
+    in >> tmp;
+    while (!Triad::InputValidation(tmp)) {
+        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä first: \n>";
+        in >> tmp;
+    }
+    T.first = stoi(tmp);
 
-	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ second \n>";
-	in >> tmp;
-	while (!Triad::InputValidation(tmp)) {
-		cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ second: \n>";
-		in >> tmp;
-	}
-	T.second = stoi(tmp);
+    std::cout << "Ââåäèòå second \n>";
+    in >> tmp;
+    while (!Triad::InputValidation(tmp)) {
+        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä second: \n>";
+        in >> tmp;
+    }
+    T.second = stoi(tmp);
 
-	cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ third \n>";
-	in >> tmp;
-	while (!Triad::InputValidation(tmp)) {
-		cout << "ÐÐµ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ. ÐŸÐ¾Ð²Ñ‚Ð¾Ñ€Ð¸Ñ‚Ðµ Ð²Ð²Ð¾Ð´ third: \n>";
-		in >> tmp;
-	}
-	T.third = stoi(tmp);
+    std::cout << "Ââåäèòå third \n>";
+    in >> tmp;
+    while (!Triad::InputValidation(tmp)) {
+        std::cout << "Íå êîððåêòíîå çíà÷åíèå. Ïîâòîðèòå ââîä third: \n>";
+        in >> tmp;
+    }
+    T.third = stoi(tmp);
 
-	return in;
+    return in;
 }
 
 //--------------- Other functions ---------------
 void Triad::Show() const {
-	cout << "first = " << first << ", second = " << second << ", third = " << third << endl;
+    std::cout << "first = " << first << ", second = " << second << ", third = " << third << std::endl;
 }
 
-int Triad::FirstAddOne() {
-	return (++first);
-}
-
-int Triad::SecondAddOne() {
-	return (++second);
-}
-
-int Triad::ThirdAddOne() {
-	return (++third);
-}
-
-bool Triad::InputValidation(const string &s) {
-	if (s[0] == '-' || !(all_of(s.begin(), s.end(), isdigit))) {
-			return false;
-	}
-	try {
-		int tmp = stoi(s);
-	}
-	catch (const invalid_argument &e) {
-		cout << e.what() << "\nÐÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ.";
-		return false;
-	}
-	catch (const out_of_range &e) {
-		cout << e.what() << "\nÐ’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð¾ Ð¿Ð¾Ð¼ÐµÐ½ÑŒÑˆÐµ.";
-		return false;
-	}
-	return true;
+bool Triad::InputValidation(const std::string& s) {
+    if (s[0] == '-' || !(std::all_of(s.begin(), s.end(), isdigit))) {
+        return false;
+    }
+    try {
+        int tmp = stoi(s);
+    }
+    catch (const std::invalid_argument& e) {
+        std::cout << e.what() << "\nÍåêîððåêòíîå çíà÷åíèå.";
+        return false;
+    }
+    catch (const std::out_of_range& e) {
+        std::cout << e.what() << "\nÂâåäèòå ÷èñëî ïîìåíüøå.";
+        return false;
+    }
+    return true;
 }
