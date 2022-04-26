@@ -6,7 +6,6 @@
 
 //std::less<> - сортировка от меньшего к большему
 typedef std::multiset<double> ms;
-typedef std::multiset<double>::iterator it;
 
 auto makeMultiset(const int& n) -> ms;
 auto average(const ms& mset) -> double;
@@ -29,13 +28,13 @@ int main() {
 //В задании говорится, что нужно поместить в начало контейнера среднее арифметическое.
 //Но так как все элементы множества хранятся отсортированными, то без лишних заморочек
 //добавляем элемент через метод insert().
-    std::cout << "Add average item to the multiset:\n";
+    std::cout << "Add average item into the multiset:\n";
     mset.insert(msetAverage);
     printMultiset(mset);
 
 //Так как функция find() возвращает итератор, то создадим его.
     auto i = mset.find(msetAverage);
-    std::cout << "Remove element < " << *i << " > from the multiset.\n";
+    std::cout << "Remove element <" << *i << "> from the multiset.\n";
     mset.erase(i);  //удаляется элемент с позицией, на которую указывает итератор.
     printMultiset(mset);
 
@@ -56,9 +55,10 @@ ms makeMultiset(const int& n) {
  * В конце цикла дублируем x.
 */
     ms mset;
+    constexpr double right = 10.0;
+    double x{};
     for (int i = 0; i < n; ++i) {
-        constexpr double right = 10.0;
-        const double x = generateRandom(0.0, right);
+        x = generateRandom(0.0, right);
         mset.insert(x);
         if (i == (n - 1)) {
             mset.insert(x);
@@ -79,7 +79,7 @@ double average(const ms& ms) {
     for (const auto& item: ms) {
         sum += item;
     }
-    return (sum / ms.size());
+    return (sum / static_cast<double> (ms.size()));
 }
 
 void subtractMinElement(ms& mset, const double elem) {
@@ -108,7 +108,8 @@ T generateRandom(const T& left, const T& right) {
     if (typeid(T).name() == i || typeid(T).name() == l) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e) || (typeid(T).name() == ll)) {
+    }
+    else if ((typeid(T).name() == d) || (typeid(T).name() == e) || (typeid(T).name() == ll)) {
         std::uniform_real_distribution<> dis(left, right);
         return dis(gen);
     }
