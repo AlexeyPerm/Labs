@@ -7,7 +7,7 @@ Time::Time() : Triad() {
     hours = minutes = seconds = 0;
 }
 
-Time::Time(int h, int m, int s) : Triad(h, m, s) {
+Time::Time(const int h, const int m, const int s) : Triad(h, m, s) {
     this->hours   = h;
     this->minutes = m;
     this->seconds = s;
