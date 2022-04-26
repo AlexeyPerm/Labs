@@ -18,10 +18,10 @@ int main() {
     pTriad->Show();
 
     Vector v(2);
-    Object* p = &time1;
-    v.Add(&time1);
-    p = &triad1;
-    v.Add(&triad1);
+    Object* pObj = &time1;
+    v.Add(pObj);
+    pObj = &triad1;
+    v.Add(pObj);
     std::cout << "\nRESULT:\n";
     std::cout << v;
 
