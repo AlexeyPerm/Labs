@@ -1,88 +1,96 @@
-ï»¿#include "money.h"
+#include "money.h"
 //#define DEBUG
 
 
 int main() {
-	setlocale(LC_ALL, "ru");
+    setlocale(LC_ALL, "rus");
 #ifndef DEBUG
-	cout << endl << "=================== ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ. ÐŸÐ°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ñ‹ Ð¾Ð±Ð½ÑƒÐ»ÐµÐ½Ñ‹ ===================" << endl << endl;
-	Money zero;
-	cout << "Ð­ÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ°: \"zero\"."<< endl;
-	zero.show();
-	cout << endl << "Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ ÑÐµÑ‚Ñ‚ÐµÑ€Ñ‹ Ð´Ð»Ñ Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹: " << endl;
-	cout << "zero.set_ruble(19)" << endl << "zero.set_kopeks(44);" << endl << endl;
-	zero.set_ruble(19);
-	zero.set_kopeks(44);
-	zero.show();
-	cout << endl << "Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ Ð³ÐµÑ‚Ñ‚ÐµÑ€Ñ‹ Ð´Ð»Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹: " << endl;
-	cout << "zero.get_ruble();" << endl << "zero.get_kopeks();" << endl;
-	cout << zero.get_ruble() << endl;
-	cout << zero.get_kopeks();
+    std::cout << std::endl << "=================== Êîíñòðóêòîð ïî óìîë÷àíèþ. Ïàðàìåòðû îáíóëåíû ==================="
+              << std::endl << std::endl;
+    Money zero;
+    std::cout << "Ýêçåìïëÿð êëàññà: \"zero\"." << std::endl;
+    zero.show();
+    std::cout << std::endl << "Èñïîëüçóåì ñåòòåðû äëÿ èçìåíåíèÿ çíà÷åíèé: " << std::endl;
+    std::cout << "zero.set_ruble(19)" << std::endl << "zero.set_kopeks(44);" << std::endl << std::endl;
+    zero.set_ruble(19);
+    zero.set_kopeks(44);
+    zero.show();
+    std::cout << std::endl << "Èñïîëüçóåì ãåòòåðû äëÿ ïîëó÷åíèÿ çíà÷åíèé: " << std::endl;
+    std::cout << "zero.get_ruble();" << std::endl << "zero.get_kopeks();" << std::endl;
+    std::cout << zero.get_ruble() << std::endl;
+    std::cout << zero.get_kopeks();
 
-	cout << endl << "===================== ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ñ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ð¼Ð¸ =====================" << endl << endl;
-	Money first(66, 99);
-	cout << "Money first(66, 99);" << endl;
-	cout << "Ð­ÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ°: \"first\"." << endl;
-	first.show();
+    std::cout << std::endl << "===================== Êîíñòðóêòîð ñ ïàðàìåòðàìè =====================" << std::endl
+              << std::endl;
+    Money first(66, 99);
+    std::cout << "Money first(66, 99);" << std::endl;
+    std::cout << "Ýêçåìïëÿð êëàññà: \"first\"." << std::endl;
+    first.show();
 
-	cout << endl << "===================== ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ Ð²Ð²Ð¾Ð´Ð° Ð¸ Ð²Ñ‹Ð²Ð¾Ð´Ð° =====================" << endl << endl;
-	Money second;
-	cout << "Ð­ÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ°: \"second\"."<< endl;
-	cin >> second;
-	cout << second;
+    std::cout << std::endl << "===================== Ïåðåãðóæåííûå îïåðàòîðû ââîäà è âûâîäà ====================="
+              << std::endl << std::endl;
+    Money second;
+    std::cout << "Ýêçåìïëÿð êëàññà: \"second\"." << std::endl;
+    std::cin >> second;
+    std::cout << "second = " << second;
 
-	cout << endl << "===================== ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°Ð½Ð¸Ñ =====================" << endl << endl;
-	Money third;
-	cout << "\"third\" = \"second\"." << endl;
-	cout << "Ð­ÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€ ÐºÐ»Ð°ÑÑÐ°: \"third\" Ð¿Ñ€Ð¸ÑÐ²Ð°Ð¸Ð²Ð°ÐµÑ‚ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ñ ÑÐºÐ·ÐµÐ¼Ð¿Ð»ÑÑ€Ð° \"second\"."<< endl;
-	third = second;
-	third.show();
+    std::cout << std::endl << "===================== Ïåðåãðóæåííûå îïåðàòîðû ïðèñâàèâàíèÿ ====================="
+              << std::endl << std::endl;
+    Money third;
+    std::cout << R"("third" = "second".)" << std::endl;
+    std::cout << "Ýêçåìïëÿð êëàññà: \"third\" ïðèñâàèâàåò çíà÷åíèÿ ýêçåìïëÿðà \"second\"." << std::endl;
+    third = second;
+    third.show();
 
-	cout << endl << "===================== ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€ Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ð¾Ð³Ð¾ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚Ð° =====================" << endl << endl;
-	cout << "Ð”Ð¾ Ð¿Ñ€Ð¸Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ð¾Ð³Ð¾ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚Ð°:" << endl;
-	zero.set_ruble(-1);
-	zero.set_kopeks(0);
-	zero.show();
-	cout << "ÐŸÐ¾ÑÐ»Ðµ Ð¿Ñ€Ð¸Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ð¾Ð³Ð¾ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚Ð°:" << endl;
-	++zero;
-	zero.show();
-	cout << endl;
-	cout << "Ð”Ð¾ Ð¿Ñ€Ð¸Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¿Ñ€ÐµÑ„Ð¸ÐºÑÐ½Ð¾Ð³Ð¾ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚Ð°:" << endl;
-	zero.set_ruble(1);
-	zero.set_kopeks(99);
-	zero.show();
-	cout << "ÐŸÐ¾ÑÐ»Ðµ Ð¿Ñ€Ð¸Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ð¿Ð¾ÑÑ‚Ñ„Ð¸ÐºÑÐ½Ð¾Ð³Ð¾ Ð¸Ð½ÐºÑ€ÐµÐ¼ÐµÐ½Ñ‚Ð°:" << endl;
-	zero++;
-	zero.show();
+    std::cout << std::endl << "===================== Ïåðåãðóæåííûå îïåðàòîð ïðåôèêñíîãî èíêðåìåíòà ====================="
+              << std::endl << std::endl;
+    std::cout << "Äî ïðèìåíåíèÿ ïðåôèêñíîãî èíêðåìåíòà:" << std::endl;
+    zero.set_ruble(-1);
+    zero.set_kopeks(0);
+    std::cout << "zero = ";
+    zero.show();
+    std::cout << "\nÏîñëå ïðèìåíåíèÿ ïðåôèêñíîãî èíêðåìåíòà:" << std::endl;
+    ++zero;
+    zero.show();
+    std::cout << std::endl;
+    std::cout << "Äî ïðèìåíåíèÿ ïîñòôèêñíîãî èíêðåìåíòà:" << std::endl;
+    zero.set_ruble(1);
+    zero.set_kopeks(99);
+    zero.show();
+    std::cout << "\nÏîñëå ïðèìåíåíèÿ ïîñòôèêñíîãî èíêðåìåíòà:" << std::endl;
+    zero++;
+    zero.show();
 
-	cout << endl << "===================== ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ > Ð¸ < =====================" << endl << endl;
-	cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚: " << zero;
-	cout << "Ð’Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚: " << second;
-	if (zero > second) {
-		cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾: true ";
-	}
-	else {
-		cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð±Ð¾Ð»ÑŒÑˆÐµ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾: false ";
-	}
+    std::cout << std::endl << "===================== Ïåðåãðóæåííûå îïåðàòîðû ñðàâíåíèÿ > è < ====================="
+              << std::endl << std::endl;
+    std::cout << "Ïåðâûé îáúåêò: " << zero << std::endl;
+    std::cout << "Âòîðîé îáúåêò: " << second << std::endl;;
+    if (zero > second) {
+        std::cout << "Ïåðâûé îáúåêò áîëüøå âòîðîãî: true ";
+    }
+    else {
+        std::cout << "Ïåðâûé îáúåêò áîëüøå âòîðîãî: false ";
+    }
 
-	cout << endl << "===================== ÐŸÐµÑ€ÐµÐ³Ñ€ÑƒÐ¶ÐµÐ½Ñ‹Ðµ Ð¾Ð¿ÐµÑ€Ð°Ñ‚Ð¾Ñ€Ñ‹ ÑÑ€Ð°Ð²Ð½ÐµÐ½Ð¸Ñ > Ð¸ < =====================" << endl << endl;
-	cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚: " << zero;
-	cout << "Ð’Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚: " << second;
-	if (zero < second) {
-		cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾: true ";
-	}
-	else {
-		cout << "ÐŸÐµÑ€Ð²Ñ‹Ð¹ Ð¾Ð±ÑŠÐµÐºÑ‚ Ð¼ÐµÐ½ÑŒÑˆÐµ Ð²Ñ‚Ð¾Ñ€Ð¾Ð³Ð¾: false ";
-	}
+    std::cout << std::endl << "===================== Ïåðåãðóæåííûå îïåðàòîðû ñðàâíåíèÿ > è < ====================="
+              << std::endl << std::endl;
+    std::cout << "Ïåðâûé îáúåêò: " << zero;
+    std::cout << "Âòîðîé îáúåêò: " << second;
+    if (zero < second) {
+        std::cout << "Ïåðâûé îáúåêò ìåíüøå âòîðîãî: true ";
+    }
+    else {
+        std::cout << "Ïåðâûé îáúåêò ìåíüøå âòîðîãî: false ";
+    }
 
 #endif // DEBUG
 
 #ifdef DEBUG
-	Money x(1,2);
-	x.show();
-	
+    Money x(1,2);
+    x.show();
+
 #endif // DEBUG
 
 
-	return 0;
-	}
+    return 0;
+}

@@ -1,9 +1,13 @@
-п»ї#include "money.h"
+#include <string>
+#include <iomanip>	//setw(), setfill()
+#include <algorithm>	//replace()
+#include "money.h"
 
 //------------------- Setters -------------------
 void Money::set_ruble(const long r) {
-	ruble = r;
-	ConvertRubleAndKopeksToTotal(*this);	//С„СѓРЅРєС†РёСЏ РїСЂРёРЅРёРјР°РµС‚ СЃСЃС‹Р»РєСѓ РЅР° РІС‹Р·С‹РІР°СЋС‰РёР№ СЌРєР»РµРјРїР»СЏСЂ РєР»Р°СЃСЃР°. РџРµСЂРµРґР°С‘Рј СЂР°Р·С‹РјРµРЅРѕРІР°РЅРЅС‹Р№ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РЅРµРіРѕ.
+    rubles = r;
+//Функция принимает ссылку на вызывающий экземпляр класса. Передаём разыменованный указатель на него.
+	ConvertRubleAndKopeksToTotal(*this);
 }
 
 void Money::set_kopeks(const int k) {
@@ -12,7 +16,7 @@ void Money::set_kopeks(const int k) {
 }
 //------------------- Getters -------------------
 long Money::get_ruble() const {
-	return ruble;
+	return rubles;
 }
 
 int Money::get_kopeks() const {
@@ -21,24 +25,24 @@ int Money::get_kopeks() const {
 
 //---------------- Constructors -----------------
 Money::Money() {
-	ruble = 0;
+    rubles = 0;
 	kopeks = 0;
 	ConvertRubleAndKopeksToTotal(*this);
 }
 
 Money::Money(const long ruble, const int kopeks) {
-	this->ruble = ruble;	//РїСЂРёСЃРІР°РёРІР°РµРј Р·Р°РґР°РЅРЅРѕРµ РєРѕР»-РІРѕ СЂСѓР±Р»РµР№ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµР№ РїРµСЂРµРјРµРЅРЅРѕР№ РІ С‚РµРєСѓС‰РµРј СЌРєР·РµРјРїР»СЏСЂРµ РєР»Р°СЃСЃР°. 
+	this->rubles = ruble;	//присваиваем заданное кол-во рублей соответствующей переменной в текущем экземпляре класса.
 	if (kopeks < 0 || kopeks > 100) {
-		cout << "РќРµ РєРѕСЂСЂРµРєС‚РЅРѕРµ РєРѕР»-РІРѕ РєРѕРїРµРµРє. РћР±РЅСѓР»СЏРµРј Р·РЅР°С‡РµРЅРёРµ\n";
+        std::cout << "Не корректное кол-во копеек. Обнуляем значение\n";
 	}
 	else {
-		this->kopeks = kopeks;	//РїСЂРёСЃРІР°РёРІР°РµРј Р·Р°РґР°РЅРЅРѕРµ РєРѕР»-РІРѕ РєРѕРїРµРµРє СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РµР№ РїРµСЂРµРјРµРЅРЅРѕР№ РІ С‚РµРєСѓС‰РµРј СЌРєР·РµРјРїР»СЏСЂРµ РєР»Р°СЃСЃР°. 
+		this->kopeks = kopeks;	//присваиваем заданное кол-во копеек соответствующей переменной в текущем экземпляре класса. 
 	}
 	ConvertRubleAndKopeksToTotal(*this);
 }
 
-Money::Money(const Money &M) {	//РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ T::T(const T&) {...}
-	ruble = M.ruble;
+Money::Money(const Money &M) {	//Конструктор копирования T::T(const T&) {...}
+	rubles = M.rubles;
 	kopeks = M.kopeks;
 }
 
@@ -52,7 +56,9 @@ bool Money::operator > (const Money &other) const {
 }
 
 Money &Money::operator++() {
-	totalRubleAndKopeks += 0.01;	//РџСЂРёР±Р°РІР»СЏРµРј РєРѕРїРµР№РєСѓ. РўР°Рє РєР°Рє СЂР°Р±РѕС‚Р°РµРј СѓР¶Рµ СЃ РІРµС‰РµСЃС‚РІРµРЅРЅС‹Рј С‡РёСЃР»РѕРј, С‚Рѕ Рё РїСЂРёР±Р°РІР»СЏРµРј РѕРґРЅСѓ СЃРѕС‚СѓСЋ С‡Р°СЃС‚СЊ, РєРѕРµР№ Рё СЏРІР»СЏРµС‚СЃСЏ РєРѕРїРµР№РєР°. 
+//Прибавляем копейку. Так как работаем уже с вещественным числом, то и прибавляем одну сотую часть, коей и является копейка.
+
+
 	return *this;
 }
 
@@ -63,75 +69,84 @@ Money Money::operator++(int) {
 }
 
 Money &Money::operator = (const Money &other) {
-	this->ruble = other.ruble;
+	this->rubles = other.rubles;
 	this->kopeks = other.kopeks;
 	ConvertRubleAndKopeksToTotal(*this);
 	return *this;
 }
 
-istream &operator >> (istream &in, Money &M) {
-	string r{}, k{};
-	cout << "Р’РІРµРґРёС‚Рµ СЂСѓР±Р»Рё \n>";
+std::istream &operator >> (std::istream &in, Money &M) {
+    std::string r{}, k{};
+    std::cout << "Введите рубли \n>";
 	in >> r;
-	cout << "Р’РІРµРґРёС‚Рµ РєРѕРїРµР№РєРё \n>";
+    std::cout << "Введите копейки \n>";
 	in >> k;
-	while (!CorrectInput(r, k, M)) {	//РїРµСЂРµРґР°С‘Рј РІРІРµРґС‘РЅРЅС‹Рµ Р·РЅР°С‡РµРЅРёСЏ СЂСѓР±Р»РµР№, РєРѕРїРµРµРє Рё С‚РµРєСѓС‰РёР№ СЌРєР·РµРјР»РїР»СЏСЂ РєР»Р°СЃСЃР°. 
-		cout << "РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ. \nР’РІРµРґРёС‚Рµ СЂСѓР±Р»Рё: \n>";
+	while (!CorrectInput(r, k, M)) {	//передаём введённые значения рублей, копеек и текущий экземлпляр класса. 
+        std::cout << "Повторите ввод. \nВведите рубли: \n>";
 		in >> r;
-		cout << "Р’РІРµРґРёС‚Рµ РєРѕРїРµР№РєРё: \n>";
+        std::cout << "Введите копейки: \n>";
 		in >> k;
 	}
 	ConvertRubleAndKopeksToTotal(M);
 	return in;
 }
 
-ostream &operator << (ostream &out, Money &M) {
-	out.imbue(locale("ru"));	//Р Р°Р·РґРµР»РёС‚РµР»СЊ РґСЂРѕР±РЅС‹Р№ С‡РёСЃРµР» Р±СѓРґРµС‚ РІ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРё СЃ СѓРєР°Р·Р°РЅРѕР№ Р»РѕРєР°Р»РёР·Р°С†РёР№. Р’ РґР°РЅРЅРѕРј СЃР»СѓС‡Р°Рµ Р±СѓРґРµС‚ Р·Р°РїСЏС‚Р°СЏ. 
-	return (out << fixed << setprecision(2) << M.totalRubleAndKopeks << " СЂ." << endl);
+std::ostream& operator<<(std::ostream& out,  const Money& m) {
+    std::cout << m.rubles << ",";
+    if (m.kopeks < 10) {
+        std::cout << "0";
+    }
+    std::cout << m.kopeks;
+    return out;
 }
 
 //--------------- Other functions ---------------
 void Money::show() const{
-	wcout.imbue(locale("ru"));
-	wcout << fixed << setprecision(2) << totalRubleAndKopeks << " СЂ." << endl;
+    std::cout << rubles << ",";
+    if (kopeks < 10) {
+        std::cout << "0";
+    }
+    std::cout << kopeks;
+//    std::wcout.imbue(std::locale("ru"));
+//    std::wcout << std::fixed << std::setprecision(2) << totalRubleAndKopeks << " р." << std::endl;
 }
 
-bool CorrectInput(string &sRuble, const string &sKopeks, Money &M) {
+bool CorrectInput(std::string &sRuble, const std::string &sKopeks, Money &M) {
 
-	if (sRuble[0] == '-') {	//РµСЃР»Рё РІРІРµР»Рё РѕС‚СЂРёС†. Р·РЅР°С‡РµРЅРёРµ, С‚Рѕ РёР·Р±Р°РІР»СЏРµРјСЃСЏ РѕС‚ РјРёРЅСѓСЃР°, РґР»СЏ РїСЂРѕРІРµСЂРєРё СЃС‚СЂРѕРєРё РЅР° С‡РёСЃР»Р°, РёРЅР°С‡Рµ all_of() РІСЃРµРіРґР° Р±СѓРґРµС‚ РІРѕР·РІСЂР°С‰Р°С‚СЊ false;
-		string tmp = sRuble;
+	if (sRuble[0] == '-') {	//если ввели отриц. значение, то избавляемся от минуса, для проверки строки на числа, иначе all_of() всегда будет возвращать false;
+        std::string tmp = sRuble;
 		tmp = tmp.erase(0, 1);
-		if (!(all_of(tmp.begin(), tmp.end(), isdigit))) {	//РїСЂРѕРІРµСЂСЏРµРј РІСЃРµ СЌР»РµРјРµРЅС‚С‹ СЃС‚СЂРѕРєРё РЅР° С‡РёСЃР»Рѕ
-			cout << "РћС€РёР±РєР° РїСЂРё РІРІРѕРґРµ РєРѕР»-РІР° СЂСѓР±Р»РµР№. РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё С‡РёСЃР»Рѕ";
+		if (!(all_of(tmp.begin(), tmp.end(), isdigit))) {	//проверяем все элементы строки на число
+            std::cout << "Ошибка при вводе кол-ва рублей. Необходимо ввести число";
 			return false;
 		}
 	}
 	else if ((!(all_of(sRuble.begin(), sRuble.end(), isdigit)))) {
-		cout << "РћС€РёР±РєР° РїСЂРё РІРІРѕРґРµ РєРѕР»-РІР° СЂСѓР±Р»РµР№. РќРµРѕР±С…РѕРґРёРјРѕ РІРІРµСЃС‚Рё С‡РёСЃР»Рѕ.\n>";
+        std::cout << "Ошибка при вводе кол-ва рублей. Необходимо ввести число.\n>";
 		return false;
 	}
 	if (sKopeks[0] == '-') {
-		string tmp = sKopeks;
+        std::string tmp = sKopeks;
 		tmp = tmp.erase(0, 1);
 		if ((!(all_of(tmp.begin(), tmp.end(), isdigit)))) {
-			cout << "РћС€РёР±РєР° РїСЂРё РІРІРѕРґРµ РєРѕР»-РІР° РєРѕРїРµРµРє.\n";
+            std::cout << "Ошибка при вводе кол-ва копеек.\n";
 			return false;
 		}
 	}
 	else if ((!(all_of(sKopeks.begin(), sKopeks.end(), isdigit)))) {
-		cout << "РћС€РёР±РєР° РїСЂРё РІРІРѕРґРµ РєРѕР»-РІР° РєРѕРїРµРµРє.\n";
+        std::cout << "Ошибка при вводе кол-ва копеек.\n";
 		return false;
 	}
-	//-------------- - ruble-------------- -
+	//-------------- - rubles-------------- -
 	try {
-		M.ruble = stol(sRuble);
+		M.rubles = stol(sRuble);
 	}
-	catch (const invalid_argument &e) {
-		cout << e.what() << "\nРќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ.";
+	catch (const std::invalid_argument &e) {
+        std::cout << e.what() << "\nНекорректное значение.";
 		return false;
 	}
-	catch (const out_of_range &e) {
-		cout << e.what() << "\nР’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РїРѕРјРµРЅСЊС€Рµ.";
+	catch (const std::out_of_range &e) {
+        std::cout << e.what() << "\nВведите число поменьше.";
 		return false;
 	}
 
@@ -139,34 +154,26 @@ bool CorrectInput(string &sRuble, const string &sKopeks, Money &M) {
 	try {
 		M.kopeks = stoi(sKopeks);
 	}
-	catch (const invalid_argument &e) {
-		cout << e.what() << "\nРќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ.";
+	catch (const std::invalid_argument &e) {
+        std::cout << e.what() << "\nНекорректное значение.";
 		return false;
 	}
-	catch (const out_of_range &e) {
-		cout << e.what() << "\nР’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РїРѕРјРµРЅСЊС€Рµ.";
+	catch (const std::out_of_range &e) {
+        std::cout << e.what() << "\nВведите число поменьше.";
 		return false;
 	}
-
-	//if (M.kopeks < 0) {
-	//	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РєРѕРїРµРµРє РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ РЅСѓР»СЏ.";
-	//	return false;
-	//}
-	//if (M.kopeks >= 100) {
-	//	cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РєРѕРїРµРµРє Р±РѕР»СЊС€Рµ 100. РљРѕРЅРІРµСЂС‚РёСЂСѓРµРј РёР·Р»РёС€РєРё РІ СЂСѓР±Р»Рё." << endl;
-	//}
-
 	return true;
 }
 
 void ConvertRubleAndKopeksToTotal(Money &M) {
-	if (M.ruble >= 0 && M.kopeks >=0) {
-		M.totalRubleAndKopeks = (M.ruble + M.kopeks / 100.0);
+	if (M.rubles >= 0 && M.kopeks >= 0) {
+		M.totalRubleAndKopeks = (M.rubles + M.kopeks / 100.0);
 	}
 	else if (M.kopeks < 0) {
-		M.totalRubleAndKopeks = (M.ruble + M.kopeks / 100.0);
+		M.totalRubleAndKopeks = (M.rubles + M.kopeks / 100.0);
 	}
-	else if (M.ruble < 0) {
-		M.totalRubleAndKopeks = (M.ruble - M.kopeks / 100.0);
+	else if (M.rubles < 0) {
+		M.totalRubleAndKopeks = (M.rubles - M.kopeks / 100.0);
 	}
 }
+

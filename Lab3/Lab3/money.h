@@ -1,27 +1,25 @@
-ï»¿#pragma once
+#pragma once
 #include <iostream>
 #include <string>
-#include <algorithm>	//replace()
-#include <iomanip>	//setw(), setfill()
+
 #include <fstream>	//istream(), ostream()
-using namespace std;
 
 class Money {
 private:
-	long ruble{};	//Ð ÑƒÐ±Ð»Ð¸
-	int kopeks{};	//ÐšÐ¾Ð¿ÐµÐ¹ÐºÐ¸
+	long rubles{};	//Ðóáëè
+	int kopeks{};	//Êîïåéêè
 	long double totalRubleAndKopeks{};
 	
 public:
-	Money();	//ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ð¿Ð¾ ÑƒÐ¼Ð¾Ð»Ñ‡Ð°Ð½Ð¸ÑŽ
-	Money(const long, const int);	//ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ Ñ Ð¿Ð°Ñ€Ð°Ð¼ÐµÑ‚Ñ€Ð°Ð¼Ð¸
-	Money(const Money &);	//ÐšÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€ ÐºÐ¾Ð¿Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ
-	~Money() {};	//Ð”ÐµÑÑ‚Ñ€ÑƒÐºÑ‚Ð¾Ñ€
+	Money();	//Êîíñòðóêòîð ïî óìîë÷àíèþ
+	Money(long, int);	//Êîíñòðóêòîð ñ ïàðàìåòðàìè
+	Money(const Money &);	//Êîíñòðóêòîð êîïèðîâàíèÿ
+	~Money() {};	//Äåñòðóêòîð
 	void show() const;
 
 	//--------- Setters ---------
-	void set_ruble(const long);
-	void set_kopeks(const int);
+	void set_ruble(long);
+	void set_kopeks(int);
 
 	//--------- Getters ---------
 	long get_ruble()  const;
@@ -35,9 +33,9 @@ public:
 	Money &operator = (const Money &);
 
 	//---- Friend Functions -----
-	friend istream &operator >> (istream &, Money &);
-	friend ostream &operator << (ostream &, Money &);
-	friend bool CorrectInput(string &, const string &, Money &);
-	friend void ConvertRubleAndKopeksToTotal(Money &);	//Ð¾Ð±ÑŠÐµÐ´Ð¸Ð½ÑÐµÐ¼ Ñ€ÑƒÐ±Ð»Ð¸ Ð¸ ÐºÐ¾Ð¿ÐµÐ¹ÐºÐ¸. Ð”Ð»Ñ Ð¿Ñ€Ð¸Ð¼ÐµÑ€Ð° Ð²Ñ‹Ñ…Ð¾Ð´Ðµ Ð¿Ð¾Ð»ÑƒÑ‡Ð¸Ð¼: 100,40 Ñ€. Ð¸Ð»Ð¸ -23,03 Ñ€.
+	friend std::istream &operator >> (std::istream &, Money &);
+	friend std::ostream &operator << (std::ostream &, const Money &);
+	friend bool CorrectInput(std::string &, const std::string &, Money &);
+	friend void ConvertRubleAndKopeksToTotal(Money &);	//Îáúåäèíÿåì ðóáëè è êîïåéêè. Äëÿ ïðèìåðà âûõîäå ïîëó÷èì: 100,40 ð. èëè -23,03 ð.
 };
 
