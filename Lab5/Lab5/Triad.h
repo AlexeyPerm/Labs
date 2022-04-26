@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include "Object.h"
-using namespace std;
 
 class Triad : public Object
 {
@@ -10,35 +9,35 @@ protected:
 	int first;
 	int second;
 	int third;
-	static bool InputValidation(const string &);
+	static bool InputValidation(const std::string &);
 
 public:
-	Triad();	//Конструктор по умолчанию
-	Triad(const int, const int, const int);	//Конструктор с параметрами
+    Triad() { first = second = third = 0; }	//Конструктор по умолчанию
+    Triad(int f, int s, int t) : first(f), second(s), third(t) {};	//Конструктор с параметрами
 	Triad(const Triad &);	//Конструктор копирования
 	~Triad() = default;	//Деструктор
 	void Show() const override;
 
 	//--------- Setters ---------
 
-	void set_first (const int);
-	void set_second(const int);
-	void set_third (const int);
+    void set_first  (int f) { first = f; }
+    void set_second (int s) { second = s; }
+    void set_third  (int t) { third = t; }
 
 	//--------- Getters ---------
 
-	int get_first () const;
-	int get_second() const;
-	int get_third () const;
+    int get_first  () const { return first; }
+    int get_second () const { return second; }
+    int get_third  () const { return third; }
 
 	//-- Operators overloading --
 	Triad &operator = (const Triad &);
-	friend ostream &operator << (ostream &out, const Triad &);
-	friend istream &operator >> (istream &in, Triad &);
+	friend std::ostream &operator << (std::ostream &out, const Triad &);
+	friend std::istream &operator >> (std::istream &in, Triad &);
 
 	//----- Other Functions -----
-	virtual int FirstAddOne ();	//увеличение на единичку
-	virtual int SecondAddOne();	//увеличение на единичку
-	virtual int ThirdAddOne ();	//увеличение на единичку
+    virtual int FirstAddOne  () { return (++first); }
+    virtual int SecondAddOne () { return (++second); }
+    virtual int ThirdAddOne  () { return (++third); }
 
 };
