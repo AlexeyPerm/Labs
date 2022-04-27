@@ -10,10 +10,7 @@ public:
     Person() { name = "", age = 0; }
     Person(const Person&);              //копирование
     Person(const std::string&, int);    //с параметрами
-
-
     ~Person() override = default;
-
 // --------------------- Overridden Functions ---------------------- //
     void Show() override;
     void Input() override;
@@ -32,4 +29,3 @@ protected:
     std::string name;
     static bool CheckCorrectInput(std::string&, bool isInt = true);
 };
-

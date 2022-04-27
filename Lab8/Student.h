@@ -10,17 +10,12 @@ public:
     Student(const Student&);
     Student(const std::string&, int, double);
     ~Student() override = default;
-
 // --------------------- Overridden Functions ---------------------- //
-    void Show() override;
+    void Show()  override;
     void Input() override;
-
-// --------------------------- Getters ----------------------------- //
+// ----------------------- Getters/Setters ------------------------- //
     double GetRate() const { return rate; }
-
-// --------------------------- Setters ----------------------------- //
     void SetRate(const double& r) { rate = r; }
-
 // --------------------- Overloaded Functions ---------------------- //
     Student& operator=(const Student&);
 

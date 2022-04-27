@@ -6,12 +6,12 @@
 // ------------------------- Constructors -------------------------- //
 Person::Person(const std::string& name, const int age) {
     this->name = name;
-    this->age = age;
+    this->age  = age;
 }
 
 Person::Person(const Person& p) {
     name = p.name;
-    age = p.age;
+    age  = p.age;
 }
 
 // --------------------- Overridden Functions ---------------------- //
@@ -54,7 +54,7 @@ Person& Person::operator=(const Person& p) {
         return *this;
     }
     name = p.name;
-    age = p.age;
+    age  = p.age;
     return *this;
 }
 
@@ -97,7 +97,3 @@ bool Person::CheckCorrectInput(std::string& tmp, bool isInt) {
     }
     return true;
 }
-
-
-
-

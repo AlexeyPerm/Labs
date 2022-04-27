@@ -1,64 +1,98 @@
 #include "Money.h"
-#include "iostream"
+#include <iostream>
 
+// ------------------------- Constructors -------------------------- //
+Money::Money(const long r, const int k) {
+    if (k >= 100) {
+        long long tmp = r * 100 + k;
+        rubles = static_cast<long> (tmp / 100);
+        kopeks = static_cast<int>  (tmp % 100);
+    }
+    else {
+        rubles = r;
+        kopeks = k;
+    }
+}
 
 Money::Money(const Money& m) {
     rubles = m.rubles;
     kopeks = m.kopeks;
 }
 
-Money::Money(long r, int k) {
-    if (k >= 100) {
-        long long tmp = r * 100 + k;
-        rubles = static_cast<long> (tmp / 100);
-        kopeks = static_cast<int> (tmp % 100);
-    } else {
-        rubles = r;
-        kopeks = k;
-    }
-}
-
-Money& Money::operator=(const Money& m) {
-    if (this == &m) {
+// --------------------- Overloaded Functions ---------------------- //
+Money& Money::operator=(const Money& rhs) {
+    if (this == &rhs) {
         return *this;
     }
-
-    rubles = m.rubles;
-    kopeks = m.kopeks;
+    rubles = rhs.rubles;
+    kopeks = rhs.kopeks;
     return *this;
 }
 
-Money Money::operator+(const Money& m) const {
-    long long x = rubles * 100 + kopeks;
-    long long xm = m.rubles * 100 + m.kopeks;
-    x += xm;
-    long mTemp1 = static_cast<long> (x / 100);
-    long mTemp2 = static_cast<int> (x % 100);
-    Money mTemp(mTemp1, mTemp2);
-    return mTemp;
-//    rubles = static_cast<long> (tmp / 100);
-//    kopeks = static_cast<int> (tmp % 100);
-
+bool Money::operator<(const Money& rhs) const {
+    return rubles < rhs.rubles || (rubles == rhs.rubles && kopeks < rhs.kopeks);
 }
 
-ostream& operator<<(ostream& out, const Money& m) {
-    cout << m.rubles << ",";
+bool Money::operator>(const Money& rhs) const {
+    return rubles > rhs.rubles || (rubles == rhs.rubles && kopeks > rhs.kopeks);
+}
+
+std::ostream& operator<<(std::ostream& out, const Money& m) {
+    std::cout << m.rubles << ",";
     if (m.kopeks < 10) {
-        cout << "0";
+        std::cout << "0";
     }
-    cout << m.kopeks;
+    std::cout << m.kopeks;
     return out;
 }
 
-istream& operator>>(istream& in, Money& m) {
-    cout << "ruble >";
+std::istream& operator>>(std::istream& in, Money& m) {
+    std::cout << "Rubles>";
     in >> m.rubles;
-    cout << "kopeks >";
+    std::cout << "Kopecks>";
     in >> m.kopeks;
     if (m.kopeks >= 100) {
-        long long tmp = m.rubles * 100 + m.kopeks;
+        long long tmp = static_cast<long long> (m.rubles * 100) + m.kopeks;
         m.rubles = static_cast<long> (tmp / 100);
         m.kopeks = static_cast<int> (tmp % 100);
     }
     return in;
+}
+
+Money& Money::operator++() {
+    long long tmp = rubles * 100 + kopeks;
+    tmp++;
+    rubles = static_cast<long> (tmp / 100);
+    kopeks = static_cast<int> (tmp % 100);
+    return *this;
+}
+
+Money Money::operator++(int) {
+    long long tmp = rubles * 100 + kopeks;
+    tmp++;
+    Money m(rubles, kopeks);
+    rubles = static_cast<long> (tmp / 100);
+    kopeks = static_cast<int> (tmp % 100);
+    return m;
+}
+
+Money Money::operator+(const Money& rhs) const {
+    Money m;
+    if ((kopeks + rhs.kopeks) >= 100) {
+        m.rubles = rubles + rhs.rubles + 1;
+        m.kopeks = (kopeks + rhs.kopeks) % 100;
+    }
+    else {
+        m.rubles = rubles + rhs.rubles;
+        m.kopeks = kopeks + rhs.kopeks;
+    }
+    return m;
+}
+
+void Money::print() const {
+    std::cout << rubles << ",";
+    if (kopeks < 10) {
+        std::cout << "0";
+    }
+    std::cout << kopeks;
 }

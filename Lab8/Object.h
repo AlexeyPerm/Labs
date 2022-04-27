@@ -1,7 +1,6 @@
 #pragma once
 #include "Event.h"
 
-
 class Object {
 public:
     Object() = default;
@@ -10,7 +9,3 @@ public:
     virtual void Input() = 0;
     virtual void HandleEvent(const TEvent &e) = 0;
 };
-
-
-
-

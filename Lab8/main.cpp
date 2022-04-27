@@ -8,11 +8,6 @@ int main() {
     Dialog d;
     d.Execute();
     std::cout << std::endl;
-
- 
- //////////////   
-    
-
     return 0;
 }
 

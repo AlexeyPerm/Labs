@@ -3,8 +3,6 @@
 #include "Student.h"
 #include <iostream>
 
-#define DEBUG_TREE
-
 // ------------------------- Constructors -------------------------- //
 Tree::Tree() {
     size = 0;
@@ -14,9 +12,6 @@ Tree::Tree() {
 
 Tree::~Tree() {
     if (begin) {
-#ifdef DEBUG_TREE
-        std::cout << "Destructor for begin[] " << begin << std::endl;
-#endif //DEBUG_TREE
         delete[] begin;
         begin = nullptr;
     }
@@ -26,9 +21,6 @@ Tree::Tree(const int size) {
     current = 0;
     this->size = size;
     begin = new Object* [size];
-#ifdef DEBUG_TREE
-    std::cout << std::endl << "Create begin[] " << begin << std::endl;
-#endif //DEBUG_TREE
 }
 
 // ---------------------------- Methods ---------------------------- //
@@ -110,5 +102,3 @@ void Tree::HandleEvent(const TEvent& e) {
         }
     }
 }
-
-
