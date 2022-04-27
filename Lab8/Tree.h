@@ -7,7 +7,7 @@ public:
 // ------------------------- Constructors -------------------------- //
     Tree();
     explicit Tree(int);
-    ~Tree();
+    virtual ~Tree();
 // ---------------------------- Methods ---------------------------- //
     void Del();
     void Show() const;
@@ -19,7 +19,7 @@ public:
     int operator()() const { return current; }
 
 protected:
-    int size;
-    int current;
+    int      size;
+    int      current;
     Object** begin;
 };

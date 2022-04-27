@@ -36,7 +36,7 @@ Student& Student::operator=(const Student& st) {
         return *this;
     }
     name = st.name;
-    age = st.age;
+    age  = st.age;
     rate = st.rate;
     return *this;
 }

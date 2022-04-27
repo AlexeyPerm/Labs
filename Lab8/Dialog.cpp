@@ -3,12 +3,12 @@
 #include <iostream>
 
 void Dialog::GetEvent(TEvent& event) {
-    std::string opInt = "+-?s/qm";  //коды операций
+    std::string opInt = "+-?sqm";  //коды операций
     std::string s;
     std::string param;
     char code;
 
-    std::cout << "+ add; - del; / get; m make; s show all; ?(num) show element; q quit;" << std::endl;
+    std::cout << "+ add; - del; m make; s show all; ?(num) show element; q quit;" << std::endl;
     std::cout << ">";
     std::cin >> s;
     code = s[0];    //первый символ команды
@@ -44,9 +44,9 @@ void Dialog::GetEvent(TEvent& event) {
                 event.command = cmElemNumber;
                 break;
             }
-//            default: {
-//                return;
-//            }
+            default: {
+                return;
+            }
         }
         if (s.length() > 1) {
             param = s.substr(1, s.length() - 1);
