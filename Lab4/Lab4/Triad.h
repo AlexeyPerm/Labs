@@ -14,7 +14,7 @@ public:
     Triad() { first = second = third = 0; }    //Конструктор по умолчанию
     Triad(int f, int s, int t) : first(f), second(s), third(t) {};    //Конструктор с параметрами
     Triad(const Triad&);    //Конструктор копирования
-    ~Triad() = default;    //Деструктор
+    virtual ~Triad() = default;    //Деструктор
     virtual void Show() const;
 
     //--------- Setters ---------
