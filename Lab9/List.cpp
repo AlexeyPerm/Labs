@@ -3,8 +3,8 @@
 
 // ========================= Constructors ========================== //
 List::List() {
-    size = 0;
-    arr = nullptr;
+    size    = 0;
+    arr     = nullptr;
     current = nullptr;
 }
 
@@ -16,7 +16,7 @@ List::List(const int size) {
     }
     else {
 #if OPTION == 2
-        throw Error("size <= 0\n");
+        throw Error("Error! Size <= 0\n");
 #elif OPTION == 3
         throw NegativeSizeError();
 #endif
@@ -35,7 +35,7 @@ List::List(const std::initializer_list<int>& l) : List(static_cast<int> (l.size(
 
 List::~List() {
     delete[] arr;
-    arr = nullptr;
+    arr     = nullptr;
     current = nullptr;
 }
 
@@ -57,24 +57,24 @@ List& List::operator=(const List& l) {    //конструктор присва�
         delete[] arr;    //Если дата не Null, то освобождаем память.
     }
 
-    size = l.size;
+    size    = l.size;
     current = l.current;
-    arr = new int[size];
+    arr     = new int[size];
     for (int i = 0; i < size; ++i) {
         arr[i] = l.arr[i];
     }
     current = l.current;
-    return *this;
+    return  *this;
 }
 
 int& List::operator[](const int index) const {
 
 #if OPTION == 2
     if (index < 0) {
-        throw Error("index < 0"); //если индекс i < 0, то бросаем исключение
+        throw Error("Error! Index < 0"); //если индекс i < 0, то бросаем исключение
     }
     if (index >= size) {
-        throw Error("index > size");
+        throw Error("Error! Index > size");
     }
 #elif OPTION == 3
     if (index < 0) {
@@ -110,10 +110,10 @@ List::operator int() const {
 List& List::operator-(const int index) {
 #if OPTION == 2
     if (!size) {
-        throw Error("List is empty");
+        throw Error("Error! List is empty");
     }
     if ((index + 1) > size) {
-        throw Error("Index > array");
+        throw Error("Error! Index > array");
     }
 #elif OPTION == 3
     if (!size) {
@@ -123,8 +123,6 @@ List& List::operator-(const int index) {
         throw OversizeIndexError();
     }
 #endif
-
     current = &arr[index];
     return *this;
 }
-

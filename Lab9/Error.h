@@ -3,15 +3,17 @@
 #include <iostream>
 #include <string>
 
-#define OPTION 2  //Вариант реализации (2 или 3)
+#define OPTION 3  //Вариант реализации (2 или 3)
 
 #if OPTION == 2
+
 class Error {
     std::string str;
 public:
     explicit Error(std::string s) { str = s; }
     void what() { std::cout << str << std::endl; }
 };
+
 #elif OPTION == 3
 
 class Error {
