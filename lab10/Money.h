@@ -9,14 +9,12 @@ public:
     Money(long, int);
     Money(const Money&);
     ~Money() = default;
-
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator++();
     Money operator++(int);
     Money& operator=(const Money&);
     bool operator<(const Money&) const;
     bool operator>(const Money&) const;
-
 // ---------------------- Getters / Setters ------------------------ //
     long getRubles() const { return rubles; }
     void setRubles(const long& r) { rubles = r; }
@@ -27,7 +25,7 @@ public:
     friend std::fstream& operator<<(std::fstream&, const Money&);
 
 private:
-    int kopeks;
+    int  kopeks;
     long rubles;
 };
 
