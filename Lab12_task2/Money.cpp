@@ -2,12 +2,11 @@
 #include <iostream>
 
 // ------------------------- Constructors -------------------------- //
-
 Money::Money(const long r, const int k) {
     if (k >= 100) {
         long long tmp = r * 100 + k;
         rubles = static_cast<long> (tmp / 100);
-        kopeks = static_cast<int> (tmp % 100);
+        kopeks = static_cast<int>  (tmp % 100);
     } else {
         rubles = r;
         kopeks = k;
@@ -20,7 +19,6 @@ Money::Money(const Money& m) {
 }
 
 // --------------------- Overloaded Functions ---------------------- //
-
 Money& Money::operator=(const Money& rhs) {
     if (this == &rhs) {
         return *this;
@@ -51,7 +49,7 @@ std::istream& operator>>(std::istream& in, Money& m) {
     if (m.kopeks >= 100) {
         long long tmp = static_cast<long long> (m.rubles * 100) + m.kopeks;
         m.rubles = static_cast<long> (tmp / 100);
-        m.kopeks = static_cast<int> (tmp % 100);
+        m.kopeks = static_cast<int>  (tmp % 100);
     }
     return in;
 }
@@ -59,7 +57,7 @@ std::istream& operator>>(std::istream& in, Money& m) {
 Money Money::operator+(const Money& rhs) const {
     Money m;
     if ((kopeks + rhs.kopeks) >= 100) {
-        m.rubles = rubles + rhs.rubles + 1;
+        m.rubles =  rubles + rhs.rubles + 1;
         m.kopeks = (kopeks + rhs.kopeks) % 100;
     } else {
         m.rubles = rubles + rhs.rubles;
@@ -70,7 +68,7 @@ Money Money::operator+(const Money& rhs) const {
 
 Money& Money::operator+=(const Money& rhs) {
     if ((kopeks + rhs.kopeks) >= 100) {
-        rubles = rubles + rhs.rubles + 1;
+        rubles =  rubles + rhs.rubles + 1;
         kopeks = (kopeks + rhs.kopeks) % 100;
     } else {
         rubles = rubles + rhs.rubles;
@@ -107,13 +105,13 @@ Money Money::operator/(const int& n) const {
     long long tmp = (static_cast<long long> (rubles * 100) + kopeks) / n;
     Money m;
     m.rubles = static_cast<long> (tmp / 100);
-    m.kopeks = static_cast<int> (tmp % 100);
+    m.kopeks = static_cast<int>  (tmp % 100);
     return m;
 }
 
 Money& Money::operator=(const int& n) {
     long long tmp = static_cast<long long> (rubles * 100) + kopeks + n;
     rubles = static_cast<long> (tmp / 100);
-    kopeks = static_cast<int> (tmp % 100);
+    kopeks = static_cast<int>  (tmp % 100);
     return *this;
 }
