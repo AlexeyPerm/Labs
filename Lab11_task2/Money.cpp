@@ -31,16 +31,10 @@ Money& Money::operator=(const Money& m) {
 }
 
 bool Money::operator<(const Money& rhs) const {
-    //long long lhsTmp = rubles * 100 + kopeks;
-    //long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-    //return lhsTmp < rhsTmp;
     return rubles < rhs.rubles || (rubles == rhs.rubles && kopeks < rhs.kopeks);
 }
 
 bool Money::operator>(const Money& rhs) const {
-    //long long lhsTmp = rubles * 100 + kopeks;
-    //long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-    //return lhsTmp > rhsTmp;
     return rubles > rhs.rubles || (rubles == rhs.rubles && kopeks > rhs.kopeks);
 }
 
@@ -93,7 +87,7 @@ Money Money::operator/(const int& n) const {
     long long tmp = (static_cast<long long> (rubles * 100) + kopeks) / n;
     Money m;
     m.rubles = static_cast<long> (tmp / 100);
-    m.kopeks = static_cast<int> (tmp % 100);
+    m.kopeks = static_cast<int>  (tmp % 100);
     return m;
 }
 
