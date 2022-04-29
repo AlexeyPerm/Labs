@@ -1,7 +1,7 @@
-#include "Money.h"
-#include <iostream>
-#include <fstream>
 #include <string>
+#include <fstream>
+#include <iostream>
+#include "Money.h"
 
 int makeFile(const char *fName) {
     std::fstream stream(fName, std::ios::out | std::ios::trunc);
@@ -209,5 +209,4 @@ int addMultipleObjectsInFiles(const char *fName, const int& elementsCount, const
     remove(fName);
     rename("temp", fName);
     return l;
-
 }

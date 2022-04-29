@@ -19,18 +19,18 @@ int main() {
 
     //через std::initializer_list инициализируем вектор случайно сгенерированными объектами класса Money;
     List<Money> list{v[0], v[1], v[2], v[3], v[4]};
-    std::cout << "Created vector: ";
+    std::cout << "Created list: ";
     list.print();
 
     std::cout << "Average: ";
     Money averageMoney = list.average();
     std::cout << averageMoney << std::endl;
 
-    std::cout << "Add average item to the beginning of the vector:\n";
-    list.addItemToBeginVector(averageMoney);
+    std::cout << "Add average item to the beginning of the list:\n";
+    list.addItemToBeginList(averageMoney);
     list.print();
 
-    std::cout << "Remove element from the vector. ";
+    std::cout << "Remove element from the list. ";
     int eraseItem = generateRandom(0, static_cast<int> (list.getSize()));
     std::cout << "Index of removed element: " << eraseItem << std::endl;
     list.removeElementByIndex(eraseItem);
@@ -74,15 +74,16 @@ T generateRandom(const T& left, const T& right) {
      * -------------------------------------------------------------------------------------------------
      */
 
-    const char* i = typeid(int).name();
-    const char* l = typeid(long).name();
-    const char* d = typeid(double).name();
-    const char* e = typeid(long double).name();
+    const char* i  = typeid(int).name();
+    const char* l  = typeid(long).name();
+    const char* d  = typeid(double).name();
+    const char* ll = typeid(double).name();
+    const char* e  = typeid(long double).name();
 
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    if (typeid(T).name() == i || typeid(T).name() == l) {
+    if (typeid(T).name() == i || typeid(T).name() == l || typeid(T).name() == ll) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
     } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {

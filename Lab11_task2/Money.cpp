@@ -2,7 +2,6 @@
 #include <iostream>
 
 // ------------------------- Constructors -------------------------- //
-
 Money::Money(const long r, const int k) {
     if (k >= 100) {
         long long tmp = r * 100 + k;
@@ -20,7 +19,6 @@ Money::Money(const Money& m) {
 }
 
 // --------------------- Overloaded Functions ---------------------- //
-
 Money& Money::operator=(const Money& m) {
     if (this == &m) {
         return *this;
@@ -31,16 +29,10 @@ Money& Money::operator=(const Money& m) {
 }
 
 bool Money::operator<(const Money& rhs) const {
-    //long long lhsTmp = rubles * 100 + kopeks;
-    //long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-    //return lhsTmp < rhsTmp;
     return rubles < rhs.rubles || (rubles == rhs.rubles && kopeks < rhs.kopeks);
 }
 
 bool Money::operator>(const Money& rhs) const {
-    //long long lhsTmp = rubles * 100 + kopeks;
-    //long long rhsTmp = rhs.rubles * 100 + rhs.kopeks;
-    //return lhsTmp > rhsTmp;
     return rubles > rhs.rubles || (rubles == rhs.rubles && kopeks > rhs.kopeks);
 }
 
@@ -64,4 +56,35 @@ std::istream& operator>>(std::istream& in, Money& m) {
         m.kopeks = static_cast<int> (tmp % 100);
     }
     return in;
+}
+
+Money Money::operator-(const Money& rhs) const {
+    Money m;
+    if ((kopeks - rhs.kopeks) < 0) {
+        m.rubles = rubles - rhs.rubles - 1;
+        m.kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        m.rubles = rubles - rhs.rubles;
+        m.kopeks = kopeks - rhs.kopeks;
+    };
+    return m;
+}
+
+Money& Money::operator-=(const Money& rhs) {
+    if ((kopeks - rhs.kopeks) < 0) {
+        rubles = rubles - rhs.rubles - 1;
+        kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        rubles = rubles - rhs.rubles;
+        kopeks = kopeks - rhs.kopeks;
+    };
+    return *this;
+}
+
+Money Money::operator/(const int& n) const {
+    long long tmp = (static_cast<long long> (rubles * 100) + kopeks) / n;
+    Money m;
+    m.rubles = static_cast<long> (tmp / 100);
+    m.kopeks = static_cast<int>  (tmp % 100);
+    return m;
 }

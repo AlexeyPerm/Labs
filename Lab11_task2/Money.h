@@ -11,12 +11,15 @@ public:
     ~Money() = default;
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator=(const Money&);
+    Money& operator-=(const Money&);
     bool operator<(const Money&) const;
     bool operator>(const Money&) const;
+    Money operator/(const int& n) const;
+    Money operator-(const Money&) const;
 // ---------------------- Getters / Setters ------------------------ //
-    int getKopeks() const { return kopeks; }
+    int getKopeks () const { return kopeks; }
     long getRubles() const { return rubles; }
-    void setKopeks(const int& k) { kopeks = k; }
+    void setKopeks(const int& k)  { kopeks = k; }
     void setRubles(const long& r) { rubles = r; }
 
 // --------------------- Overloaded Functions ---------------------- //
@@ -24,6 +27,6 @@ public:
     friend std::ostream& operator<<(std::ostream&, const Money&);
 
 private:
-    int kopeks;
+    int  kopeks;
     long rubles;
 };

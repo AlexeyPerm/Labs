@@ -5,7 +5,7 @@
 int main() {
     char fileName[30]{};
     int k = 0;  //Хранение значения возврата функции makeFile()
-    int c = 0;  //переменная выбора пункта меню в switch()
+    char c {};  //переменная выбора пункта меню в switch()
     do {
         std::cout << std::endl;
         std::cout << "1. Make file" << std::endl;
@@ -20,7 +20,7 @@ int main() {
         std::cout << ">";
         std::cin >> c;
         switch (c) {
-            case 1: {
+            case '1': {
                 std::cout << "File name>";
                 std::cin >> fileName;
                 k = makeFile(fileName);
@@ -29,7 +29,7 @@ int main() {
                 }
                 break;
             }
-            case 2: {
+            case '2': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 k = printFile(fileName);
@@ -42,7 +42,7 @@ int main() {
                 }
                 break;
             }
-            case 3: {
+            case '3': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter record number>";
@@ -54,7 +54,7 @@ int main() {
                 }
                 break;
             }
-            case 4: {
+            case '4': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter record number>";
@@ -73,7 +73,7 @@ int main() {
                 }
                 break;
             }
-            case 5: {
+            case '5': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter record number>";
@@ -92,7 +92,7 @@ int main() {
                 }
                 break;
             }
-            case 6: {
+            case '6': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter value>";
@@ -108,7 +108,7 @@ int main() {
                 }
                 break;
             }
-            case 7: {
+            case '7': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter elements count>";
@@ -127,7 +127,7 @@ int main() {
                 }
                 break;
             }
-            case 8: {
+            case '8': {
                 std::cout << "Enter filename for output>";
                 std::cin >> fileName;
                 std::cout << "Enter elements value>";
@@ -143,14 +143,14 @@ int main() {
                 }
                 break;
             }
-            case 0: {
+            case '0': {
                 std::cout << "Exit program...";
                 break;
             }
             default:
                 break;
         }
-    } while (c != 0);
+    } while (c != '0');
 
     return 0;
 }

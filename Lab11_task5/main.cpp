@@ -86,7 +86,7 @@ void generateElementsInStack(std::stack<Money>& st, const int& n) {
 void generateElementsInStack(std::stack<numType>& st, const int& n) {
     for (int i = 0; i < n; ++i) {
         constexpr numType left  = 0;
-        constexpr numType right = 100;
+        constexpr numType right = 1000;
         auto k = generateRandom(left, right);
         st.push(k);
     }

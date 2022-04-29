@@ -3,7 +3,6 @@
 #include <iostream>
 #include <initializer_list>
 
-
 class List {
 public:
 // ========================= Constructors ========================== //

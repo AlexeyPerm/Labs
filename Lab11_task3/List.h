@@ -25,7 +25,6 @@ std::istream& operator>>(std::istream& in, List<T>& v) {
     return in;
 }
 
-
 template<class T>
 class List {
 public:
@@ -36,16 +35,16 @@ public:
     List(const std::initializer_list<T>&);
     ~List() = default;
 // ---------------------------- Methods ---------------------------- //
-    T average() const;
-    void print() const;
-    int getSize() const { return size; }
-    T minElement() const;
+    T average()     const;
+    void print()    const;
+    int getSize()   const { return size; }
+    T minElement()  const;
     void subtractMinElement();
-    void addItemToBeginVector(T& elem);
+    void addItemToBeginList(T& elem);
     void removeElementByIndex(const int& index);
 // --------------------------- Overloads --------------------------- //
-    friend std::istream& operator>><T>(std::istream&, List<T>&);
-    friend std::ostream& operator<<<T>(std::ostream&, const List<T>&);
+    friend std::istream& operator>> <T>(std::istream&, List<T>&);
+    friend std::ostream& operator<< <T>(std::ostream&, const List<T>&);
 
 private:
     int size;   //размер списка
@@ -66,12 +65,11 @@ List<T>::List(const int& s) {
 //Принимает список объектов <T> и заполняем ими вектор.
 template<class T>
 List<T>::List(const std::initializer_list<T>& list) {
-    for (auto& item: list) {
+    for (const auto& item: list) {
         v.push_back(item);
     }
     size = list.size();
 }
-
 
 // ---------------------------- Methods ---------------------------- //
 template<class T>
@@ -89,13 +87,11 @@ T List<T>::average() const {
     for (const auto& item: v) {
         m += item;
     }
-    T a;
-    a = m / v.size();
-    return a;
+    return (m / v.size());
 }
 
 template<class T>
-void List<T>::addItemToBeginVector(T& elem) {
+void List<T>::addItemToBeginList(T& elem) {
     v.insert(v.begin(), elem);
 }
 
@@ -106,13 +102,8 @@ void List<T>::removeElementByIndex(const int& index) {
 
 template<class T>
 T List<T>::minElement() const {
-    T minElem = v[0];
-    for (const auto& item: v) {
-        if (item < minElem) {
-            minElem = item;
-        }
-    }
-    return minElem;
+    auto minElem = std::min_element(v.begin(), v.end());
+    return *minElem;
 }
 
 template<class T>
@@ -122,4 +113,3 @@ void List<T>::subtractMinElement() {
         item -= a;
     }
 }
-

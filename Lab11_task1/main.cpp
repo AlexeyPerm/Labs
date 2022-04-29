@@ -22,7 +22,7 @@ int main() {
     std::cout << "Generated vector: ";
     printVector(v);
     std::cout << "Average: ";
-    auto averageNum = average(v);
+    double averageNum = average(v);
     std::cout << averageNum << std::endl;
 
     std::cout << "Add average item to the beginning of the vector: ";
@@ -30,7 +30,7 @@ int main() {
     printVector(v);
     try {
         std::cout << "Remove element from the vector. ";
-        std::cout << "Index must be [0;" << v.size() << ")" << std::endl;
+        std::cout << "Index must be [0;" << v.size() - 1<< "]" << std::endl;
         int n;
         std::cout << "Index>";
         std::cin >> n;
@@ -40,7 +40,7 @@ int main() {
         removeElementByIndex(v, n);
         printVector(v);
     } catch (int) {
-        std::cout << "Error!" << std::endl;
+        std::cout << "Error! Index > size" << std::endl;
     }
 
     std::cout << "Min element: " << minElement(v) << std::endl;
@@ -50,16 +50,7 @@ int main() {
     return 0;
 }
 
-Vec makeVector(const int& k) {
-//constexpr: "Programming. Principles and Practice Using C++". Second Edition. Bjarne Stroustrup. Стр. 95
-    constexpr double left = -10.0; //левая граница случайных чисел
-    constexpr double right = 20.0; //правая граница случайных чисел
-    Vec v;      //создаём вектор
-    for (int i = 0; i < k; ++i) {
-        v.push_back(generateRandom(left, right));
-    }
-    return v;
-}
+
 
 template<class T>
 T generateRandom(const T& left, const T& right) {
@@ -88,11 +79,23 @@ T generateRandom(const T& left, const T& right) {
     if (typeid(T).name() == i || typeid(T).name() == l) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
+    }
+    else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
         std::uniform_real_distribution<> dis(left, right);
         return dis(gen);
     }
     return 0;
+}
+
+Vec makeVector(const int& k) {
+//constexpr: "Programming. Principles and Practice Using C++". Second Edition. Bjarne Stroustrup. Стр. 95
+    constexpr double left = -10.0; //левая граница случайных чисел
+    constexpr double right = 20.0; //правая граница случайных чисел
+    Vec v;      //создаём вектор
+    for (int i = 0; i < k; ++i) {
+        v.push_back(generateRandom(left, right));
+    }
+    return v;
 }
 
 void printVector(const Vec& v) {

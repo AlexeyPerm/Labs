@@ -51,9 +51,7 @@ Money average(st s) {
         m += s.top();
         s.pop();
     }
-    Money result;  //хранение среднего значения.
-    result = m / n;
-    return result;
+    return (m / n);   //количество элементов в стеке;
 }
 
 vec copyStackToVector(st& s) {
@@ -101,13 +99,8 @@ void delByElemNumber(st& s, const int& number) {
 
 Money minElement(st& s) {
     vec v = copyStackToVector(s);
-    Money minMoney = v[0];
-    for (const auto& item: v) {
-        if (item < minMoney) {
-            minMoney = item;
-        }
-    }
-    return minMoney;
+    auto minElem = std::min_element(v.begin(), v.end());
+    return *minElem;
 }
 
 void subtractMinElement(st& s) {
