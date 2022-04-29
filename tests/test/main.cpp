@@ -1,39 +1,32 @@
 #include <iostream>
 #include <cmath>
-#include <stdexcept>
-
-class Error {
+//10-8
+using namespace std;
+class Myclass {
 public:
-    void what() {
-        std::cout << "Error! Negative number";
+    double a;
+    double x;
+    Myclass(double _a, double _x) :a(_a), x(_x) {}
+    double f() {
+        const int n = 11;
+        double sum = 0.0;
+        for (int k = 1; k != n + 1; k++)
+        {
+            sum += a * k / pow(x,k);
+            a++;
+        }
+        return sum;
     }
 };
 
-double areaTriangle(const double& a, const double& b, const double& c) {
-    double halfPerimeter = (a + b + c) / 2;
-    if (halfPerimeter <= 0) {
-        throw Error();
-    }
-    double x = halfPerimeter * (halfPerimeter - a) * (halfPerimeter - b) * (halfPerimeter - c);
-    if (x <= 0) {
-        throw Error();
-    }
-    return std::sqrt(x);
-
-}
-
-int main() {
-    double a = -15.;
-    double b = 5.;
-    double c = 5.;
-    try {
-        std::cout << areaTriangle(a, b, c);
-    }
-    catch (Error& e) {
-        e.what();
-    }
-
-
+int main()
+{
+    double a, x;
+    cout << "Enter x:";
+    cin >> x;
+    cout << "Enter a:";
+    cin >> a;
+    Myclass obj(a, x);
+    cout << obj.f() << endl;
     return 0;
 }
-
