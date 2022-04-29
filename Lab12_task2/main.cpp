@@ -36,6 +36,7 @@ int main() {
     printMultiset(mset);
 
     std::cout << "Minimum element: ";
+
     const Money minElement = (*mset.begin());    //begin() возвращает итератор. Получаем значение с помощью *
     std::cout << minElement << std::endl;
 

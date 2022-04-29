@@ -15,19 +15,19 @@ public:
     void setRubles(const long r) { rubles = r; }
     void setKopeks(const int  k) { kopeks = k; }
 // --------------------- Overloaded Functions ---------------------- //
-    Money& operator=(const Money& rhs);
     Money& operator=(const int& n);   //конвертируем число в объект класса
-    Money operator+(const Money& rhs) const;
-    Money& operator+=(const Money& rhs);
-    Money operator-(const Money& rhs) const;
+    Money& operator=(const Money& rhs);
     Money& operator-=(const Money& rhs);
-    Money operator/(const int& n) const;
-    bool operator<(const Money& rhs) const;
+    Money& operator+=(const Money& rhs);
+    Money  operator/(const int& n) const;
+    bool   operator<(const Money& rhs) const;
+    Money  operator-(const Money& rhs) const;
+    Money  operator+(const Money& rhs) const;
 
     friend std::istream& operator>>(std::istream&, Money&);
     friend std::ostream& operator<<(std::ostream&, const Money&);
 
 private:
-    int kopeks;
+    int  kopeks;
     long rubles;
 };
