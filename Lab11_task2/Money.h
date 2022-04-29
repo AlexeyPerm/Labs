@@ -11,8 +11,11 @@ public:
     ~Money() = default;
 // --------------------- Overloaded Functions ---------------------- //
     Money& operator=(const Money&);
+    Money operator-(const Money&) const;
+    Money& operator-=(const Money&);
     bool operator<(const Money&) const;
     bool operator>(const Money&) const;
+    Money operator/(const int& n) const;
 // ---------------------- Getters / Setters ------------------------ //
     int getKopeks() const { return kopeks; }
     long getRubles() const { return rubles; }

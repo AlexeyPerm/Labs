@@ -65,3 +65,35 @@ std::istream& operator>>(std::istream& in, Money& m) {
     }
     return in;
 }
+
+Money Money::operator-(const Money& rhs) const {
+    Money m;
+    if ((kopeks - rhs.kopeks) < 0) {
+        m.rubles = rubles - rhs.rubles - 1;
+        m.kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        m.rubles = rubles - rhs.rubles;
+        m.kopeks = kopeks - rhs.kopeks;
+    };
+    return m;
+}
+
+Money& Money::operator-=(const Money& rhs) {
+    if ((kopeks - rhs.kopeks) < 0) {
+        rubles = rubles - rhs.rubles - 1;
+        kopeks = 100 + (kopeks - rhs.kopeks);
+    } else {
+        rubles = rubles - rhs.rubles;
+        kopeks = kopeks - rhs.kopeks;
+    };
+    return *this;
+}
+
+Money Money::operator/(const int& n) const {
+    long long tmp = (static_cast<long long> (rubles * 100) + kopeks) / n;
+    Money m;
+    m.rubles = static_cast<long> (tmp / 100);
+    m.kopeks = static_cast<int> (tmp % 100);
+    return m;
+}
+

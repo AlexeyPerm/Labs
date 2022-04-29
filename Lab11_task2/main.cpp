@@ -1,6 +1,7 @@
-#include <iostream>
 #include <vector>
 #include <random>
+#include <iostream>
+#include <algorithm>
 #include "Money.h"
 
 typedef std::vector<Money> Vec;
@@ -20,7 +21,7 @@ int main() {
 //Генерируем размер вектора от 1 до 10. При необходимости диапазон можно изменить.
     const int n = generateRandom(1, 10);
     std::cout << "Generated vector with size = " << n << ":\n";
-    auto v = makeVector(n);
+    Vec v = makeVector(n);
     printVector(v);
 
     std::cout << "Average: ";
@@ -91,27 +92,16 @@ void removeElementByIndex(Vec& v, const int& index) {
 }
 
 Money minElement(const Vec& v) {
-    long long minElem = v[0].getRubles() * 100 + v[0].getKopeks();
-    long long tmp;
-    for (const auto& item: v) {
-        tmp = item.getRubles() * 100 + item.getKopeks();
-        if (tmp < minElem) {
-            minElem = tmp;
-        }
-    }
-    Money m;
-    m.setRubles(static_cast<int> (minElem / 100));
-    m.setKopeks(static_cast<int> (minElem % 100));
-    return m;
+//Присваиваем переменной minElem значение, возвращаемое функцией min_element. Делается автоопределения типа,
+//так как тип возвращаемых данных сложный и длинный и писать такое руками не просто.
+    auto minElem = std::min_element(v.begin(), v.end());
+    return *minElem;
 }
 
 void subtractMinElement(Vec& v) {
     Money minElem = minElement(v);
-    long long tmp = minElem.getRubles() * 100 + minElem.getKopeks();
     for (auto& item: v) {
-        long long resultItem = (item.getRubles() * 100 + item.getKopeks()) - tmp;
-        item.setRubles(static_cast<int> (resultItem / 100));
-        item.setKopeks(static_cast<int> (resultItem % 100));
+        item -= minElem;
     }
 }
 
@@ -142,7 +132,8 @@ T generateRandom(const T& left, const T& right) {
     if (typeid(T).name() == i || typeid(T).name() == l) {
         std::uniform_int_distribution<> dis(left, right);
         return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
+    }
+    else if ((typeid(T).name() == d) || (typeid(T).name() == e)) {
         std::uniform_real_distribution<> dis(left, right);
         return dis(gen);
     }
