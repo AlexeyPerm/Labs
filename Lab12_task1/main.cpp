@@ -4,7 +4,6 @@
 #include <iomanip>
 #include <iostream>
 
-//std::less<> - сортировка от меньшего к большему
 typedef std::multiset<double> ms;
 
 auto makeMultiset(const int& n) -> ms;
@@ -75,18 +74,18 @@ void printMultiset(const ms& ms) {
 }
 
 double average(const ms& ms) {
-    double sum = 0;
+    long double sum = 0;
     for (const auto& item: ms) {
         sum += item;
     }
-    return (sum / static_cast<double> (ms.size()));
+    return static_cast<double > ((sum / (ms.size())));
 }
 
 void subtractMinElement(ms& mset, const double elem) {
     std::vector<double> vec;
-    int k = 0;
-    for (auto i = mset.begin(); i != mset.end(); ++i, ++k) {
-        vec.push_back(*i - elem);
+    //int k = 0;
+    for (double i : mset) {
+        vec.push_back(i - elem);
     }
     mset.clear();
     for (auto item: vec) {
@@ -115,4 +114,3 @@ T generateRandom(const T& left, const T& right) {
     }
     return 0;
 }
-
