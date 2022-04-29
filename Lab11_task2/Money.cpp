@@ -2,7 +2,6 @@
 #include <iostream>
 
 // ------------------------- Constructors -------------------------- //
-
 Money::Money(const long r, const int k) {
     if (k >= 100) {
         long long tmp = r * 100 + k;
@@ -20,7 +19,6 @@ Money::Money(const Money& m) {
 }
 
 // --------------------- Overloaded Functions ---------------------- //
-
 Money& Money::operator=(const Money& m) {
     if (this == &m) {
         return *this;
@@ -90,4 +88,3 @@ Money Money::operator/(const int& n) const {
     m.kopeks = static_cast<int>  (tmp % 100);
     return m;
 }
-
