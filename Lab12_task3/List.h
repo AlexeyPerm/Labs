@@ -43,9 +43,8 @@ public:
     void subtractMinElement();
     void addItemToMultiSet(const T elem) { mset.insert(elem); }
 // --------------------------- Overloads --------------------------- //
-    friend std::istream& operator>><T>(std::istream&, List<T>&);
-    friend std::ostream& operator
-    <<<T>(std::ostream&, const List<T>&);
+    friend std::istream& operator>> <T>(std::istream&, List<T>&);
+    friend std::ostream& operator<< <T>(std::ostream&, const List<T>&);
 
 private:
     int size;   //размер списка
@@ -114,7 +113,3 @@ void List<T>::subtractMinElement() {
         mset.insert(item);
     }
 }
-
-
-// ---------------------------- Methods ---------------------------- //
-

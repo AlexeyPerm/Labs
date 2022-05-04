@@ -2,7 +2,8 @@
 #include <random>
 #include <vector>
 #include <iostream>
-#include "Money.h"
+//#include "Money.h"
+#include "../Lab12_task2/Money.h"
 #include "List.h"
 
 /* Программа должна корректно (но это не точно) работать при типах данных int, long, long long, double, long double
@@ -10,7 +11,7 @@
  * typedef int numType; вместо int указать необходимый тип
  * Если необходимо работать с объектами класса Money, то строку #define NUMERIC_TYPES необходимо закомментировать.
  */
-//#define NUMERIC_TYPES
+#define NUMERIC_TYPES
 
 typedef double numType; //можно указать int, long, long long, double, long double,
 

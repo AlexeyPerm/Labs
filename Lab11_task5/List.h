@@ -45,13 +45,12 @@ public:
     int  getSize() const { return size; }
     void delByElemNumber (const int& number);
 // --------------------------- Overloads --------------------------- //
-    friend std::istream& operator>><T>(std::istream&, List<T>&);
-    friend std::ostream& operator
-    <<<T>(std::ostream&, const List<T>&);
+    friend std::istream& operator>> <T>(std::istream&, List<T>&);
+    friend std::ostream& operator<< <T>(std::ostream&, const List<T>&);
 
 private:
     int size;   //размер списка
-    std::stack<T> st;    //указатель на массив элементов списка
+    std::stack<T> st;    //массив элементов списка
     std::vector<T> copyStackToVector();
     std::stack<T>  copyVectorToStack(std::vector<T>& v);
 };
