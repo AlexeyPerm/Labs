@@ -67,7 +67,6 @@ int main() {
     std::cout << "Every element minus minimumElement:\n";
     list.subtractMinElement();
     list.print();
-
     return 0;
 }
 

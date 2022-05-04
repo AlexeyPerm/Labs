@@ -35,10 +35,10 @@ public:
     List(const std::initializer_list<T>&);
     ~List() = default;
 // ---------------------------- Methods ---------------------------- //
-    T average()     const;
-    void print()    const;
-    int getSize()   const { return size; }
-    T minElement()  const;
+    T average()    const;
+    void print()   const;
+    int getSize()  const { return size; }
+    T minElement() const;
     void subtractMinElement();
     void addItemToBeginList(T& elem);
     void removeElementByIndex(const int& index);
