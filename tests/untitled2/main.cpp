@@ -1,27 +1,10 @@
-#include <iostream>
-#include <vector>
-class A {
-public:
-    virtual void foo() { std::cout << "A::foo\n"; }
-};
+#include "test.h"
+using namespace std;
 
-class B: public A {
-public:
-    void foo() override { std::cout << "B::foo\n"; }
-};
+int main() {
 
-class C: public B {
-public:
-    void foo() override { std::cout << "C::foo\n"; }
-};
+Node n(5);
 
-
-
-int main(){
-std::vector<int> v;
-    for (const auto& item: v){
-
-    }
 
     return 0;
 }
