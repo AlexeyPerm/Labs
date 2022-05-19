@@ -11,10 +11,10 @@ protected:
     static bool InputValidation(const std::string&);
 
 public:
-    Triad() { first = second = third = 0; }    //Конструктор по умолчанию
+    Triad() { first = second = third = 0; }     //Конструктор по умолчанию
     Triad(int f, int s, int t) : first(f), second(s), third(t) {};    //Конструктор с параметрами
-    Triad(const Triad&);    //Конструктор копирования
-    virtual ~Triad() = default;    //Деструктор
+    Triad(const Triad&);                        //Конструктор копирования
+    virtual ~Triad() = default;                 //Деструктор
     virtual void Show() const;
 
     //--------- Setters ---------

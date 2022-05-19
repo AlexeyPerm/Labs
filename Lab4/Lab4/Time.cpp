@@ -27,7 +27,7 @@ void Time::AddMinutes(const int value) {
     }
     long totalMinutes{};
     totalMinutes =
-            hours * 60 + minutes + value;    //преобразумем выражение в long и высчитываем значения кол-во минут в часах
+    hours * 60 + minutes + value;   //преобразуем выражение в long и высчитываем значения кол-во минут в часах
     hours   = totalMinutes / 60;
     minutes = totalMinutes % 60;
 }
