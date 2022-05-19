@@ -86,7 +86,7 @@ void generateElementsInList(List<Money>& lst, const int& n) {
     constexpr int iKopeks = 0;
     for (int i = 0; i < n; ++i) {
         long r = generateRandom(lRubles, lRubles + 1000);
-        int k = generateRandom(iKopeks, iKopeks + 99);
+        int  k = generateRandom(iKopeks, iKopeks + 99);
         Money m(r, k);
         lst[i] = m;
     }
