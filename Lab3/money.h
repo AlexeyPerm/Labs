@@ -3,6 +3,9 @@
 #include <fstream>
 
 class Money {
+private:
+    int kopeks;
+    long rubles;
 public:
 // ------------------------- Constructors -------------------------- //
     Money() { rubles = 0, kopeks = 0; }
@@ -25,8 +28,4 @@ public:
     friend std::ostream& operator<<(std::ostream& out, const Money& m);
 
     void print() const;
-
-private:
-    int kopeks;
-    long rubles;
 };
