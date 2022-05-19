@@ -42,14 +42,14 @@ Vehicle::Vehicle(const std::string& n, const std::string& s, const int& sg) {   
 }
 
 Vehicle::Vehicle(const Vehicle& E) {    //Конструктор копирования T::T(const T&) {...}
+    cost  = E.cost;
     brand = E.brand;
     model = E.model;
-    cost = E.cost;
 }
 
 //------------------------- Other functions ------------------------- //
 void Vehicle::show() const {
     std::cout << "brand: " << get_brand() << std::endl;
     std::cout << "model: " << get_model() << std::endl;
-    std::cout << "cost: " << get_cost() << std::endl;
+    std::cout << "cost: "  << get_cost()  << std::endl;
 }

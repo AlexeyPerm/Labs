@@ -61,7 +61,6 @@ void print_Vehicle(Vehicle &v){
     v.show();
 }
 
-
 bool CorrectInputCost(const std::string& str, int& costInt)
 {
     if (!(std::all_of(str.begin(), str.end(), isdigit)))

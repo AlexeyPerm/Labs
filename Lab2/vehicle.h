@@ -3,10 +3,13 @@
 #include <string>
 
 class Vehicle {
-
+private:
+    int cost;
+    std::string brand;
+    std::string model;
 public:
 // ------------------------- Constructors -------------------------- //
-    Vehicle();                    //Конструктор по умолчанию
+    Vehicle();                  //Конструктор по умолчанию
     Vehicle(const Vehicle&);    //Конструктор копирования
     Vehicle(const std::string&, const std::string&, const int&);    //Конструктор с параметрами
     ~Vehicle() = default;       //Деструктор
@@ -20,8 +23,4 @@ public:
     std::string get_model() const;
 
     void show() const;
-private:
-    int cost;
-    std::string brand;
-    std::string model;
 };
