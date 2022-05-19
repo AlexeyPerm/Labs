@@ -6,8 +6,8 @@
 class Vector {
 public:
     Vector();
-    explicit Vector(int s);
     Vector(const Vector&);
+    explicit Vector(int s);
     ~Vector();
     void Add(Object*);
     friend std::ostream& operator<<(std::ostream& out, const Vector& V);
