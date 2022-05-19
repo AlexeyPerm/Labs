@@ -51,12 +51,12 @@ T generateRandom(const T& left, const T& right) {
  * https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
  * -------------------------------------------------------------------------------------------------
  */
-    const char* i = typeid(int).name();
-    const char* l = typeid(long).name();
-    const char* f = typeid(float).name();
-    const char* d = typeid(double).name();
+    const char* i  = typeid(int).name();
+    const char* l  = typeid(long).name();
+    const char* f  = typeid(float).name();
+    const char* d  = typeid(double).name();
     const char* ll = typeid(long long).name();
-    const char* e = typeid(long double).name();
+    const char* e  = typeid(long double).name();
 
     std::random_device rd;
     std::mt19937 gen(rd());

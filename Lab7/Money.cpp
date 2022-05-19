@@ -54,7 +54,7 @@ std::istream& operator>>(std::istream& in, Money& m) {
     if (m.kopeks >= 100) {
         long long tmp = static_cast<long long> (m.rubles * 100) + m.kopeks;
         m.rubles = static_cast<long> (tmp / 100);
-        m.kopeks = static_cast<int> (tmp % 100);
+        m.kopeks = static_cast<int>  (tmp % 100);
     }
     return in;
 }
@@ -63,7 +63,7 @@ Money& Money::operator++() {
     long long tmp = rubles * 100 + kopeks;
     tmp++;
     rubles = static_cast<long> (tmp / 100);
-    kopeks = static_cast<int> (tmp % 100);
+    kopeks = static_cast<int>  (tmp % 100);
     return *this;
 }
 
@@ -72,14 +72,14 @@ Money Money::operator++(int) {
     tmp++;
     Money m(rubles, kopeks);
     rubles = static_cast<long> (tmp / 100);
-    kopeks = static_cast<int> (tmp % 100);
+    kopeks = static_cast<int>  (tmp % 100);
     return m;
 }
 
 Money Money::operator+(const Money& rhs) const {
     Money m;
     if ((kopeks + rhs.kopeks) >= 100) {
-        m.rubles = rubles + rhs.rubles + 1;
+        m.rubles = rubles  + rhs.rubles + 1;
         m.kopeks = (kopeks + rhs.kopeks) % 100;
     }
     else {
