@@ -4,7 +4,7 @@
 #include <algorithm>    //count
 
 bool calculation::CheckCorrectInput(const std::string& input) {
-    if (input[0] == '-') {    //Проверка на ввод отриц. числа.
+    if (input[0] == '-') {      //Проверка на ввод отриц. числа.
         std::cout << "Введёное значение должно быть больше нуля: \n> ";
         return false;
     }
@@ -31,12 +31,10 @@ bool calculation::CheckCorrectInput(const double F, const int S, const int D) {
     if (F < 0) {
         std::cout << "Не корректное значение оклада.\n";
         return false;
-    }
-    else if (D < 0 || D > 31 || D < 28) {
+    } else if (D < 0 || D > 31 || D < 28) {
         std::cout << "Не корректное значение количества рабочих дней \n";
         return false;
-    }
-    else if (D < 0 || S > D) {
+    } else if (D < 0 || S > D) {
         std::cout << "Не корректное значение дней месяца ";
         return false;
     }
@@ -44,8 +42,8 @@ bool calculation::CheckCorrectInput(const double F, const int S, const int D) {
 }
 
 void calculation::Show() const {
-    std::cout << "Salary = " << first << std::endl;
-    std::cout << "Working Days = " << second << std::endl;
+    std::cout << "Salary = "        << first << std::endl;
+    std::cout << "Working Days = "  << second << std::endl;
     std::cout << "Days in Month = " << daysInMonth << std::endl;
 }
 
@@ -82,11 +80,9 @@ void calculation::Read() {
         if (second > daysInMonth) {
             std::cout
                     << "Количество отработанных дней не может быть больше количества дней в месяце. Повторите ввод.\n";
-        }
-        else if (daysInMonth > 31 || daysInMonth < 28) {
+        } else if (daysInMonth > 31 || daysInMonth < 28) {
             std::cout << "Не корректное значение количества дней в месяце. Повторите ввод\n";
-        }
-        else {
+        } else {
             correctInput = true;
         }
     }
@@ -97,8 +93,7 @@ void calculation::Init(const double F, const int S, int const daysInMonth) {
         first = F;
         second = S;
         this->daysInMonth = daysInMonth;
-    }
-    else {
+    } else {
         //В условии задания, если функция make_calculation() принимает ошибочные параметры,
         //то программа выводит сообщения и завершает работу
         std::cout << "\nExit...\n";
