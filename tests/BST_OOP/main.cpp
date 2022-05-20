@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "Menu.h"
+#include "GL/glut.h"
 #include <iostream>
 
 constexpr int WINDOW_WIDTH = 800;
