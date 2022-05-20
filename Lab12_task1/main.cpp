@@ -17,7 +17,7 @@ int main() {
     constexpr int n = 9;
 //Генерируем 9 элементов множества плюс одно дублируем. На выходе получаем множество с 10 элементами.
     ms mset = makeMultiset(n);
-    std::cout << "\nCreated stack:\n";
+    std::cout << "\nCreated multiset:\n";
     printMultiset(mset);
 
     std::cout << "Average: ";
