@@ -3,9 +3,9 @@
 
 class Object {
 public:
-    Object() = default;
-    virtual ~Object() = default;
-    virtual void Show() = 0;
+    Object()             = default;
+    virtual ~Object()    = default;
+    virtual void Show()  = 0;
     virtual void Input() = 0;
     virtual void HandleEvent(const TEvent &e) = 0;
 };

@@ -4,7 +4,7 @@
 #include <string>
 
 // ------------------------- Constructors -------------------------- //
-Person::Person(const std::string& name, const int age) {
+Person::Person(const std::string& name, const int& age) {
     this->name = name;
     this->age  = age;
 }
@@ -19,20 +19,20 @@ Person::Person(const Person& p) {
 void Person::Show() {
     std::cout << std::endl;
     std::cout << "Name: " << name << std::endl;
-    std::cout << "Age: " << age << std::endl;
+    std::cout << "Age: "  << age  << std::endl;
 }
 
 void Person::Input() {
     std::cout << "Name> ";
-    std::cin >> name;
+    std::cin  >> name;
 
     std::string tmp;    //временная переменная для хранения введённых числовых значений
     std::cout << "Age> ";
-    std::cin >> tmp;
+    std::cin  >> tmp;
     while (!CheckCorrectInput(tmp)) {
         std::cout << "\nIncorrect input. Try again\n";
         std::cout << "Age> ";
-        std::cin >> tmp;
+        std::cin  >> tmp;
     }
     age = std::stoi(tmp);
 }

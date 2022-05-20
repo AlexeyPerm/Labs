@@ -8,7 +8,7 @@ void Dialog::GetEvent(TEvent& event) {
     std::string param;
     char code;
 
-    std::cout << "+ add; - del; m make; s show all; ?(num) show element; q quit;" << std::endl;
+    std::cout << "+ add; - del; m make(num); s show all; ?(num) show element; q quit;" << std::endl;
     std::cout << ">";
     std::cin >> s;
     code = s[0];    //первый символ команды

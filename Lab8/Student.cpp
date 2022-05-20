@@ -2,7 +2,7 @@
 #include <iostream>
 #include <iomanip>
 
-Student::Student(const std::string& name, const int age, const double rate) : Person(name, age) {
+Student::Student(const std::string& name, const int& age, const double& rate) : Person(name, age) {
     this->rate = rate;
 }
 

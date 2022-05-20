@@ -5,9 +5,9 @@
 
 // ------------------------- Constructors -------------------------- //
 Tree::Tree() {
-    size = 0;
+    size    = 0;
     current = 0;
-    begin = nullptr;
+    begin   = nullptr;
 }
 
 Tree::~Tree() {
@@ -17,10 +17,10 @@ Tree::~Tree() {
     }
 }
 
-Tree::Tree(const int size) {
-    current = 0;
-    this->size = size;
-    begin = new Object* [size];
+Tree::Tree(const int& size) {
+    current     = 0;
+    this->size  = size;
+    begin       = new Object* [size];
 }
 
 // ---------------------------- Methods ---------------------------- //
@@ -63,7 +63,7 @@ void Tree::Add(Object* z) {
         return;
     }
     Object* o;
-    std::cout << "1. Person " << std::endl;
+    std::cout << "1. Person "  << std::endl;
     std::cout << "2. Student " << std::endl;
     int y;
     std::cin >> y;
