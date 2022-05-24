@@ -8,7 +8,7 @@ public:
 // ------------------------- Constructors -------------------------- //
     Student() : Person() { rate = .0; }
     Student(const Student&);
-    Student(const std::string&, int, double);
+    Student(const std::string& name, const int& age, const double& rate);
     ~Student() override = default;
 // --------------------- Overridden Functions ---------------------- //
     void Show()  override;

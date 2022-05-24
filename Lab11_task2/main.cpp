@@ -57,7 +57,7 @@ Vec makeVector(const int& n) {
     for (int i = 0; i < n; ++i) {
 //Верхняя граница генерирования ограничена, чтобы вывод на экран был более читаем и влез в одну строку.
         long r = generateRandom(lRubles, lRubles + 1000);
-        int k = generateRandom(iKopeks, iKopeks + 99);
+        int  k = generateRandom(iKopeks, iKopeks + 99);
         Money m(r, k);
         v.push_back(m);
     }

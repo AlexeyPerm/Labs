@@ -3,23 +3,22 @@
 #include "Object.h"
 
 class Tree {
+protected:
+    int      size;
+    int      current;
+    Object** begin;
 public:
 // ------------------------- Constructors -------------------------- //
     Tree();
-    explicit Tree(int);
+    explicit Tree(const int& size);
     virtual ~Tree();
 // ---------------------------- Methods ---------------------------- //
     void Del();
     void Show() const;
     void Add(Object* z = nullptr);
-    void ShowElementNumber(const int&) const;
-// --------------------- Overridden Functions ---------------------- //
     void HandleEvent(const TEvent& e);
-// --------------------- Overloaded Functions ---------------------- //
+    void ShowElementNumber(const int& elemNum) const;
     int operator()() const { return current; }
 
-protected:
-    int      size;
-    int      current;
-    Object** begin;
+
 };
