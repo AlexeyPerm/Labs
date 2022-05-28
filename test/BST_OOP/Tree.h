@@ -5,9 +5,9 @@
 class Tree {
 private:
     double data;
-    Tree* left;     //указатель на объект структуры Tree слева
-    Tree* right;    //указатель на объект структуры Tree справа
-    Tree* parent;   // Указатель на родительский узел
+    Tree*  left;     //указатель на объект структуры Tree слева
+    Tree*  right;    //указатель на объект структуры Tree справа
+    Tree*  parent;   // Указатель на родительский узел
     int node_x;     // х-координата элемента;
     int node_y;     // y-координата элемента;
     int text_x;     // х-координата текста;
@@ -22,6 +22,7 @@ public:
     ~Tree();
 
     void levelScan();       //Поперечное прохождение дерева
+    void printVTree(const int& k);
     void printTree(const int& level);
     void deleteTree() { delete this; }
     void insertToTree(const double& dt);
@@ -29,7 +30,6 @@ public:
     void insertRightBranch(const double& dt);
     void addLeftTree(Tree* tree) { left = tree; }
     void addRightTree(Tree* tree) { right = tree; }
-    void printVTree(const int& k);
 
     int getHeight();            //Высота дерева
     int getAmountOfNodes();     //Кол-во узлов в дереве
@@ -37,17 +37,15 @@ public:
     double min();
     double getData();           //Данные узла
 
-
-
     Tree* copyTree();
+    void postorder(int indent);
     Tree* replaceNullForEmpty();
     Tree* createBalancedSearchTree();
-    Tree* getLeft() { return left; }
-    Tree* getRight() { return right; }
-    Tree* getParent() { return parent; }
+    Tree* getLeft()     { return left; }
+    Tree* getRight()    { return right; }
+    Tree* getParent()   { return parent; }
     Tree* replace_help(Tree* node, int h);
     static Tree* buildBalancedTree(const int& n);
-    void postorder(int indent);
 
     // ----------------------------- DRAW ----------------------------- //
     // Установить координаты для данного узла при рисовании

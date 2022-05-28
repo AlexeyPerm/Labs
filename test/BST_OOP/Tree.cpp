@@ -14,12 +14,12 @@
 //extern SGlutContextStruct;
 
 Tree::Tree(const double& dt) {
-    data = dt;
-    left = nullptr;
-    right = nullptr;
-    parent = nullptr;
-    node_x = node_y = 0;
-    text_x = text_y = 0;
+    data    = dt;
+    left    = nullptr;
+    right   = nullptr;
+    parent  = nullptr;
+    node_x  = node_y = 0;
+    text_x  = text_y = 0;
 }
 
 Tree::~Tree() {
@@ -61,6 +61,7 @@ T Tree::generateRandom(const T& low, const T& high) {
     }
     return 0;
 }
+
 void Tree::printTree(const int& level) {
     if (this != nullptr) {
         this->left->printTree(level + 1);
@@ -71,8 +72,11 @@ void Tree::printTree(const int& level) {
         this->right->printTree(level + 1);
     }
 }
+
 int Tree::getHeight() {
-    int h1 = 0, h2 = 0, hadd = 0;
+    int h1{};
+    int h2{};
+    //int hadd = 0;
     if (this == nullptr) {
         return 0;
     }
@@ -82,11 +86,7 @@ int Tree::getHeight() {
     if (this->right != nullptr) {
         h2 = this->right->getHeight();
     }
-    if (h1 >= h2) {
-        return h1 + 1;
-    } else {
-
-    }
+    return ((h1 >= h2 ? h1 : h2) + 1);      //Если h1 >= h2, то вернём h1 + 1, иначе h2 + 2;
 }
 
 void Tree::insertLeftBranch(const double& dt) {
@@ -94,8 +94,8 @@ void Tree::insertLeftBranch(const double& dt) {
     if (this->left) {
         this->left->parent = node;
     }
-    node->left = this->left;
-    this->left = node;
+    node->left   = this->left;
+    this->left   = node;
     node->parent = this;
 }
 
@@ -104,8 +104,8 @@ void Tree::insertRightBranch(const double& dt) {
     if (this->right) {
         this->right->parent = node;
     }
-    node->right = this->right;
-    this->right = node;
+    node->right  = this->right;
+    this->right  = node;
     node->parent = this;
 }
 double Tree::min() {
@@ -121,6 +121,7 @@ double Tree::min() {
     }
     return minElem;
 }
+
 std::vector<double> Tree::balancedTreeToVector() {
     static std::vector<double> v;
     if (this != nullptr) {
@@ -162,9 +163,9 @@ Tree* Tree::sortedArrayToBST(std::vector<double> v, int start, int end) {
     if (start > end) {
         return nullptr;
     }
-    int middle = (start + end) / 2;
-    Tree* tree = new Tree(v[middle]);
-    tree->left = sortedArrayToBST(v, start, middle - 1);
+    int middle  = (start + end) / 2;
+    Tree* tree  = new Tree(v[middle]);
+    tree->left  = sortedArrayToBST(v, start, middle - 1);
     tree->right = sortedArrayToBST(v, middle + 1, end);
     return tree;
 }
@@ -207,42 +208,29 @@ int Tree::getAmountOfNodes() {
     }
     return (l + r + 1);
 }
+
 void Tree::levelScan() {
     std::vector<Tree*> v;
     Tree* p = this;
     v.push_back(p);
     for (int i = 0; i < this->getAmountOfNodes(); i++) {
-        if (v.at(i)->left != nullptr)
-            v.push_back(v.at(i)->left);
-        if (v.at(i)->right != nullptr)
-            v.push_back(v.at(i)->right);
+        if (v[i]->left != nullptr)
+            v.emplace_back(v[i]->left);
+        if (v[i]->right != nullptr)
+            v.emplace_back(v[i]->right);
     }
     for (const auto& i: v) {
         std::cout << i->getData() << " ";
     }
     std::cout << std::endl;
 }
+
 double Tree::getData() {
-    if (this != nullptr) {
-        return data;
-    } else {
-        return 0.0;
-    }
+    return this != nullptr ? data : NULL;
 }
 
 int Tree::getLevel(Tree* tree) {
-    if (tree->getParent() == NULL) {
-        return 0;
-    } else {
-        return getLevel(tree->getParent()) + 1;
-    }
-//    int level = 1;
-//    Tree* tmp = this->copyTree();
-//    while (tmp->parent != nullptr) {
-//        ++level;
-//        tmp = tmp->parent;
-//    }
-//    return level;
+    return tree->getParent() == nullptr ? 0 : getLevel(tree->getParent()) + 1;
 }
 
 Tree* Tree::replaceNullForEmpty() {
@@ -272,13 +260,13 @@ Tree* Tree::replace_help(Tree* node, int h) {
 Tree* Tree::copyTree() {
     Tree* tree = new Tree(this->data);
     if (this->parent != nullptr) {
-        tree->parent = this->parent;
+        tree->parent =  this->parent;
     }
     if (this->left != nullptr) {
-        tree->left = this->left->copyTree();
+        tree->left =  this->left->copyTree();
     }
     if (this->right != nullptr) {
-        tree->right = this->right->copyTree();
+        tree->right =  this->right->copyTree();
     }
     return tree;
 }
@@ -324,43 +312,42 @@ void Tree::printVTree(const int& k) {
     const int height = this->getHeight();
     // Максимальное число листов на нижнем уровне (нумерация с нуля)
     const int maxLeafs = static_cast<int> (std::pow(2, height - 1));
-    // Минимальная ширина дерева для печати (не конечная, но необходимая)
-    int width = 2 * maxLeafs - 1;
-    int curLevel = 0;       //номер строки на выводе
-    int index = 0;
+    int curLevel = 0;                   //номер строки на выводе
+    int index    = 0;
+    int width    = 2 * maxLeafs - 1;    // Минимальная ширина дерева для печати (не конечная, но необходимая)
     // Номер элемента в строке (нумерация с нуля) Позиция корня (число пробелов перед ним)
     int factSpaces = getPos(index, width, curLevel, height - 1);
     pos node{};
-    std::vector<Tree*> V;
-    std::vector<pos> Vi;
+    std::vector<Tree*> vNodes;
+    std::vector<pos>   vPos;
 
     Tree* t = this->copyTree();
     t = t->replaceNullForEmpty();
     Tree* p = t;
-    V.emplace_back(p);
+    vNodes.emplace_back(p);
     node.col = factSpaces;
     node.str = curLevel;
-    Vi.emplace_back(node);
+    vPos.emplace_back(node);
 
     for (int i = 0; i < t->getAmountOfNodes(); ++i) {
         if (std::pow(2, curLevel) <= index + 1) {
             index = 0;
             ++curLevel;
         }
-        if (V[i]->left != nullptr) {
-            V.emplace_back(V[i]->left);
+        if (vNodes[i]->left != nullptr) {
+            vNodes.emplace_back(vNodes[i]->left);
             factSpaces = getPos(index, width, curLevel, height - 1);
-            node.col = factSpaces;
-            node.str = curLevel;
-            Vi.emplace_back(node);
+            node.str   = curLevel;
+            node.col   = factSpaces;
+            vPos.emplace_back(node);
             ++index;
         }
-        if (V[i]->right != nullptr) {
-            V.emplace_back(V[i]->right);
+        if (vNodes[i]->right != nullptr) {
+            vNodes.emplace_back(vNodes[i]->right);
             factSpaces = getPos(index, width, curLevel, height - 1);
-            node.col = factSpaces;
-            node.str = curLevel;
-            Vi.emplace_back(node);
+            node.str   = curLevel;
+            node.col   = factSpaces;
+            vPos.emplace_back(node);
             ++index;
         }
     }
@@ -369,19 +356,18 @@ void Tree::printVTree(const int& k) {
      * перед данным символом начиная с предыдущего символа): до этого эти значения
      * представляли собой координаты (как х)
      */
-    for (int i = V.size() - 1; i >= 0; i--) {
+    for (int i = vNodes.size() - 1; i >= 0; i--) {
         if (i != 0) {
-            if (Vi[i - 1].str == Vi[i].str) {
-                Vi[i].col = Vi[i].col - Vi[i - 1].col - 1;
+            if (vPos[i - 1].str == vPos[i].str) {
+                vPos[i].col = vPos[i].col - vPos[i - 1].col - 1;
             }
         }
     }
     int flag = 0;   // Следит за тем, что y меняется
-    for (int i = 0; i < V.size(); i++) {
-        node = Vi[i];
+    for (int i = 0; i < vNodes.size(); i++) {
+        node = vPos[i];
         curLevel = node.str;
-// Переход на новую строчку будет, когда y1
-// станет меньше y (слежка за изменением y)
+// Переход на новую строчку будет, когда y1 станет меньше y (слежка за изменением y)
         if (flag < curLevel) {
             flag = curLevel;
             std::cout << std::endl;
@@ -391,8 +377,8 @@ void Tree::printVTree(const int& k) {
         for (int j = 0; j < realSpaces; j++) {
             std::cout << " ";
         }
-        if (V[i]->getData() != 0.0) {
-            std::cout << V[i]->getData();
+        if (vNodes[i]->getData() != 0.0) {
+            std::cout << vNodes[i]->getData();
         } else {
             for (int j = 0; j < k; j++) {
                 std::cout << " ";
