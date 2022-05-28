@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Node.h"
+#include "Tree.h"
 #include "GL/glut.h"
 
 constexpr int g_radius = 10;        //Радиус окружности
 constexpr int g_scale = 30;         //Масштабирование
 constexpr int g_windowWeight = 800; //Ширина окна
 constexpr int g_windowHeight = 600; //Высота окна
-Node* mainroot = nullptr;
+Tree* mainroot = nullptr;
 
 void draw() {
     //Обработка дерева и вызов соответствующих функций рисования линий и кругов.
@@ -15,7 +15,7 @@ void draw() {
     glColor3f(1.0,0.0,0.0);
     glPointSize(2.0);
 
-    Node* test = new Node(2.5);
+    Tree* test = new Tree(2.5);
 
     glutSwapBuffers();
 
@@ -28,7 +28,7 @@ void init() {
     gluOrtho2D(0.0, 300.0, 0.0, 300.0);
 }
 
-void draw_main(Node* tree, int argc, char* argv[]) {
+void draw_main(Tree* tree, int argc, char* argv[]) {
     mainroot = tree;
     glutInit(&argc, argv);              //Инициализация GLUT.
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);   //Двойная буферизация и четырехкомпонентный цвет

@@ -1,7 +1,7 @@
 #pragma once
 #include "GL/glut.h"
 #include <iostream>
-#include "Node.h"
+#include "Tree.h"
 
 
 bool selection() {
@@ -16,15 +16,15 @@ bool selection() {
     std::cout << "0. Exit.\n";
     std::cout << ">";
     int choice;
-    Node* myTree;       //сбалансированное дерево
-    Node* myBST;        //Дерево поиска
+    Tree* myTree;       //сбалансированное дерево
+    Tree* myBST;        //Дерево поиска
     (std::cin >> choice).get();
     switch (choice) {
         case 1 : {        //Create Binary Balanced Tree.
             std::cout << "Enter nodes count :\n>";
             int nodesCount{};
             std::cin >> nodesCount;
-            myTree = Node::buildBalancedTree(nodesCount);
+            myTree = Tree::buildBalancedTree(nodesCount);
             return true;
         }
         case 2 : {        //Find minimum element.
