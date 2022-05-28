@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Node.h"
-#include <GL/glut.h>
+#include "GL/glut.h"
 
 constexpr int g_radius = 10;        //Радиус окружности
 constexpr int g_scale = 30;         //Масштабирование

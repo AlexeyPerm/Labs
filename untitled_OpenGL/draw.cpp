@@ -27,14 +27,15 @@ void reshape(int w, int h) {
 }
 
 void draw() {
+    int x1 {};
+    int y1 {};
     glClear(GL_COLOR_BUFFER_BIT);
-    glBegin(GL_POLYGON);
-    int radius = 30;
-    for (int i = 0; i <= 360; i++) {
-        float angle = 2 * M_PI * i / (float)360;
-        float xofs = cos(angle) * (float)radius;
-        float yofs = sin(angle) * (float)radius;
-        glVertex2i(x + (int)xofs, y + (int)yofs);
+    glColor3f(1.0, 1.0,1.0);
+    glBegin(GL_POINTS);
+        for (int t = 0; t <= 360; t++) {
+            x1 = i*sin(t) + x;
+            y1 = i*cos(t) + y;
+            glVertex2f(x1, y1);
     }
     glEnd();
     glutSwapBuffers();
