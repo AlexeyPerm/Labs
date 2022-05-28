@@ -9,6 +9,8 @@
 #include <iostream>
 #include <algorithm>
 
+//extern SGlutContextStruct;
+
 Tree::Tree(const double& dt) {
     data = dt;
     left = nullptr;
@@ -273,5 +275,26 @@ void Tree::postorder(int indent) {
         }
     }
 }
+void Tree::setCoordsForNode(int window_width, int window_height, int shift,
+                            int tree_width, int tree_height, int x, int y, int R) {
+    if(tree_width != tree_height){
+        int k_x = (window_width - 2 * (shift + R)) / (tree_width - 1); // Коэффициент пропорциональности по оси Ох
+    }
+
+}
+Tree* Tree::getNodeByCoords(int x, int y, int R) {
+    return nullptr;
+}
+void Tree::setCoordsForText(int k, int shift) {
+
+}
+void Tree::drawTree(int argc, char** argv, int window_width, int window_height, int shift, int k) {
+
+}
+
+
+
+
+
 
 #pragma clang diagnostic pop
