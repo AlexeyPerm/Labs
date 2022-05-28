@@ -3,6 +3,8 @@
 #pragma ide diagnostic ignored "misc-no-recursion"
 
 #include "Tree.h"
+#include "TreeTools.h"
+#include <cmath>
 #include <random>
 #include <vector>
 #include <iomanip>
@@ -15,6 +17,9 @@ Tree::Tree(const double& dt) {
     data = dt;
     left = nullptr;
     right = nullptr;
+    parent = nullptr;
+    node_x = node_y = 0;
+    text_x = text_y = 0;
 }
 
 Tree::~Tree() {
@@ -67,34 +72,41 @@ void Tree::printTree(const int& level) {
     }
 }
 int Tree::getHeight() {
-    if (this != nullptr) {
-        int hLeft = this->left->getHeight();
-        int hRight = this->right->getHeight();
-        if (hLeft >= hRight) {
-            return hLeft + 1;
-        } else {
-            return hRight + 1;
-        }
+    int h1 = 0, h2 = 0, hadd = 0;
+    if (this == nullptr) {
+        return 0;
     }
-    return 0;
+    if (this->left != nullptr) {
+        h1 = this->left->getHeight();
+    }
+    if (this->right != nullptr) {
+        h2 = this->right->getHeight();
+    }
+    if (h1 >= h2) {
+        return h1 + 1;
+    } else {
+
+    }
 }
 
 void Tree::insertLeftBranch(const double& dt) {
-    if (this->left == nullptr) {
-        Tree* newNode = new Tree(dt);
-        this->left = newNode;
-    } else {
-        this->left->insertLeftBranch(dt);
+    Tree* node = new Tree(dt);
+    if (this->left) {
+        this->left->parent = node;
     }
+    node->left = this->left;
+    this->left = node;
+    node->parent = this;
 }
 
 void Tree::insertRightBranch(const double& dt) {
-    if (this->right == nullptr) {
-        Tree* newNode = new Tree(dt);
-        this->right = newNode;
-    } else {
-        this->right->insertRightBranch(dt);
+    Tree* node = new Tree(dt);
+    if (this->right) {
+        this->right->parent = node;
     }
+    node->right = this->right;
+    this->right = node;
+    node->parent = this;
 }
 double Tree::min() {
     //Не придумал ничего умнее, как сделать переменную static. Означает, что переменная инициализируется один
@@ -218,42 +230,56 @@ double Tree::getData() {
     }
 }
 
-Tree* Tree::replaceNULLforEmpty() {
-    Tree* tree = this->copyTree();
-    int h = tree->getHeight();
-    tree = replace_help(tree, h);
-    return tree;
-}
-Tree* Tree::replace_help(Tree* tree, const int& h) {
-    //int curLevel = getLevel(tree);
-    int curLevel = 1;
-    if ((tree->getLeft() == nullptr) && (curLevel != h - 1)) {
-        tree->insertLeftBranch(0.0);
+int Tree::getLevel(Tree* tree) {
+    if (tree->getParent() == NULL) {
+        return 0;
+    } else {
+        return getLevel(tree->getParent()) + 1;
     }
-    if ((tree->getRight() == nullptr) && (curLevel != h - 1)) {
-        tree->insertRightBranch(0.0);
-    }
-    if (tree->getLeft() != nullptr) {
-        tree->addLeftTree(replace_help(tree->getLeft(), h));
-    }
-    if (tree->getRight() != nullptr) {
-        tree->addRightTree(replace_help(tree->getRight(), h));
-    }
-    return tree;
+//    int level = 1;
+//    Tree* tmp = this->copyTree();
+//    while (tmp->parent != nullptr) {
+//        ++level;
+//        tmp = tmp->parent;
+//    }
+//    return level;
 }
 
-int Tree::getLevel(Tree* tree) {
-    static const int n = this->getHeight();
-    static const int m = tree->getHeight();
-    return (n - m);
+Tree* Tree::replaceNullForEmpty() {
+    Tree* node = this->copyTree();
+    int h = node->getHeight();
+    node = replace_help(node, h);
+    return node;
+}
+
+Tree* Tree::replace_help(Tree* node, int h) {
+    int curLevel = getLevel(node);
+    if ((node->getLeft() == nullptr) && (curLevel != h - 1)) {
+        node->insertLeftBranch(NULL);
+    }
+    if ((node->getRight() == nullptr) && (curLevel != h - 1)) {
+        node->insertRightBranch(NULL);
+    }
+    if (node->getLeft() != nullptr) {
+        node->addLeftTree(replace_help(node->getLeft(), h));
+    }
+    if (node->getRight() != nullptr) {
+        node->addRightTree(replace_help(node->getRight(), h));
+    }
+    return node;
 }
 
 Tree* Tree::copyTree() {
     Tree* tree = new Tree(this->data);
-    if (this->left != nullptr)
+    if (this->parent != nullptr) {
+        tree->parent = this->parent;
+    }
+    if (this->left != nullptr) {
         tree->left = this->left->copyTree();
-    if (this->right != nullptr)
+    }
+    if (this->right != nullptr) {
         tree->right = this->right->copyTree();
+    }
     return tree;
 }
 
@@ -275,9 +301,11 @@ void Tree::postorder(int indent) {
         }
     }
 }
+
+
 void Tree::setCoordsForNode(int window_width, int window_height, int shift,
                             int tree_width, int tree_height, int x, int y, int R) {
-    if(tree_width != tree_height){
+    if (tree_width != tree_height) {
         int k_x = (window_width - 2 * (shift + R)) / (tree_width - 1); // Коэффициент пропорциональности по оси Ох
     }
 
@@ -291,10 +319,87 @@ void Tree::setCoordsForText(int k, int shift) {
 void Tree::drawTree(int argc, char** argv, int window_width, int window_height, int shift, int k) {
 
 }
+void Tree::printVTree(const int& k) {
+    std::cout << std::fixed << std::setprecision(2);
+    const int height = this->getHeight();
+    // Максимальное число листов на нижнем уровне (нумерация с нуля)
+    const int maxLeafs = static_cast<int> (std::pow(2, height - 1));
+    // Минимальная ширина дерева для печати (не конечная, но необходимая)
+    int width = 2 * maxLeafs - 1;
+    int curLevel = 0;       //номер строки на выводе
+    int index = 0;
+    // Номер элемента в строке (нумерация с нуля) Позиция корня (число пробелов перед ним)
+    int factSpaces = getPos(index, width, curLevel, height - 1);
+    pos node{};
+    std::vector<Tree*> V;
+    std::vector<pos> Vi;
 
+    Tree* t = this->copyTree();
+    t = t->replaceNullForEmpty();
+    Tree* p = t;
+    V.emplace_back(p);
+    node.col = factSpaces;
+    node.str = curLevel;
+    Vi.emplace_back(node);
 
+    for (int i = 0; i < t->getAmountOfNodes(); ++i) {
+        if (std::pow(2, curLevel) <= index + 1) {
+            index = 0;
+            ++curLevel;
+        }
+        if (V[i]->left != nullptr) {
+            V.emplace_back(V[i]->left);
+            factSpaces = getPos(index, width, curLevel, height - 1);
+            node.col = factSpaces;
+            node.str = curLevel;
+            Vi.emplace_back(node);
+            ++index;
+        }
+        if (V[i]->right != nullptr) {
+            V.emplace_back(V[i]->right);
+            factSpaces = getPos(index, width, curLevel, height - 1);
+            node.col = factSpaces;
+            node.str = curLevel;
+            Vi.emplace_back(node);
+            ++index;
+        }
+    }
 
-
-
+    /* Редактируем позиции в строчках (теперь они обозначают количество пробелов
+     * перед данным символом начиная с предыдущего символа): до этого эти значения
+     * представляли собой координаты (как х)
+     */
+    for (int i = V.size() - 1; i >= 0; i--) {
+        if (i != 0) {
+            if (Vi[i - 1].str == Vi[i].str) {
+                Vi[i].col = Vi[i].col - Vi[i - 1].col - 1;
+            }
+        }
+    }
+    int flag = 0;   // Следит за тем, что y меняется
+    for (int i = 0; i < V.size(); i++) {
+        node = Vi[i];
+        curLevel = node.str;
+// Переход на новую строчку будет, когда y1
+// станет меньше y (слежка за изменением y)
+        if (flag < curLevel) {
+            flag = curLevel;
+            std::cout << std::endl;
+        }
+        factSpaces = node.col;
+        int realSpaces = k * factSpaces;
+        for (int j = 0; j < realSpaces; j++) {
+            std::cout << " ";
+        }
+        if (V[i]->getData() != 0.0) {
+            std::cout << V[i]->getData();
+        } else {
+            for (int j = 0; j < k; j++) {
+                std::cout << " ";
+            }
+        }
+    }
+    std::cout << std::endl;
+}
 
 #pragma clang diagnostic pop
