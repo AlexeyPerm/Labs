@@ -3,8 +3,12 @@
 #include <iostream>
 #include "Tree.h"
 
+constexpr int windowWidth  = 1200;
+constexpr int windowHeight = 600;
+constexpr int g_shift      = 10;
+constexpr int g_k          = 2;
 
-bool selection() {
+bool selection(int argc, char** argv) {
     std::cout << "Enter option number.\n";
     std::cout << "1. Create Binary Balanced Tree.\n";
     std::cout << "2. Find minimum element.\n";
@@ -41,7 +45,8 @@ bool selection() {
                 std::cout << "===============================================================" << std::endl;
                 std::cout << "==================== Binary Balanced Tree =====================" << std::endl;
                 std::cout << "===============================================================" << std::endl;
-                myTree->printTree(0);
+                myTree->printVTree(3);
+                myTree->drawTree(argc, argv, windowWidth, windowHeight, g_shift, g_k);
             } else {
                 std::cout << "\nNothing to print..." << std::endl << std::endl;
             }
@@ -52,7 +57,8 @@ bool selection() {
                 std::cout << "===============================================================" << std::endl;
                 std::cout << "===================== Binary Search Tree ======================" << std::endl;
                 std::cout << "===============================================================" << std::endl;
-                myBST->printTree(0);
+                myBST->printVTree(3);
+                myBST->drawTree(argc, argv, windowWidth, windowHeight, g_shift, g_k);
             } else {
                 std::cout << "\nNothing to print..." << std::endl << std::endl;
             }

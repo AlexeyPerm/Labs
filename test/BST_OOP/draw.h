@@ -1,54 +1,31 @@
 #pragma once
-
 #include "Tree.h"
-#include "GL/glut.h"
+#include <cmath>
 
-constexpr int g_radius = 10;        //Радиус окружности
-constexpr int g_scale = 30;         //Масштабирование
-constexpr int g_windowWeight = 800; //Ширина окна
-constexpr int g_windowHeight = 600; //Высота окна
-Tree* mainroot = nullptr;
+void display();
+static void reshape(int w, int h);
+static void drawFillCircle(int x, int y, int R);
+static void drawLine(int x1, int y1, int x2, int y2);
+int getPos(int index, int width, int curLevel, int maxLevel);
 
-void draw() {
-    //Обработка дерева и вызов соответствующих функций рисования линий и кругов.
-    glClear(GL_COLOR_BUFFER_BIT);
-    glColor3f(1.0,0.0,0.0);
-    glPointSize(2.0);
+template<class T>
+static void drawText(T text, void* font, int text_x, int text_y, int R, int k);
 
-    Tree* test = new Tree(2.5);
+struct pos {
+    int col;    // Столбец (х)
+    int str;    // Строка  (у)
+};
 
-    glutSwapBuffers();
-
-}
-
-//Инициализация OpenGL
-void init() {
-    glClearColor(0.191, 0.191, .191, 0.0);    //Фон окна
-    glMatrixMode(GL_PROJECTION);                     //Параметры проекции
-    gluOrtho2D(0.0, 300.0, 0.0, 300.0);
-}
-
-void draw_main(Tree* tree, int argc, char* argv[]) {
-    mainroot = tree;
-    glutInit(&argc, argv);              //Инициализация GLUT.
-    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);   //Двойная буферизация и четырехкомпонентный цвет
-    glutInitWindowSize(g_windowWeight, g_windowHeight);
-    glutInitWindowPosition(50, 50);        //Позиция окна, считая с левого верхнего угла
-    glutCreateWindow("Binary trees");
-    init();
-    //glutDisplayFunc(draw);
-    glutDisplayFunc(draw);
-    glutMainLoop();
-}
-
-
-//Пиксельная графика
-void pixelPlot(GLint x, GLint y){
-    y = g_windowHeight / 2 - y;  //перемещение источника в левый верхний угол
-    glBegin(GL_POINTS);
-    glVertex2i(x,y);
-    glEnd();
-    //https://docs.microsoft.com/en-us/windows/win32/opengl/glflush
-    glFlush();  //The glFlush function forces execution of OpenGL functions in finite time.
-}
+struct SGlutContextStruct {
+    /* window_width – ширина окна;
+     * window_height – высота окна;
+     * shift – отступ от краев (решено сделать его одинаковым с двух сторон);
+     * k - коэффициент ширины данных;
+     * R – радиус круга;
+     * x, y - координаты чего-либо;
+     * state - переменная состояния при работе с мышью
+    */
+    Tree* tree;     //копия дерева
+    int window_width, window_height, shift, k, R, x, y, state;
+};
 

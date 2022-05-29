@@ -3,15 +3,13 @@
 #pragma ide diagnostic ignored "misc-no-recursion"
 
 #include "Tree.h"
-#include "TreeTools.h"
+#include "draw.h"
 #include <cmath>
 #include <random>
 #include <vector>
 #include <iomanip>
 #include <iostream>
 #include <algorithm>
-
-//extern SGlutContextStruct;
 
 Tree::Tree(const double& dt) {
     data    = dt;
@@ -33,33 +31,12 @@ Tree* Tree::buildBalancedTree(const int& n) {
     if (!n) {
         return nullptr;
     }
-    Tree* tree = new Tree(generateRandom(0.0, 10.0));
-    int nLeft = n / 2;
-    int nRight = n - n / 2 - 1;
-    tree->left = buildBalancedTree(nLeft);
+    Tree* tree  = new Tree(generateRandom(0.0, 10.0));
+    int nLeft   = n / 2;
+    int nRight  = n - n / 2 - 1;
+    tree->left  = buildBalancedTree(nLeft);
     tree->right = buildBalancedTree(nRight);
     return tree;
-}
-
-template<class T>
-T Tree::generateRandom(const T& low, const T& high) {
-    const char* i = typeid(int).name();
-    const char* l = typeid(long).name();
-    const char* d = typeid(double).name();
-    const char* ll = typeid(long long).name();
-    const char* e = typeid(long double).name();
-
-    std::random_device rd;
-    std::mt19937 gen(rd());
-
-    if (typeid(T).name() == i || typeid(T).name() == l) {
-        std::uniform_int_distribution<> dis(low, high);
-        return dis(gen);
-    } else if ((typeid(T).name() == d) || (typeid(T).name() == e) || (typeid(T).name() == ll)) {
-        std::uniform_real_distribution<> dis(low, high);
-        return dis(gen);
-    }
-    return 0;
 }
 
 void Tree::printTree(const int& level) {
@@ -68,7 +45,7 @@ void Tree::printTree(const int& level) {
         for (int i = 0; i < level; ++i) {
             std::cout << "\t";
         }
-        std::cout << std::fixed << std::setprecision(2) << this->data << std::endl;
+        std::cout << std::fixed << std::setprecision(1) << this->data << std::endl;
         this->right->printTree(level + 1);
     }
 }
@@ -76,7 +53,6 @@ void Tree::printTree(const int& level) {
 int Tree::getHeight() {
     int h1{};
     int h2{};
-    //int hadd = 0;
     if (this == nullptr) {
         return 0;
     }
@@ -94,9 +70,9 @@ void Tree::insertLeftBranch(const double& dt) {
     if (this->left) {
         this->left->parent = node;
     }
-    node->left   = this->left;
-    this->left   = node;
-    node->parent = this;
+    node->left      = this->left;
+    this->left      = node;
+    node->parent    = this;
 }
 
 void Tree::insertRightBranch(const double& dt) {
@@ -104,10 +80,11 @@ void Tree::insertRightBranch(const double& dt) {
     if (this->right) {
         this->right->parent = node;
     }
-    node->right  = this->right;
-    this->right  = node;
-    node->parent = this;
+    node->right     = this->right;
+    this->right     = node;
+    node->parent    = this;
 }
+
 double Tree::min() {
     //Не придумал ничего умнее, как сделать переменную static. Означает, что переменная инициализируется один
     //раз и будет жить до завершения функции.
@@ -165,10 +142,11 @@ Tree* Tree::sortedArrayToBST(std::vector<double> v, int start, int end) {
     }
     int middle  = (start + end) / 2;
     Tree* tree  = new Tree(v[middle]);
-    tree->left  = sortedArrayToBST(v, start, middle - 1);
     tree->right = sortedArrayToBST(v, middle + 1, end);
+    tree->left  = sortedArrayToBST(v, start, middle - 1);
     return tree;
 }
+
 void Tree::insertToTree(const double& dt) {
     Tree* tree = this;
     while (tree != nullptr) {
@@ -191,6 +169,7 @@ void Tree::insertToTree(const double& dt) {
         }
     }
 }
+
 int Tree::getAmountOfNodes() {
     if (this == nullptr) {
         return 0;
@@ -234,9 +213,9 @@ int Tree::getLevel(Tree* tree) {
 }
 
 Tree* Tree::replaceNullForEmpty() {
-    Tree* node = this->copyTree();
-    int h = node->getHeight();
-    node = replace_help(node, h);
+    Tree* node  = this->copyTree();
+    int h       = node->getHeight();
+    node        = replace_help(node, h);
     return node;
 }
 
@@ -260,13 +239,13 @@ Tree* Tree::replace_help(Tree* node, int h) {
 Tree* Tree::copyTree() {
     Tree* tree = new Tree(this->data);
     if (this->parent != nullptr) {
-        tree->parent =  this->parent;
+        tree->parent = this->parent;
     }
     if (this->left != nullptr) {
-        tree->left =  this->left->copyTree();
+        tree->left = this->left->copyTree();
     }
     if (this->right != nullptr) {
-        tree->right =  this->right->copyTree();
+        tree->right = this->right->copyTree();
     }
     return tree;
 }
@@ -291,27 +270,11 @@ void Tree::postorder(int indent) {
 }
 
 
-void Tree::setCoordsForNode(int window_width, int window_height, int shift,
-                            int tree_width, int tree_height, int x, int y, int R) {
-    if (tree_width != tree_height) {
-        int k_x = (window_width - 2 * (shift + R)) / (tree_width - 1); // Коэффициент пропорциональности по оси Ох
-    }
-
-}
-Tree* Tree::getNodeByCoords(int x, int y, int R) {
-    return nullptr;
-}
-void Tree::setCoordsForText(int k, int shift) {
-
-}
-void Tree::drawTree(int argc, char** argv, int window_width, int window_height, int shift, int k) {
-
-}
 void Tree::printVTree(const int& k) {
     std::cout << std::fixed << std::setprecision(2);
-    const int height = this->getHeight();
+    int height = this->getHeight();
     // Максимальное число листов на нижнем уровне (нумерация с нуля)
-    const int maxLeafs = static_cast<int> (std::pow(2, height - 1));
+    int maxLeafs = static_cast<int> (std::pow(2, height - 1));
     int curLevel = 0;                   //номер строки на выводе
     int index    = 0;
     int width    = 2 * maxLeafs - 1;    // Минимальная ширина дерева для печати (не конечная, но необходимая)
@@ -319,7 +282,7 @@ void Tree::printVTree(const int& k) {
     int factSpaces = getPos(index, width, curLevel, height - 1);
     pos node{};
     std::vector<Tree*> vNodes;
-    std::vector<pos>   vPos;
+    std::vector<pos> vPos;
 
     Tree* t = this->copyTree();
     t = t->replaceNullForEmpty();
@@ -363,9 +326,9 @@ void Tree::printVTree(const int& k) {
             }
         }
     }
-    int flag = 0;   // Следит за тем, что y меняется
+    int flag   = 0;   // Следит за тем, что y меняется
     for (int i = 0; i < vNodes.size(); i++) {
-        node = vPos[i];
+        node   = vPos[i];
         curLevel = node.str;
 // Переход на новую строчку будет, когда y1 станет меньше y (слежка за изменением y)
         if (flag < curLevel) {
@@ -386,6 +349,73 @@ void Tree::printVTree(const int& k) {
         }
     }
     std::cout << std::endl;
+}
+
+template<class T>
+T Tree::generateRandom(const T& low, const T& high) {
+    const char* i  = typeid(int).name();
+    const char* l  = typeid(long).name();
+    const char* d  = typeid(double).name();
+    const char* ll = typeid(long long).name();
+    const char* e  = typeid(long double).name();
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    if (typeid(T).name() == i || typeid(T).name() == l) {
+        std::uniform_int_distribution<> dis(low, high);
+        return dis(gen);
+    } else if ((typeid(T).name() == d) || (typeid(T).name() == e) || (typeid(T).name() == ll)) {
+        std::uniform_real_distribution<> dis(low, high);
+        return dis(gen);
+    }
+    return 0;
+}
+
+// ====================================================================== //
+// ================================ DRAW ================================ //
+// ====================================================================== //
+
+void Tree::setCoordsForNode(int window_width, int window_height, int shift,
+                            int tree_width, int tree_height, int x, int y, int R) {
+    if (tree_width != tree_height) {
+        int k_x = (window_width  - 2 * (shift + R)) / (tree_width - 1); // Коэффициент пропорциональности по оси Ох
+        int k_y = (window_height - 2 * (shift + R)) / (tree_height - 1);
+        node_x  = k_x * x + shift + R;
+        node_y  = window_height - k_y * y - shift - R;
+    } else {
+        node_x  = window_width  / 2;
+        node_y  = window_height / 2;
+    }
+}
+
+Tree* Tree::get_help(Tree* node, int x, int y, int R) {
+    if (pow(x - node->node_x, 2) + pow(y - node->node_y, 2) <= pow(R, 2)) {
+        return node;
+    }
+    Tree* temp = nullptr;
+    if (node->getLeft() != nullptr) {
+        temp = get_help(node->getLeft(), x, y, R);
+    }
+    if (temp != nullptr) {
+        return temp;
+    }
+    if (node->getRight() != nullptr) {
+        temp = get_help(node->getRight(), x, y, R);
+    }
+    return temp;
+}
+
+Tree* Tree::getNodeByCoords(int x, int y, int R) {
+    Tree* node = this;
+    node       = get_help(node, x, y, R);
+    return node;
+
+}
+
+void Tree::setCoordsForText(int k, int R) {
+    text_x = node_x - 3 * R /  4 - 4;    // х-координата первого символа текста
+    text_y = node_y - 3 * R / (4 * k);  // у-координата первого символа текста
 }
 
 #pragma clang diagnostic pop
