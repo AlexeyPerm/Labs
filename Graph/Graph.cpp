@@ -1,7 +1,9 @@
 #include "Graph.h"
+#include "GL/glut.h"
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include "draw.h"
 
 Graph::Graph(std::vector<std::vector<int>> g) {     //Конструктор
     graph = std::move(g);
@@ -83,4 +85,15 @@ void Graph::printPath(int start) {
         std::cout << p[n - 1] + 1 << "\n" << "cost = " << graph[start - 1][k - 1] << std::endl;
         std::cout << z;
     }
+}
+
+
+void Graph::initWindow(int argc, char** argv) {
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+    glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
+    glutCreateWindow("My Graph");
+    glutDisplayFunc(display);
+    glutReshapeFunc(reshape);
+    glutMainLoop();
 }
