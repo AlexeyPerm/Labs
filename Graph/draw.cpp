@@ -1,8 +1,8 @@
 #include "draw.h"
 #include "GL/glut.h"
 #include <cmath>
-#include <random>
-#include <ctime>
+#include <string>
+
 void reshape(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
@@ -13,18 +13,37 @@ void reshape(int w, int h) {
     glutPostRedisplay();
 }
 
-void display(){
-    srand(time(NULL));
-    glClearColor(0.941, 0.973, 1.000, 1.0f);
+void display() {
+    glClearColor(0.6, 0.8, .8, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    int shift = 250;
-    int x = 100;
-    int y = 100;
-    int R = 30;
-    const int vertexCount = 7;
-    drawFillCircle(x, y, R);
-    x += shift;
-    drawFillCircle(x, y, R);
+    int x[8]{0, 70, 360, 560, 150, 250, 720, 450};
+    int y[8]{0, 515, 550, 465, 330, 175, 230, 50};
+    int vertexNum[8]{0, 3, 6, 7, 5, 1, 2, 4};
+    int R = 30;     //Радиус окружности
+    glLineWidth(2.0);
+    drawLine(x[1], y[1], x[2], y[2]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[1] + x[2]) / 2, (y[1] + y[2]) / 2  + 15, 5);
+    drawLine(x[2], y[2], x[3], y[3]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[2] + x[3]) / 2, (y[2] + y[3]) / 2  + 15, 19);
+    drawLine(x[6], y[6], x[3], y[3]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[6] + x[3]) / 2, (y[6] + y[3]) / 2  + 15, 23);
+    drawLine(x[6], y[6], x[7], y[7]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[6] + x[7]) / 2, (y[6] + y[7]) / 2  + 15, 17);
+    drawLine(x[5], y[5], x[7], y[7]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[5] + x[7]) / 2, (y[5] + y[7]) / 2  + 15, 26);
+    drawLine(x[5], y[5], x[4], y[4]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[5] + x[4]) / 2 + 5, (y[5] + y[4]) / 2  + 15, 9);
+    drawLine(x[1], y[1], x[4], y[4]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[1] + x[4]) / 2 + 5, (y[1] + y[4]) / 2  + 15, 13);
+    drawLine(x[2], y[2], x[7], y[7]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[2] + x[7]) / 2 + 8, (y[2] + y[7]) / 2, 42);
+    drawLine(x[3], y[3], x[4], y[4]);
+    DrawString(GLUT_BITMAP_HELVETICA_18, (x[3] + x[4]) / 2, (y[3] + y[4]) / 2 + 15, 30);
+
+    for (int i = 1; i <= 7; ++i) {
+        drawFillCircle(x[i], y[i], R);                      //Круги
+        DrawString(GLUT_BITMAP_TIMES_ROMAN_24, x[i], y[i], vertexNum[i]);   //Числа на вершинах
+    }
 
 
     glEnd();
@@ -61,4 +80,16 @@ static void drawFillCircle(int x, int y, int R) {
         }
     }
     glEnd();
+}
+
+void DrawString(void *p_font, int x, int y, int vertexNum) {
+    //GLUT_BITMAP_TIMES_ROMAN_24
+    //GLUT_BITMAP_HELVETICA_18
+    std::string s = std::to_string(vertexNum);
+    glRasterPos2i(x - 6, y - 6);
+    for (int i = 0; i < s.size(); ++i) {
+        glutBitmapCharacter(p_font, s[i]);
+    }
+
+
 }
