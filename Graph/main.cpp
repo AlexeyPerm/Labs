@@ -1,11 +1,15 @@
 #include <iostream>
-#include <iomanip>
-#include <vector>
-#include <string>
 #include "Graph.h"
 
 
-int main() {
+
+
+
+
+
+
+int main(int argc, char** argv) {
+
 
     //Матрица смежности графа
     Graph g({{0,   INF, INF, 26,  9,   INF, INF},
@@ -18,6 +22,10 @@ int main() {
 
     g.printResult();
     g.printPath(7);
+
+    g.initWindow(argc, argv);
+
+
 
     return 0;
 }
