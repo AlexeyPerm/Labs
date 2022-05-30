@@ -1,4 +1,0 @@
-// Файлы указаний помогают среде IDE Visual Studio интерпретировать идентификаторы Visual C++
-// (например, имена функций и макросов).
-// Дополнительные сведения: https://go.microsoft.com/fwlink/?linkid=865984
-#define SET_GET_TIME(VAL) int get_##VAL() const { return VAL; } void set_##VAL(const int x) { VAL = x; }
