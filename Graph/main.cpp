@@ -2,14 +2,7 @@
 #include "Graph.h"
 
 
-
-
-
-
-
-
 int main(int argc, char** argv) {
-
 
     //Матрица смежности графа
     Graph g({{0,   INF, INF, 26,  9,   INF, INF},
@@ -22,10 +15,6 @@ int main(int argc, char** argv) {
 
     g.printResult();
     g.printPath(7);
-
     g.initWindow(argc, argv);
-
-
-
     return 0;
 }
