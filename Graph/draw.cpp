@@ -51,7 +51,7 @@ void display() {
     glutSwapBuffers();
 }
 
-static void drawLine(int x1, int y1, int x2, int y2) {
+void drawLine(int x1, int y1, int x2, int y2) {
     glBegin(GL_LINES);
     glColor3f(0.0, 0.0, 0.0);
     glVertex2i(x1, y1);
@@ -59,7 +59,7 @@ static void drawLine(int x1, int y1, int x2, int y2) {
     glEnd();
 }
 
-static void drawFillCircle(int x, int y, int R) {
+void drawFillCircle(int x, int y, int R) {
     glColor3f(1.0, 1.0, 1.0);       //Цвет круга.
     float x1{}, y1{};
     glBegin(GL_POLYGON);        //Посекторная отрисовка круга
