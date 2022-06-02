@@ -16,12 +16,12 @@ Graph::Graph(std::vector<std::vector<int>> g) {     //Конструктор
             }
         }
     }
-    this->floyd();
+    floyd();
 }
 
 void Graph::printResult() {
     int vertexCount = static_cast<int> (graph.size());
-    std::string  z(vertexCount * 5 + 5, '-');
+    std::string z(vertexCount * 5 + 5, '-');
     std::cout << z << std::endl << "X |   ";
     for (int i = 1; i <= vertexCount; ++i) {
         std::cout << i << "  | ";
@@ -38,7 +38,7 @@ void Graph::printResult() {
                 std::cout << graph[i][j];
             }
         }
-        std::cout << " |" << std::endl << z << std::endl;;
+        std::cout << " |" << std::endl << z << std::endl;
     }
 }
 
@@ -55,7 +55,7 @@ void Graph::floyd() {
                     continue;
                 //Если вершина k на кротчайшем пути от i до j, то обновляем значение graph[i][j]
                 if (graph[i][j] > (graph[i][k] + graph[k][j])) {
-                    graph[i][j] = graph[i][k] + graph[k][j];
+                    graph[i][j] =  graph[i][k] + graph[k][j];
                     nextVertex[i][j] = k;
                 }
             }
@@ -87,10 +87,8 @@ void Graph::printPath(int start) {
     }
 }
 
-
 void Graph::initWindow(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     glutCreateWindow("My Graph");
     glutDisplayFunc(display);
